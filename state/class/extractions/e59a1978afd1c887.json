@@ -1,0 +1,56 @@
+{
+  "project_title": "Ms Pac-Man DQN Agent Training",
+  "role": "project write-up",
+  "summary": "This project README describes a 5,000-episode Deep Q-Network training run for Ms. Pac-Man. The mean score over five evaluation games rose from 492 for the untrained network to 1,342 after training, and raising the replay buffer from 5,000 to 2,500,000 is what turned a flat training curve into a rising one.",
+  "key_facts": [
+    "The agent's mean score over five evaluation games rose from 492 to 1,342.",
+    "A 5,000-episode run was conducted using 3,557,262 decisions and 889,066 updates.",
+    "The replay buffer capacity was increased from 5,000 to 2,500,000 transitions.",
+    "The training run took 127.7 minutes on Apple Silicon MPS.",
+    "A 30-seed validation harness was used to measure performance more reliably than the official five-game evaluation.",
+    "The agent's mean survival increased from 589 to 901 decisions per game.",
+    "The training run reached a peak memory usage of 86 GiB.",
+    "The agent's performance was evaluated using a fixed 5% exploration rate during evaluation."
+  ],
+  "concepts": [
+    {
+      "name": "Deep Q-Network",
+      "kind": "concept",
+      "definition": "A method that trains a neural network to estimate the future points each action is worth, learning from sampled past experience against a periodically refreshed target network.",
+      "in_this_source": "The project uses a Deep Q-Network architecture with 3 convolutional layers and 2 dense layers."
+    },
+    {
+      "name": "Experience Replay",
+      "kind": "concept",
+      "definition": "A technique to break correlation between consecutive frames by sampling random batches of past experiences.",
+      "in_this_source": "The author increased the replay buffer capacity to 2,500,000 to reduce correlation and improve learning."
+    },
+    {
+      "name": "Hyperparameters",
+      "kind": "concept",
+      "definition": "Settings that control the behavior and learning process of a reinforcement learning agent. ",
+      "in_this_source": "The author set exploration 0.20, episodes 5,000, and learning rate 0.0001, and separately changed the fixed classroom settings REPLAY_CAPACITY (5,000 to 2,500,000) and DEMO_EVERY (25 to 125)."
+    },
+    {
+      "name": "PyTorch",
+      "kind": "tool",
+      "definition": "An open-source machine learning library used for building and training neural networks.",
+      "in_this_source": "The project uses PyTorch 2.14.0 for the agent's implementation."
+    },
+    {
+      "name": "Winner's Curse",
+      "kind": "concept",
+      "definition": "Picking the best of many noisy measurements inflates its score, so the winner underperforms on fresh data.",
+      "in_this_source": "The validation-best checkpoint scored 1,173.3 on validation seeds but 912.0 on the official five, so the author submitted the final network instead."
+    }
+  ],
+  "retries": 0,
+  "source": "raw/assign2/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat",
+  "reviewed": {
+    "by": "Claude Code fact-check against the original, applied by Travis",
+    "date": "2026-09-25",
+    "corrections": 4
+  }
+}

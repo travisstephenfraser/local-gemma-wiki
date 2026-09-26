@@ -1,0 +1,126 @@
+{
+  "test": {
+    "id": "t4-unsupported",
+    "kind": "plausible but not in the wiki",
+    "question": "What grade did I receive on the Ms. Pac-Man assignment?",
+    "expect_behavior": "insufficient_evidence",
+    "expect_sources": [],
+    "expect_passage": "none: no source records a grade",
+    "expect_facts": [],
+    "expect_evidence": []
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-26b-a4b-qat",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 15.64,
+      "context_length": 262144
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:51:08-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "What grade did I receive on the Ms. Pac-Man assignment?",
+    "model": "google/gemma-4-26b-a4b-qat",
+    "retrieval": "bm25+vector (RRF) \u00b7 query planning (1 sub-queries)",
+    "search_queries": [
+      "What grade did I receive on the Ms. Pac-Man assignment?",
+      "Ms. Pac-Man DQN agent grade"
+    ],
+    "retrieval_seconds": 0.34,
+    "passages": [
+      {
+        "id": "S1",
+        "cite": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md:1-2 \u00a7 Class 3 Assignment: Train a Ms. Pac-Man Agent",
+        "path": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md",
+        "kind": "source",
+        "rrf": 0.0325,
+        "bm25_rank": 1,
+        "vector_rank": 2,
+        "text": "# Class 3 Assignment: Train a Ms. Pac-Man Agent"
+      },
+      {
+        "id": "S2",
+        "cite": "raw/assign2/README.md:1-21 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0323,
+        "bm25_rank": 3,
+        "vector_rank": 1,
+        "text": "# Training a Ms. Pac-Man agent with Deep Q-Learning\n\n**A 5,000-episode DQN run that scores 2.73x its untrained baseline, the one setting change that\nmade the difference, and the measurements that say how much of it to believe.**\n\nThis repository is my submission for Class 3. It uses the course's ready-made Deep Q-Network\nnotebook, which learns to play Ms. Pac-Man from raw screen pixels. The agent's mean score over\nthe five evaluation games rose from **492 to 1,342**, and all five seeds improved.\n\nThe part worth reading is not that number. My first submission scored 918 from a 1,000-episode\nrun, and I could not tell whether that gain was learning or luck, because a five-game\nevaluation has a noise floor of roughly \u00b1530 points. So I built a 30-seed validation harness on\nseeds the leaderboard never touches, used it to test three hypotheses in order, and found that\nthe notebook's 5,000-transition replay buffer, which holds about *eight games*, was the thing\nholding the agent back. Raising it is what turned a flat training curve into a rising one.\n\nTwo of the three hypotheses were wrong, and both are written up below rather than quietly\ndropped.\n\n**What I changed beyond the three assigned hyperparameters, stated up front.** The brief allows\ntuning other settings if you explain what you did and why, and I did:"
+      },
+      {
+        "id": "S3",
+        "cite": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md:3-4 \u00a7 Class 3 Assignment: Train a Ms. Pac-Man Agent > Choose three hyperparameters, train the agent, and explain what it actually learned.",
+        "path": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md",
+        "kind": "source",
+        "rrf": 0.032,
+        "bm25_rank": 2,
+        "vector_rank": 3,
+        "text": "## Choose three hyperparameters, train the agent, and explain what it actually learned."
+      },
+      {
+        "id": "S4",
+        "cite": "raw/assign2/README.md:724-732 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Known limitations and what I would do next",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.029,
+        "bm25_rank": 9,
+        "vector_rank": 9,
+        "text": "gradient pointing toward chasing a blue ghost.\n- **The GIFs show 20 seconds of games that now last 60.** The visible excerpt is the easy opening,\n  not the deaths, so gameplay judgements from the GIFs alone are biased toward the agent. This got\n  worse as the agent improved, because the games got longer while the excerpt did not.\n- **One test assertion is environment-specific, and I introduced a second mismatch.** Covered in\n  [Tests](#tests).\n- **Not a benchmark reproduction.** Published DQN results on this game use a 1,000,000-transition\n  buffer and 50 million frames. This run used 2.5M transitions and 14.2 million frames."
+      },
+      {
+        "id": "S5",
+        "cite": "raw/assign2/README.md:46-57 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.029,
+        "bm25_rank": 15,
+        "vector_rank": 4,
+        "text": "Agent       Deep Q-Network: 3 conv layers + 2 dense, experience replay, target network\nInput       4 stacked grayscale 84x84 frames\nHardware    Apple Silicon MPS, macOS 26.6.2 arm64, Python 3.12.14, PyTorch 2.14.0\nRun         5,000 episodes | 3,557,262 decisions | 889,066 updates | 127.7 minutes\nResult      492 -> 1,342 mean score over 5 fixed seeds (+850, 2.73x, all 5 seeds up)\n```\n\n**Runs locally or in Colab. There is no deployed service.**\n[Open the notebook in Google Colab](https://colab.research.google.com/github/travisstephenfraser/pacman-dqn/blob/main/pacman_dqn.ipynb)\n\n---"
+      },
+      {
+        "id": "S6",
+        "cite": "raw/assign2/README.md:782-784 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Contributing",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0281,
+        "bm25_rank": 3,
+        "vector_rank": 22,
+        "text": "## Contributing\n\nNot accepting outside contributions. This is a course submission and a record of one experiment."
+      }
+    ],
+    "answer": "INSUFFICIENT EVIDENCE: The provided passages do not contain information regarding the grade received on the Ms. Pac-Man assignment.",
+    "citation_check": {
+      "insufficient": true,
+      "ok": true,
+      "summary": "model reported insufficient evidence",
+      "claims": []
+    },
+    "generation_seconds": 0.74,
+    "prompt_tokens": 1241,
+    "thinking": false,
+    "reasoning_tokens": 0
+  },
+  "score": {
+    "retrieval_hit": true,
+    "behavior_ok": true,
+    "facts_ok": true,
+    "citations_ok": true,
+    "pass": true
+  },
+  "memory_footprint_gb": 20.83
+}

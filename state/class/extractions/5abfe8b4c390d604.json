@@ -1,0 +1,56 @@
+{
+  "project_title": "Custom Language Model Training",
+  "role": "assignment brief",
+  "summary": "This document outlines an assignment to build, train, and evaluate a custom tiny language model using nanoGPT and PyTorch. Students must perform two experiments: one with a starter corpus and another with an expanded corpus, and then interact with the model via a chat interface.",
+  "key_facts": [
+    "Use Andrej Karpathy's nanoGPT model with PyTorch.",
+    "The model uses a small word-token transformer with 64-number embeddings and a 48-token context window.",
+    "Students must perform two experiments: a starter-corpus experiment and a corpus-extension experiment.",
+    "Submit a public GitHub repository containing the executed notebook, results, and a working chat interface.",
+    "The assignment is graded out of 10 based on deliverable quality, testing & evaluation, and working result.",
+    "The 48-case synthetic language eval suite must be run before and after training for both experiments.",
+    "The chat interface can be a terminal or notebook loop, but must produce actual replies from the trained model.",
+    "Use only corpus material you have permission to use and share."
+  ],
+  "concepts": [
+    {
+      "name": "Transformer",
+      "kind": "concept",
+      "definition": "A neural network architecture used for language modeling.",
+      "in_this_source": "The assignment uses a nanoGPT model which is a word-token transformer."
+    },
+    {
+      "name": "PyTorch",
+      "kind": "tool",
+      "definition": "An open-source machine learning library.",
+      "in_this_source": "The assignment uses PyTorch for training the model and running the notebook."
+    },
+    {
+      "name": "Eval Leakage",
+      "kind": "concept",
+      "definition": "Test prompts or answers leaking into training data, which inflates evaluation scores without real learning.",
+      "in_this_source": "The brief threatens a substantial grade penalty if eval prompts, answer keys, or eval outputs are included in the training corpus."
+    },
+    {
+      "name": "Corpus",
+      "kind": "concept",
+      "definition": "A collection of texts used for training a language model.",
+      "in_this_source": "The assignment requires students to choose a corpus and expand it for a second experiment."
+    },
+    {
+      "name": "Hyperparameters",
+      "kind": "concept",
+      "definition": "Settings used to control the learning process in a neural network.",
+      "in_this_source": "The assignment requires students to choose training steps and a learning rate as hyperparameters."
+    }
+  ],
+  "retries": 0,
+  "source": "raw/assign3/Assignment 3_ Building a Custom LLM.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat",
+  "reviewed": {
+    "by": "Claude Code fact-check against the original, applied by Travis",
+    "date": "2026-09-25",
+    "corrections": 2
+  }
+}

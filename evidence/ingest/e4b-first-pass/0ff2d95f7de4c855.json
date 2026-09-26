@@ -1,0 +1,50 @@
+{
+  "project_title": "Secure Networking Tracker Application",
+  "role": "project write-up",
+  "summary": "This document details the architecture and implementation of Strada, a private networking tracker application. It emphasizes that data ownership and security are enforced primarily by Postgres Row Level Security (RLS), with the Express API acting as a controlled gateway. The application uses Neon Postgres and Managed Better Auth to ensure that each user can only interact with their own private contact data.",
+  "key_facts": [
+    "The application uses React 19, Vite, TypeScript, and Tailwind CSS v4 for the Frontend.",
+    "The Backend is Express 5 + TypeScript (ESM) and deployed as a separate Vercel project.",
+    "Neon Postgres is used for the database, with RLS policies enforced on the contacts table.",
+    "Authentication uses Neon Managed Better Auth and issues Ed25519 JWTs with a lifetime of 900 seconds.",
+    "The Express layer never connects to Postgres; it forwards the caller's own token to the Neon Data API.",
+    "The `contacts` table includes columns like `name`, `company`, `role`, `met_where`, `notes`, and `priority`.",
+    "The application includes 163 hermetic tests and 25 live RLS proof tests.",
+    "The design ensures that the database, not the API server, enforces ownership and security boundaries."
+  ],
+  "concepts": [
+    {
+      "name": "Row Level Security",
+      "kind": "concept",
+      "definition": "A database feature that restricts which rows a user can see or modify.",
+      "in_this_source": "RLS policies are used to enforce that each user can only interact with their own private contact data."
+    },
+    {
+      "name": "Managed Better Auth",
+      "kind": "concept",
+      "definition": "An authentication service that issues JWTs and manages user sessions.",
+      "in_this_source": "Neon Managed Better Auth issues Ed25519 JWTs whose `sub` claim is read by Postgres to determine ownership."
+    },
+    {
+      "name": "Neon Postgres",
+      "kind": "concept",
+      "definition": "A managed PostgreSQL database service.",
+      "in_this_source": "Neon Postgres hosts the contacts table and executes all RLS policies and CHECK constraints."
+    },
+    {
+      "name": "Vercel",
+      "kind": "tool",
+      "definition": "A cloud platform used for deploying web applications.",
+      "in_this_source": "Vercel hosts both the Frontend (Project A) and the Backend API (Project B)."
+    },
+    {
+      "name": "Express",
+      "kind": "concept",
+      "definition": "A minimal and flexible Node.js web application framework.",
+      "in_this_source": "Express serves as the small, explicit HTTP layer between the frontend and the Data API."
+    }
+  ],
+  "source": "raw/assign1/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

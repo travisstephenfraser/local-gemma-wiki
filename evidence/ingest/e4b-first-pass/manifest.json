@@ -1,0 +1,113 @@
+{
+  "projects": {
+    "assign1": {
+      "title": "Secure Networking Tracker Application"
+    },
+    "assign2": {
+      "title": "Ms Pac-Man DQN Agent Training"
+    },
+    "assign3": {
+      "title": "Custom Language Model Training"
+    },
+    "class2": {
+      "title": "Signup Frontend Application"
+    }
+  },
+  "rendered": {
+    "Source Catalog.md": "194934c6f35007ac963e2122798ac8361947ca52390054cb1e365a80397a8905",
+    "index.md": "fafe7232fb40253165e68bce7b3589fc3d3f7d4446f538990faf13a2e65bb443",
+    "wiki/Concepts/Corpus.md": "0e6dfbed981bad5c6eae64ab197372687da809d941bcf9f2e2938516f3b39ff7",
+    "wiki/Concepts/Deep Q-Network.md": "c8fe28807ce37c0ef3af3a5ff0614e516129ca8b6a543594f71cec62eadb09a2",
+    "wiki/Concepts/Experience Replay.md": "881570d47c5f7fc9f315e455e9db17913ea8a686c5c309f2008615efbb4ecbd5",
+    "wiki/Concepts/Express.md": "82760bf2d0f97eb7c217a47f55f4e0039ebd05ee7aa49a41e26488c1339989fb",
+    "wiki/Concepts/Frontend Application.md": "b6e249b06bbf2aaaad66c609454dcba0247ae4618f518fc27d3b822e4f03e8d0",
+    "wiki/Concepts/Hyperparameters.md": "d82f00fb7e02bfa502462cf23c1b9457cc12fff97d89da3fda0ed13044182da8",
+    "wiki/Concepts/NanoGPT.md": "617432c2af02bf503273382e2ca8f4185401d0b8e53c25d2690c7b7fca846684",
+    "wiki/Concepts/Neon Postgres.md": "a3b3f7d4af3602d71e9db4b95f05a8a5a1d27177f624d9d2f90dc927a037b553",
+    "wiki/Concepts/RESTful API.md": "37ac432589deb42b77f8fd3e2edfd71064b353e1ee0a05f73ca6e0bc5fb47144",
+    "wiki/Concepts/Reinforcement Learning.md": "76a6c96738f7d6393af1a2730d29b6f53e40de7731e0f467c022fe186e333f9b",
+    "wiki/Concepts/Row Level Security.md": "7eac0b02504ac5e296f61f6952681d041e30b627a75b26c477bd863b5d15f841",
+    "wiki/Concepts/Transformer.md": "c2c741395ac94108b925442fff5a5a50407bbab7325c8f2316d0e965507d2f9e",
+    "wiki/Concepts/XSS Escaping.md": "3e8948b37552268367a5916e5454baa4cf64216ce8627664cd348f5dff922dcd",
+    "wiki/Projects/Custom Language Model Training.md": "65c1e93d3ffb23646d4aa64a773ea38dabc60a1c0deb87f6d125c5eb002d92ad",
+    "wiki/Projects/Ms Pac-Man DQN Agent Training.md": "6698e6f49d79399cb07d24d7ecc48ef37ea07574d901742da13947db4fb17f2f",
+    "wiki/Projects/Secure Networking Tracker Application.md": "802b18e25b4180823bebdaf98ba7c6d9e167844c7bb320970ef71edc5ab97da1",
+    "wiki/Projects/Signup Frontend Application.md": "ef1c62781ccc97f5862c6ea22a23fe2037a9a4cd5f5fa7ab5fdf109952e4a93a",
+    "wiki/Tools/GitHub Repository.md": "d777de14920a7068179d844d5338ce73d5a24a6eea8e3d51e614baa2072ee7ef",
+    "wiki/Tools/Managed Better Auth.md": "b6af41a383d21f3bfad451ae1aaf1434090287664f009cf8d6dd50caf99cde04",
+    "wiki/Tools/PyTorch.md": "4ec2c1bdf72565314e55db04f10a2fc1ad4e1105cca5af120e365271d91348ab",
+    "wiki/Tools/Vercel.md": "257cea89cd491d566f2d4699bc55bdbd90fff2c554983575aab9f29f5656875f"
+  },
+  "sources": {
+    "raw/assign1/Assignment 1_ Secure Networking Tracker.md": {
+      "extracted": "2026-09-25T20:48:13",
+      "extraction": "extractions/00fdba6d48914bee.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 5.9,
+      "sha256": "f7626a039fbb126e920e98cf9bbc4294529774ef1e30bc74f154268bba245857"
+    },
+    "raw/assign1/README.md": {
+      "extracted": "2026-09-25T20:48:22",
+      "extraction": "extractions/0ff2d95f7de4c855.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 9.5,
+      "sha256": "0302106ae7a340b022411d8a74011da56d76553accf2be6cea9c4e7d5104b0f6"
+    },
+    "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md": {
+      "extracted": "2026-09-25T20:48:28",
+      "extraction": "extractions/7daa1fa124309e11.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 5.4,
+      "sha256": "8f6e4f572c308efb012d469a4c87427e46ecc5e7b227ac4fdf64b14bd212fdfe"
+    },
+    "raw/assign2/README.md": {
+      "extracted": "2026-09-25T20:48:35",
+      "extraction": "extractions/e59a1978afd1c887.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 7.4,
+      "sha256": "8a8db6ebe0978b1738ea5360637505aa860d0b6e05aa9692d29ef10ff8b6dc1c"
+    },
+    "raw/assign3/Assignment 3_ Building a Custom LLM.md": {
+      "extracted": "2026-09-25T20:48:42",
+      "extraction": "extractions/5abfe8b4c390d604.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 6.4,
+      "sha256": "7f240a830a7e700aba4f9cd3d90dd441a35b67dcd8b4a070b7577f9071b993f7"
+    },
+    "raw/assign3/README.md": {
+      "extracted": "2026-09-25T20:48:50",
+      "extraction": "extractions/3439d67da3deaeaf.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 8.4,
+      "sha256": "b63afac5863c3d030c7430e94d16131292024adc5f9c12e024a8a8e79c59bfd8"
+    },
+    "raw/assign3/evals-README.md": {
+      "extracted": "2026-09-25T20:48:55",
+      "extraction": "extractions/ea6d49d5cfc79adf.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 4.9,
+      "sha256": "d43de805ab638f7e5d24126961e569450dae5ac4fe80b0b30c58ae3a33cea390"
+    },
+    "raw/assign3/summary.md": {
+      "extracted": "2026-09-25T20:49:01",
+      "extraction": "extractions/8d0731212a79d44a.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 6.3,
+      "sha256": "572f0c188161e00d0e12c06d5f8a34ff90c0736d8519a5eb01a63324cf312514"
+    },
+    "raw/class2/Class 2 Exercise \u2014 Build a Signup Frontend.md": {
+      "extracted": "2026-09-25T20:49:06",
+      "extraction": "extractions/bbf1554a224354ce.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 4.4,
+      "sha256": "76b4ce0b67bc0ce30ab9a1d4f72c1f7eb00ba0188f77fc5f9794fab069baae3f"
+    },
+    "raw/class2/README.md": {
+      "extracted": "2026-09-25T20:49:11",
+      "extraction": "extractions/2ffae69f46ce33c7.json",
+      "model": "google/gemma-4-e4b",
+      "seconds": 4.9,
+      "sha256": "f53f3028229eaef796db5bc98a5c1c4a1f6fa5ec93d02dcd0f90a8b1913d6496"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "projects": {
+    "assign1": {
+      "title": "Strada Networking Tracker",
+      "title_set_by": "human review 2026-09-25"
+    },
+    "assign2": {
+      "title": "Ms Pac-Man DQN Agent",
+      "title_set_by": "human review 2026-09-25"
+    },
+    "assign3": {
+      "title": "Custom nanoGPT Model",
+      "title_set_by": "human review 2026-09-25"
+    },
+    "class2": {
+      "title": "Class Signup Frontend",
+      "title_set_by": "human review 2026-09-25"
+    }
+  },
+  "rendered": {
+    "Source Catalog.md": "8b6be906e603f1e6f440da815091a95437a3e8ef123513171e55f05ba7c6c511",
+    "index.md": "0ebdddf5e1597803fb2dbd8cf07893d1872cb97c2a73572d63cb8569c153aa1b",
+    "wiki/Concepts/Ablation.md": "decc967b544630f64e1982ffb7d7d80f365e52e9fc22951c3918d358f0476d53",
+    "wiki/Concepts/Corpus.md": "e9740f2e88aa8c72353c095b5facbfbfd4e336a9cd3ce33d3c3a9cce1b3ec33a",
+    "wiki/Concepts/Deep Q-Network.md": "74764d168b7efd90f2f04cef3d10a00120742094646937ab7eba0803be69bf1a",
+    "wiki/Concepts/Dependency Injection.md": "fcef5166ff96ebfffa452a97b6886db686d1daa96eb1eebcd51c9ee157a0d7f3",
+    "wiki/Concepts/Ed25519 JWT.md": "ea026d95eabcd45248d75f4c28b36216c68fa1b9e557b07056024c9577506483",
+    "wiki/Concepts/Eval Leakage.md": "977ca22d438f9169d555509a754542cdf9b3c4f41c5d6f37eec874fcf67588d2",
+    "wiki/Concepts/Experience Replay.md": "8274af0ff22b209c74d52377731055c12ea290e63d8674be70bcfc72a2eedf04",
+    "wiki/Concepts/Fixed Evaluation Protocol.md": "005561d52313d8da3d6f38a1c163370dc0584f2560eaeb24234f18dbce7cdad5",
+    "wiki/Concepts/Hyperparameters.md": "f9ed0ad76ed03734f1ecc5aa2229cf9273c87e94553662a163c295e8815a81c3",
+    "wiki/Concepts/Margin.md": "11c7f85a26bb404eb4927cd26cd3d31cda4f04fe18e2beab611da40faf5952b7",
+    "wiki/Concepts/Next-Token Scoring.md": "988ba0a3aadd1819079963f76d010a1ab8eb2f2b9974c8c24c34e020a2c21b68",
+    "wiki/Concepts/Out-of-Vocabulary Cases.md": "836ffef8f6fd09ecba382b7c343f4fc34a5b1768a6f8db9ca02d2b83ecbe9566",
+    "wiki/Concepts/Public Unauthenticated API.md": "2dd6b9b87752746760027e7af0bacd944d870756afef1a79b6454f9ec46f5e1d",
+    "wiki/Concepts/Row Level Security.md": "ff8e61c1b31d444c85b5a270bf548548a6f7e1c64a7f999b749fd0ab9845b18d",
+    "wiki/Concepts/Transformer.md": "14c82716c0915a46572311b0f206cf34090633679f36034d9a022b76e3cfa12d",
+    "wiki/Concepts/UI State Handling.md": "c185affdf566b062ff2fffc66d183eff80cf0ef13f588003428631a898d78d8a",
+    "wiki/Concepts/Winner's Curse.md": "f9d78e6f9493704b51e5c89894d9780d54316726b71e7f458ef9a90119b6a4b7",
+    "wiki/Concepts/XSS Prevention.md": "271fbef1c2bfa3e0c2f292e04ade0f18bd8a78fb528d9cd226650fb535096be0",
+    "wiki/Projects/Class Signup Frontend.md": "d1a3814195b43d20d9a6e4ebdccafd689321ea5b52ec5439aec2f53857e6b750",
+    "wiki/Projects/Custom nanoGPT Model.md": "683022648d474cc6cac7eb47995c0071064d7ee6225d68787cb134e50c4a756c",
+    "wiki/Projects/Ms Pac-Man DQN Agent.md": "735d8e5d368084a5c702610ca0c68f50edc83bf6b91b69d7b1f34e7f579005dd",
+    "wiki/Projects/Strada Networking Tracker.md": "5c7538afd8bca77433f94161b7139dd7d754d107e6f1fbd30ce14c6ac02eb94c",
+    "wiki/Tools/Managed Better Auth.md": "9f0fd96e6195fe7b177f61a39c43bbd1d145608de0a17943332765dafc533a40",
+    "wiki/Tools/Neon Data API.md": "45ec5c690466d33b5fbd1d68e1e3673757daceef85df2ebd626f38ec52d01edf",
+    "wiki/Tools/Neon Postgres.md": "d11d8b97d3eccfc8dc33c2f8f9c8b596ca3ccac58e44f8e66a5c5cec5980cba3",
+    "wiki/Tools/PyTorch.md": "7e26b16dbd3ebce7b98ef0aaf96bcb86c24723afda238b193cacbd7a9bdf4b60",
+    "wiki/Tools/Vercel.md": "cbc4a1654dc0c9ac596a85c66c3eb0d785194c84f21d20301705a16b9a816a5c",
+    "wiki/Tools/Vite.md": "9cfcc0e77ac523d74c75f48e79340694d72af5a51507b2d08e3c67f2978b9cf3",
+    "wiki/Tools/Vitest.md": "b66ff05979c2c086fb5fa7c706bf38eefd6521cca6b2086fbd1110cbde89342d",
+    "wiki/Tools/nanoGPT.md": "0589c6d4d0fd201241810ece9cc4ff3b36b29f3999180cbd83bbb77e04ac5bb3"
+  },
+  "sources": {
+    "raw/assign1/Assignment 1_ Secure Networking Tracker.md": {
+      "extracted": "2026-09-25T21:09:22",
+      "extraction": "extractions/00fdba6d48914bee.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 5.0,
+      "sha256": "f7626a039fbb126e920e98cf9bbc4294529774ef1e30bc74f154268bba245857"
+    },
+    "raw/assign1/README.md": {
+      "extracted": "2026-09-25T21:09:33",
+      "extraction": "extractions/0ff2d95f7de4c855.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 11.0,
+      "sha256": "0302106ae7a340b022411d8a74011da56d76553accf2be6cea9c4e7d5104b0f6"
+    },
+    "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md": {
+      "extracted": "2026-09-25T21:09:38",
+      "extraction": "extractions/7daa1fa124309e11.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 5.3,
+      "sha256": "8f6e4f572c308efb012d469a4c87427e46ecc5e7b227ac4fdf64b14bd212fdfe"
+    },
+    "raw/assign2/README.md": {
+      "extracted": "2026-09-25T21:09:49",
+      "extraction": "extractions/e59a1978afd1c887.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 10.9,
+      "sha256": "8a8db6ebe0978b1738ea5360637505aa860d0b6e05aa9692d29ef10ff8b6dc1c"
+    },
+    "raw/assign3/Assignment 3_ Building a Custom LLM.md": {
+      "extracted": "2026-09-25T21:09:56",
+      "extraction": "extractions/5abfe8b4c390d604.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 7.1,
+      "sha256": "7f240a830a7e700aba4f9cd3d90dd441a35b67dcd8b4a070b7577f9071b993f7"
+    },
+    "raw/assign3/README.md": {
+      "extracted": "2026-09-25T21:10:09",
+      "extraction": "extractions/3439d67da3deaeaf.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 12.7,
+      "sha256": "b63afac5863c3d030c7430e94d16131292024adc5f9c12e024a8a8e79c59bfd8"
+    },
+    "raw/assign3/evals/README.md": {
+      "extracted": "2026-09-25T21:10:14",
+      "extraction": "extractions/2977c900e7016487.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 5.6,
+      "sha256": "d43de805ab638f7e5d24126961e569450dae5ac4fe80b0b30c58ae3a33cea390"
+    },
+    "raw/assign3/experiments/summary.md": {
+      "extracted": "2026-09-25T21:10:19",
+      "extraction": "extractions/974e43cc8fdab84f.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 4.6,
+      "sha256": "572f0c188161e00d0e12c06d5f8a34ff90c0736d8519a5eb01a63324cf312514"
+    },
+    "raw/class2/Class 2 Exercise \u2014 Build a Signup Frontend.md": {
+      "extracted": "2026-09-25T21:10:23",
+      "extraction": "extractions/bbf1554a224354ce.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 4.6,
+      "sha256": "76b4ce0b67bc0ce30ab9a1d4f72c1f7eb00ba0188f77fc5f9794fab069baae3f"
+    },
+    "raw/class2/README.md": {
+      "extracted": "2026-09-25T21:10:28",
+      "extraction": "extractions/2ffae69f46ce33c7.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 5.0,
+      "sha256": "f53f3028229eaef796db5bc98a5c1c4a1f6fa5ec93d02dcd0f90a8b1913d6496"
+    }
+  }
+}

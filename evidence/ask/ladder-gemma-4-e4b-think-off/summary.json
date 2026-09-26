@@ -1,0 +1,79 @@
+{
+  "model": "google/gemma-4-e4b",
+  "label": "ladder-gemma-4-e4b-think-off",
+  "query_planning": true,
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-e4b",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 6.86,
+      "context_length": 131072
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:50:10-0700"
+  },
+  "rows": [
+    {
+      "id": "t1-direct",
+      "retrieval_hit": true,
+      "behavior_ok": true,
+      "facts_ok": true,
+      "citations_ok": false,
+      "pass": false,
+      "seconds": 0.9,
+      "total_seconds": 2.7,
+      "reasoning_tokens": 0,
+      "retrieval_seconds": 1.77
+    },
+    {
+      "id": "t2-paraphrase",
+      "retrieval_hit": true,
+      "behavior_ok": true,
+      "facts_ok": true,
+      "citations_ok": true,
+      "pass": true,
+      "seconds": 1.9,
+      "total_seconds": 2.2,
+      "reasoning_tokens": 0,
+      "retrieval_seconds": 0.37
+    },
+    {
+      "id": "t3-cross-source",
+      "retrieval_hit": false,
+      "behavior_ok": true,
+      "facts_ok": false,
+      "citations_ok": true,
+      "pass": false,
+      "seconds": 1.0,
+      "total_seconds": 1.4,
+      "reasoning_tokens": 0,
+      "retrieval_seconds": 0.44
+    },
+    {
+      "id": "t4-unsupported",
+      "retrieval_hit": true,
+      "behavior_ok": true,
+      "facts_ok": true,
+      "citations_ok": true,
+      "pass": true,
+      "seconds": 0.7,
+      "total_seconds": 1.2,
+      "reasoning_tokens": 0,
+      "retrieval_seconds": 0.43
+    }
+  ],
+  "passed": 2,
+  "total": 4,
+  "memory_footprint_gb": 12.14
+}

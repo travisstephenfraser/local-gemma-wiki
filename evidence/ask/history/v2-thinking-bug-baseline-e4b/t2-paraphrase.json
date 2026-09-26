@@ -1,0 +1,162 @@
+{
+  "test": {
+    "id": "t2-paraphrase",
+    "kind": "answerable, worded differently from the source",
+    "question": "In the contacts tracker, what stops one signed-in person from seeing somebody else's contacts?",
+    "expect_behavior": "answer",
+    "expect_sources": [
+      "raw/assign1/README.md"
+    ],
+    "expect_passage": "Row Level Security policy: auth.user_id() = user_id; the JWT sub claim is read by auth.user_id() and compared to contacts.user_id",
+    "expect_facts": [
+      "auth.user_id()",
+      "user_id"
+    ],
+    "expect_evidence": [
+      "auth.user_id() = user_id"
+    ]
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-e4b",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 6.86,
+      "context_length": 131072
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:26:03-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "In the contacts tracker, what stops one signed-in person from seeing somebody else's contacts?",
+    "model": "google/gemma-4-e4b",
+    "retrieval": "bm25+vector (RRF)",
+    "search_queries": [
+      "In the contacts tracker, what stops one signed-in person from seeing somebody else's contacts?"
+    ],
+    "retrieval_seconds": 0.05,
+    "passages": [
+      {
+        "id": "S1",
+        "cite": "raw/assign1/Assignment 1_ Secure Networking Tracker.md:39-49 \u00a7 Security Requirements",
+        "path": "raw/assign1/Assignment 1_ Secure Networking Tracker.md",
+        "kind": "source",
+        "rrf": 0.0323,
+        "bm25_rank": 1,
+        "vector_rank": 3,
+        "text": "# Security Requirements\n\n* The contacts table includes a text user\\_id that defaults to auth.user\\_id() and cannot be null  \n* Row Level Security is enabled on the contacts table  \n* Separate select, insert, update, and delete policies apply to authenticated users  \n* Every policy restricts access to rows where user\\_id matches the signed-in user  \n* Update policies prevent a user from changing a row so it belongs to someone else  \n* Two test accounts prove that User A cannot read or change User B's contacts  \n* The frontend may use the public Neon Auth and Data API URLs; RLS must protect every exposed contacts row  \n* The Postgres connection string, cookie secret, and all other secrets stay server-only and are never committed to Git"
+      },
+      {
+        "id": "S2",
+        "cite": "raw/assign1/README.md:557-568 \u00a7 Strada > Grading evidence > User A cannot see or change User B's contacts",
+        "path": "raw/assign1/README.md",
+        "kind": "source",
+        "rrf": 0.032,
+        "bm25_rank": 3,
+        "vector_rank": 2,
+        "text": "\u2713 everything else still works > allows the operator's own layer to change freely 30ms\n \u2713 everything else still works > leaves a hand-made contact fully editable 29ms\n \u2713 the limit of this guarantee, stated rather than hidden > lets a caller who sets wiki_synced_at through: this is not a security boundary 61ms\n \u2713 User A's row, as seen by User A (positive control) > A can read the row A created 32ms\n \u2713 User B cannot SEE User A's contacts > B's unfiltered read of the whole table does not contain A's row 32ms\n \u2713 User B cannot SEE User A's contacts > B cannot read A's row even when asking for it by id 30ms\n \u2713 User B cannot CHANGE User A's contacts > B's update of A's row affects nothing 61ms\n \u2713 User B cannot CHANGE User A's contacts > B's delete of A's row removes nothing 126ms\n \u2713 User B cannot CHANGE User A's contacts > B's unfiltered delete cannot reach A's rows 87ms\n \u2713 Ownership cannot be handed to another user (WITH CHECK) > A cannot create a row owned by B 32ms\n \u2713 Ownership cannot be handed to another user (WITH CHECK) > A cannot move their own row to B 76ms\n \u2713 The wiki-sync columns do not weaken ownership > B cannot read A's wiki linkage 60ms"
+      },
+      {
+        "id": "S3",
+        "cite": "raw/assign1/README.md:726-748 \u00a7 Strada > Optional: wiki sync > Both visibility tags are included, and one field is not",
+        "path": "raw/assign1/README.md",
+        "kind": "source",
+        "rrf": 0.0307,
+        "bm25_rank": 10,
+        "vector_rank": 1,
+        "text": "### Both visibility tags are included, and one field is not\n\nNeither tag means \"keep this person out of my own private, row-level-secured list\".\n`visibility/internal` means do not publish. `visibility/pii` marks a page whose **body**\nis sensitive: compensation, routing, things said in confidence.\n\nSync never transmits page text, so what a `pii` page contributes is a business card:\nname, company, role, where you met. The one field that could carry the page's substance\nis `bio`, because it is the model's summary *of* that prose, so **`bio` is dropped for a\n`pii` source**. The person becomes reachable; the sensitive material stays on the machine.\n\nExcluding those people outright was the earlier default and it made the tracker\narbitrarily incomplete: eleven real people were already synced to the same hosted\ndatabase while one relationship was held out on a tag describing prose that never leaves\nthe vault. `--exclude-pii` restores the stricter behaviour.\n\nThis was verified before it ran for real, by printing what *would* be sent: the model\nproduced 150 and 138 characters of bio for the two `pii`-sourced people and neither left\nthe machine. That check matters because the failure is flattering; a broken drop would\nstill report a successful sync.\n\n**Every exclusion is named in the report**, because a silent exclusion is\nindistinguishable from a page that was never found."
+      },
+      {
+        "id": "S4",
+        "cite": "raw/assign1/README.md:239-246 \u00a7 Strada > Database schema > `contacts`",
+        "path": "raw/assign1/README.md",
+        "kind": "source",
+        "rrf": 0.03,
+        "bm25_rank": 2,
+        "vector_rank": 12,
+        "text": "The migration ledger deliberately lives in a separate `strada_meta` schema. Enabling the\nData API installs `ALTER DEFAULT PRIVILEGES ... GRANT ... TO authenticated`, so **every**\ntable created in `public` is fully writable by every signed-in user unless RLS says\notherwise. A bookkeeping table should not be defended with policies; it should be\nunreachable, and only `public` is exposed.\n\n---"
+      },
+      {
+        "id": "S5",
+        "cite": "raw/assign1/README.md:540-558 \u00a7 Strada > Grading evidence > User A cannot see or change User B's contacts",
+        "path": "raw/assign1/README.md",
+        "kind": "source",
+        "rrf": 0.0294,
+        "bm25_rank": 6,
+        "vector_rank": 10,
+        "text": "### User A cannot see or change User B's contacts\n\nTwo live suites run here. `two-account.test.ts` is the privacy proof below;\n`wiki-layer.test.ts` proves the wiki layer is locked in the database rather than only in\n`apps/api`, and ends by demonstrating the limit of that lock rather than implying it has\nnone.\n\n```console\n$ npm run test:rls\n\n \u2713 the wiki layer is read-only to an ordinary write > refuses a change to name on a wiki-linked row 29ms\n \u2713 the wiki layer is read-only to an ordinary write > refuses a change to company on a wiki-linked row 29ms\n \u2713 the wiki layer is read-only to an ordinary write > refuses a change to role on a wiki-linked row 31ms\n \u2713 the wiki layer is read-only to an ordinary write > refuses a change to met_where on a wiki-linked row 30ms\n \u2713 the wiki layer is read-only to an ordinary write > refuses a change to bio on a wiki-linked row 98ms\n \u2713 the wiki layer is read-only to an ordinary write > leaves the value in place after a refusal 59ms\n \u2713 everything else still works > allows an edit that restates wiki fields without changing them 30ms\n \u2713 everything else still works > allows the operator's own layer to change freely 30ms\n \u2713 everything else still works > leaves a hand-made contact fully editable 29ms"
+      },
+      {
+        "id": "S6",
+        "cite": "raw/assign1/Assignment 1_ Secure Networking Tracker.md:93-102 \u00a7 Evidence Required in the README",
+        "path": "raw/assign1/Assignment 1_ Secure Networking Tracker.md",
+        "kind": "source",
+        "rrf": 0.0294,
+        "bm25_rank": 7,
+        "vector_rank": 9,
+        "text": "# Evidence Required in the README\n\n* Automated test output showing at least one passing validation test  \n* A screenshot or recording of sign-in and sign-out  \n* A screenshot or recording of creating, editing, deleting, and refreshing a contact  \n* A two-account test showing that one user cannot access the other user's contacts  \n* A screenshot of one invalid input failing safely  \n* A brief explanation of the contacts schema and RLS ownership rule  \n* A GitHub repository with no committed secret values"
+      }
+    ],
+    "answer": "Row Level Security is enabled on the contacts table [S1]. This security setup includes separate select, insert, update, and delete policies for authenticated users [S1]. Specifically, every policy restricts access to rows where the `user_id` matches the signed-in user [S1], and update policies prevent a user from changing a row to belong to someone else [S1].",
+    "citation_check": {
+      "insufficient": false,
+      "ok": true,
+      "summary": "3 supported",
+      "claims": [
+        {
+          "sentence": "Row Level Security is enabled on the contacts table .",
+          "cited": [
+            "S1"
+          ],
+          "status": "supported",
+          "missing_numbers": [],
+          "overlap": 1.0,
+          "judge": null
+        },
+        {
+          "sentence": "This security setup includes separate select, insert, update, and delete policies for authenticated users .",
+          "cited": [
+            "S1"
+          ],
+          "status": "supported",
+          "missing_numbers": [],
+          "overlap": 0.91,
+          "judge": null
+        },
+        {
+          "sentence": "Specifically, every policy restricts access to rows where the `user_id` matches the signed-in user , and update policies prevent a user from changing a row to belong to someone else .",
+          "cited": [
+            "S1",
+            "S1"
+          ],
+          "status": "supported",
+          "missing_numbers": [],
+          "overlap": 0.84,
+          "judge": null
+        }
+      ]
+    },
+    "generation_seconds": 6.87,
+    "prompt_tokens": 1779
+  },
+  "score": {
+    "retrieval_hit": false,
+    "behavior_ok": true,
+    "facts_ok": false,
+    "citations_ok": true,
+    "pass": false
+  },
+  "memory_footprint_gb": 10.6
+}

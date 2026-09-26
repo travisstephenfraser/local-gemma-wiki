@@ -1,0 +1,43 @@
+{
+  "project_title": "Secure Networking Tracker Application",
+  "role": "assignment brief",
+  "summary": "This document outlines the requirements for building, securing, testing, and deploying a full-stack web application that functions as a networking contact tracker. The core requirement is to demonstrate robust security using Row Level Security (RLS) in Neon Postgres, ensuring users can only access their own data. The final submission must be a public GitHub repository containing the live application and comprehensive documentation.",
+  "key_facts": [
+    "The application must be a full-stack web app deployed on Vercel.",
+    "It requires sign-in/sign-out using Neon Managed Better Auth and persistent data in Neon Postgres.",
+    "Users must be able to CRUD (Create, View, Edit, Delete) contacts with fields like name, company, role, notes, and priority (high, medium, low).",
+    "Row Level Security (RLS) must be enabled on the contacts table to restrict access based on `user_id` matching the signed-in user.",
+    "The backend must include validation and at least one automated test.",
+    "All secrets (e.g., `DATABASE_URL`, cookie secret) must remain server-only and never committed to Git.",
+    "The README serves as the complete grading surface, requiring architecture summaries, schema details, and testing evidence."
+  ],
+  "concepts": [
+    {
+      "name": "Row Level Security",
+      "kind": "concept",
+      "definition": "A database security feature that restricts which rows a user can view or modify.",
+      "in_this_source": "RLS must be enabled on the contacts table, applying separate policies for select, insert, update, and delete operations."
+    },
+    {
+      "name": "Neon Postgres",
+      "kind": "concept",
+      "definition": "A managed PostgreSQL database service.",
+      "in_this_source": "Persistent contact data is stored in Neon Postgres."
+    },
+    {
+      "name": "Vercel",
+      "kind": "tool",
+      "definition": "A cloud platform for frontend and backend deployment.",
+      "in_this_source": "The application must be deployed publicly on Vercel."
+    },
+    {
+      "name": "Managed Better Auth",
+      "kind": "tool",
+      "definition": "An authentication service used to manage user sign-in flows.",
+      "in_this_source": "Sign-in and sign-out must be handled using Neon Managed Better Auth."
+    }
+  ],
+  "source": "raw/assign1/Assignment 1_ Secure Networking Tracker.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

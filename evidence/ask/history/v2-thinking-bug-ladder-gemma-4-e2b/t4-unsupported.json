@@ -1,0 +1,123 @@
+{
+  "test": {
+    "id": "t4-unsupported",
+    "kind": "plausible but not in the wiki",
+    "question": "What grade did I receive on the Ms. Pac-Man assignment?",
+    "expect_behavior": "insufficient_evidence",
+    "expect_sources": [],
+    "expect_passage": "none: no source records a grade",
+    "expect_facts": [],
+    "expect_evidence": []
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-e2b",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 4.37,
+      "context_length": 131072
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:29:31-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "What grade did I receive on the Ms. Pac-Man assignment?",
+    "model": "google/gemma-4-e2b",
+    "retrieval": "bm25+vector (RRF) \u00b7 query planning (0 sub-queries)",
+    "search_queries": [
+      "What grade did I receive on the Ms. Pac-Man assignment?"
+    ],
+    "retrieval_seconds": 0.15,
+    "passages": [
+      {
+        "id": "S1",
+        "cite": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md:1-2 \u00a7 Class 3 Assignment: Train a Ms. Pac-Man Agent",
+        "path": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md",
+        "kind": "source",
+        "rrf": 0.0325,
+        "bm25_rank": 1,
+        "vector_rank": 2,
+        "text": "# Class 3 Assignment: Train a Ms. Pac-Man Agent"
+      },
+      {
+        "id": "S2",
+        "cite": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md:3-4 \u00a7 Class 3 Assignment: Train a Ms. Pac-Man Agent > Choose three hyperparameters, train the agent, and explain what it actually learned.",
+        "path": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md",
+        "kind": "source",
+        "rrf": 0.032,
+        "bm25_rank": 2,
+        "vector_rank": 3,
+        "text": "## Choose three hyperparameters, train the agent, and explain what it actually learned."
+      },
+      {
+        "id": "S3",
+        "cite": "raw/assign2/README.md:1-21 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0295,
+        "bm25_rank": 12,
+        "vector_rank": 4,
+        "text": "# Training a Ms. Pac-Man agent with Deep Q-Learning\n\n**A 5,000-episode DQN run that scores 2.73x its untrained baseline, the one setting change that\nmade the difference, and the measurements that say how much of it to believe.**\n\nThis repository is my submission for Class 3. It uses the course's ready-made Deep Q-Network\nnotebook, which learns to play Ms. Pac-Man from raw screen pixels. The agent's mean score over\nthe five evaluation games rose from **492 to 1,342**, and all five seeds improved.\n\nThe part worth reading is not that number. My first submission scored 918 from a 1,000-episode\nrun, and I could not tell whether that gain was learning or luck, because a five-game\nevaluation has a noise floor of roughly \u00b1530 points. So I built a 30-seed validation harness on\nseeds the leaderboard never touches, used it to test three hypotheses in order, and found that\nthe notebook's 5,000-transition replay buffer, which holds about *eight games*, was the thing\nholding the agent back. Raising it is what turned a flat training curve into a rising one.\n\nTwo of the three hypotheses were wrong, and both are written up below rather than quietly\ndropped.\n\n**What I changed beyond the three assigned hyperparameters, stated up front.** The brief allows\ntuning other settings if you explain what you did and why, and I did:"
+      },
+      {
+        "id": "S4",
+        "cite": "raw/assign2/README.md:782-784 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Contributing",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0281,
+        "bm25_rank": 3,
+        "vector_rank": 22,
+        "text": "## Contributing\n\nNot accepting outside contributions. This is a course submission and a record of one experiment."
+      },
+      {
+        "id": "S5",
+        "cite": "raw/assign3/Assignment 3_ Building a Custom LLM.md:19-25 \u00a7 How Evals Affect Your Assignment Grade",
+        "path": "raw/assign3/Assignment 3_ Building a Custom LLM.md",
+        "kind": "source",
+        "rrf": 0.0279,
+        "bm25_rank": 17,
+        "vector_rank": 7,
+        "text": "# How Evals Affect Your Assignment Grade\n\nThis assignment is graded out of 10 using the course framework: deliverable quality (4 points), testing & evaluation (3 points), and working result (3 points). The 48-case eval percentage is a model measurement, not your assignment grade. The runner does not calculate your grade.\n\n* Deliverable quality (4 points): submit both executed experiments, readable source code, corpus sources and choices, and a clear README. Explain the model's learning process using your actual token, embedding, gradient, and loss evidence. Explain why you chose at least two extension categories and how your new teaching material addresses their gaps.  \n* Testing & evaluation (3 points): run all 48 unchanged cases before and after training in each experiment. That means four complete result sets: starter untrained, starter trained, expanded-corpus untrained, and expanded-corpus trained. Save every case, the CSV/JSON results, summaries, and separation checks. Compare all-case success, scorable accuracy, vocabulary coverage, group/category scores, and actual free continuations, alongside the existing loss evidence. Explain failures and whether changes reflect vocabulary coverage, learned patterns, or both.  \n* Working result (3 points): demonstrate your trained nanoGPT, rerunnable evals on your saved model, and a working interface that produces actual replies from that model. Include launch instructions, the model/run identity, and at least 3 real chat interactions with a screenshot or recording. A terminal or notebook interface is sufficient; a polished website is not required."
+      },
+      {
+        "id": "S6",
+        "cite": "raw/assign2/README.md:183-187 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I expected, and what happened",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0275,
+        "bm25_rank": 6,
+        "vector_rank": 21,
+        "text": "no evidence it treats ghosts as anything but scenery. It survives **53% longer** than the\nuntrained network, which is consistent with \"moves with purpose\" rather than \"evades\".\n\n---"
+      }
+    ],
+    "answer": "INSUFFICIENT EVIDENCE: The passages do not state what grade was received on the Ms. Pac-Man assignment.",
+    "citation_check": {
+      "insufficient": true,
+      "ok": true,
+      "summary": "model reported insufficient evidence",
+      "claims": []
+    },
+    "generation_seconds": 2.42,
+    "prompt_tokens": 1231
+  },
+  "score": {
+    "retrieval_hit": true,
+    "behavior_ok": true,
+    "facts_ok": true,
+    "citations_ok": true,
+    "pass": true
+  },
+  "memory_footprint_gb": 8.23
+}

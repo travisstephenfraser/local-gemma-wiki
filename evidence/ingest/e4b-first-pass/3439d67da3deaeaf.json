@@ -1,0 +1,37 @@
+{
+  "project_title": "Custom Language Model Training",
+  "role": "project write-up",
+  "summary": "This document details the training and evaluation of Karpathy's nanoGPT on two different corpora to test its ability to learn negation and spatial relations. Experiment B, using an expanded corpus, successfully trained the model to achieve 3/3 accuracy on both targeted negation and spatial relation cases.",
+  "key_facts": [
+    "The model used is Karpathy's nanoGPT with 2 blocks, 4 heads, and 64-number embeddings.",
+    "Experiment A used the supplied classroom corpus; Experiment B added teaching stories for negation and spatial relations.",
+    "In Experiment B (expanded corpus), the trained model achieved 3/3 accuracy on both negation and spatial relation cases.",
+    "The training ran for 3,000 steps using a learning rate of 0.001.",
+    "The expanded corpus increased the vocabulary from 136 to 319 types.",
+    "Leakage audits confirmed zero violations across 3,200 passages in Experiment B.",
+    "The model's ability to learn patterns was demonstrated by the difference between Experiments B and C, which used the same vocabulary but different sentence structures."
+  ],
+  "concepts": [
+    {
+      "name": "Corpus",
+      "kind": "concept",
+      "definition": "The body of text used to train the language model.",
+      "in_this_source": "Experiment A and B compared results based on whether they used the starter or expanded corpus."
+    },
+    {
+      "name": "Transformer",
+      "kind": "concept",
+      "definition": "A neural network architecture used for sequence transduction tasks.",
+      "in_this_source": "The nanoGPT model is based on a two-layer transformer architecture."
+    },
+    {
+      "name": "Reinforcement Learning",
+      "kind": "concept",
+      "definition": "A machine learning paradigm where an agent learns through interaction with an environment.",
+      "in_this_source": "The project uses the nanoGPT model, which is a type of language model trained via next-token prediction."
+    }
+  ],
+  "source": "raw/assign3/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

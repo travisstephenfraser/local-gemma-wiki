@@ -1,0 +1,67 @@
+{
+  "test": {
+    "id": "t1-direct",
+    "kind": "direct, one source",
+    "question": "What replay buffer capacity did the Ms. Pac-Man DQN use, and what was the notebook's default?",
+    "expect_behavior": "answer",
+    "expect_sources": [
+      "raw/assign2/README.md"
+    ],
+    "expect_passage": "REPLAY_CAPACITY | 5,000 | 2,500,000 (section: ### `REPLAY_CAPACITY`, 5,000 to 2,500,000)",
+    "expect_facts": [
+      "2,500,000",
+      "5,000"
+    ],
+    "expect_evidence": [
+      "`REPLAY_CAPACITY`, 5,000 to 2,500,000"
+    ]
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-26b-a4b-qat",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 15.64,
+      "context_length": 262144
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:30:49-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "What replay buffer capacity did the Ms. Pac-Man DQN use, and what was the notebook's default?",
+    "model": "google/gemma-4-26b-a4b-qat",
+    "retrieval": "error",
+    "search_queries": [],
+    "retrieval_seconds": 0.0,
+    "passages": [],
+    "answer": "ERROR: model output hit max_tokens=1000 and was cut off; raise the limit",
+    "citation_check": {
+      "insufficient": false,
+      "ok": false,
+      "summary": "no claims",
+      "claims": []
+    },
+    "generation_seconds": 0.0,
+    "prompt_tokens": 0
+  },
+  "score": {
+    "retrieval_hit": false,
+    "behavior_ok": true,
+    "facts_ok": false,
+    "citations_ok": false,
+    "pass": false
+  },
+  "memory_footprint_gb": 19.7
+}

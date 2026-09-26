@@ -1,0 +1,46 @@
+# Provenance for every file in vault/raw/. Copied unchanged; paths mirror the original repos.
+# Read by `wiki ingest` into the Source Catalog. Kept outside the vault on purpose.
+
+["raw/class2/Class 2 Exercise — Build a Signup Frontend.md"]
+origin = "Class 2 exercise handout"
+author = "Course instructor"
+
+["raw/class2/README.md"]
+origin = "local class2 repo (no remote), README.md, commit 9df8cf5"
+author = "Travis Fraser"
+
+["raw/assign1/Assignment 1_ Secure Networking Tracker.md"]
+origin = "Assignment 1 handout"
+author = "Course instructor"
+
+["raw/assign1/README.md"]
+origin = "github.com/travisstephenfraser/strada, README.md"
+author = "Travis Fraser"
+
+["raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md"]
+origin = "Assignment 2 handout"
+author = "Course instructor"
+
+["raw/assign2/README.md"]
+origin = "github.com/travisstephenfraser/pacman-dqn, README.md"
+author = "Travis Fraser"
+
+["raw/assign3/Assignment 3_ Building a Custom LLM.md"]
+origin = "Assignment 3 handout"
+author = "Course instructor"
+
+["raw/assign3/README.md"]
+origin = "github.com/travisstephenfraser/custom-nanoLLM, README.md"
+author = "Travis Fraser"
+
+["raw/assign3/experiments/summary.md"]
+origin = "github.com/travisstephenfraser/custom-nanoLLM, experiments/summary.md"
+author = "Travis Fraser"
+
+["raw/assign3/evals/README.md"]
+origin = "course nanoGPT starter repo, evals/README.md (commits f83578f, 9e04ddb, 2026-09-16)"
+author = "Rafael Alonso (course material)"
+
+["raw/assign4/Assignment 4_ Personal Wiki with Local Gemma + RAG.md"]
+origin = "Assignment 4 handout (ingested during the offline demo)"
+author = "Course instructor"

@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.pytest_cache/
+state/*/vectors.npy
+outputs/
+feed/
+.ruff_cache/

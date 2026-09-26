@@ -1,0 +1,143 @@
+{
+  "test": {
+    "id": "t1-direct",
+    "kind": "direct, one source",
+    "question": "What replay buffer capacity did the Ms. Pac-Man DQN use, and what was the notebook's default?",
+    "expect_behavior": "answer",
+    "expect_sources": [
+      "raw/assign2/README.md"
+    ],
+    "expect_passage": "REPLAY_CAPACITY | 5,000 | 2,500,000 (section: ### `REPLAY_CAPACITY`, 5,000 to 2,500,000)",
+    "expect_facts": [
+      "2,500,000",
+      "5,000"
+    ],
+    "expect_evidence": [
+      "`REPLAY_CAPACITY`, 5,000 to 2,500,000"
+    ]
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-e2b",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 4.37,
+      "context_length": 131072
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:49:46-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "What replay buffer capacity did the Ms. Pac-Man DQN use, and what was the notebook's default?",
+    "model": "google/gemma-4-e2b",
+    "retrieval": "bm25+vector (RRF) \u00b7 query planning (0 sub-queries)",
+    "search_queries": [
+      "What replay buffer capacity did the Ms. Pac-Man DQN use, and what was the notebook's default?"
+    ],
+    "retrieval_seconds": 0.16,
+    "passages": [
+      {
+        "id": "S1",
+        "cite": "raw/assign2/README.md:82-91 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > My three hyperparameters",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0323,
+        "bm25_rank": 1,
+        "vector_rank": 3,
+        "text": "## My three hyperparameters\n\n| Setting | My value | Notebook default | Why |\n|---|---|---|---|\n| Exploration | `0.20` | 0.20 | The notebook holds epsilon *constant* instead of annealing it, so one number has to serve the whole run. Standard DQN decays 1.0 to 0.1; 0.20 sits just above the end of that schedule. I also tested 0.05 directly, on the theory that matching training exploration to the 5% used at evaluation would help. It did not, and the experiment is reported in [How I got here](#how-i-got-here-four-experiments). |\n| Episodes | `5000` | 100 | 3,557,262 agent decisions, about 28% of the original DQN paper's budget of 50 million frames, which is 12.5 million decisions at four frames each. This is the largest budget that fits a working session at 128 minutes. It is worth spending *only* because the buffer fix below gave the learning curve a slope; at the notebook's default buffer, more episodes bought more flat trajectory. |\n| Learning rate | `0.0001` | 0.0001 | The standard Adam rate for DQN. I left it alone deliberately: the instability I measured pointed at the replay buffer and the target network rather than the step size, so changing the learning rate would have confounded the one experiment that mattered. |\n\n---"
+      },
+      {
+        "id": "S2",
+        "cite": "raw/assign2/README.md:522-553 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Local setup",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.032,
+        "bm25_rank": 3,
+        "vector_rank": 2,
+        "text": "## Local setup\n\nPython 3.11 to 3.13. The notebook installs its own packages on first run.\n\n```bash\ngit clone <REMOTE_URL>\ncd pacman-dqn\npython3 -m venv .venv\nsource .venv/bin/activate\npip install -r requirements.txt\npython -m ipykernel install --user --name pacman-dqn --display-name \"pacman-dqn\"\npython -m jupyter lab pacman_dqn.ipynb\n```\n\nSelect the `pacman-dqn` kernel and Run All. On Apple Silicon the notebook selects MPS\nautomatically; elsewhere it selects CUDA or CPU.\n\nTo run it headless instead:\n\n```bash\npython -m jupyter nbconvert --to notebook --execute --inplace pacman_dqn.ipynb \\\n  --ExecutePreprocessor.kernel_name=pacman-dqn --ExecutePreprocessor.timeout=-1\n```\n\n**Memory.** `REPLAY_CAPACITY = 2500000` needs about 82 GiB of RAM at 5,000 episodes, since each\ntransition stores five 84x84 frames at 35,280 bytes. On a smaller machine, reduce it. The\nformula is `capacity x 5 x 84 x 84` bytes, and `capacity = 700000` (23 GiB) is enough to make a\n1,000-episode run evict nothing at all. Even 50,000 is ten times the notebook's default and\ncaptures most of the benefit.\n\n---"
+      },
+      {
+        "id": "S3",
+        "cite": "raw/assign2/README.md:97-121 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `REPLAY_CAPACITY`, 5,000 to 2,500,000",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0313,
+        "bm25_rank": 7,
+        "vector_rank": 1,
+        "text": "### `REPLAY_CAPACITY`, 5,000 to 2,500,000\n\n**This is the change that made the difference, and it is not a close call.**\n\nAt 5,000 transitions and roughly 610 decisions per game, the notebook's buffer holds about\n**eight games**. Every batch of 32 is drawn from that narrow, highly correlated window, so the\nnetwork is continuously refit to the last few games and forgets everything earlier. That is\nprecisely the correlation experience replay exists to break. Published DQN uses a buffer of\n1,000,000; the notebook ships with 0.5% of that.\n\nI tested it as a falsifiable prediction rather than assuming it. Holding everything else at the\noriginal 1,000-episode settings and raising capacity to 700,000, which exceeds the 609,223\ndecisions such a run produces so that *nothing is ever evicted*:\n\n| | buffer 5,000 | buffer 700,000 |\n|---|---|---|\n| 30-seed mean of the last five checkpoints | 694.3 | **990.2** |\n| Trend correlation across 40 checkpoints | 0.40 | **0.72** |\n| Best checkpoint | episode 825 | **episode 1,000** |\n\nThe gain is +295.9 with a standard error near 48, about **6.2 sigma**. For the first time the\n*final* checkpoint was also the best one, meaning the curve rises rather than oscillating.\n\nThe cost is memory and nothing else: sampling 32 items from 2.5 million costs the same as from\n5,000, so wall-clock per episode is unchanged. At 5,000 episodes this run peaked at 86 GiB with"
+      },
+      {
+        "id": "S4",
+        "cite": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md:5-8 \u00a7 Overview",
+        "path": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md",
+        "kind": "source",
+        "rrf": 0.0303,
+        "bm25_rank": 4,
+        "vector_rank": 8,
+        "text": "# Overview\n\nUse the ready-made notebook to train a Deep Q-Network (DQN) on Ms. Pac-Man. Choose exploration, episodes, and learning rate. Submit one public GitHub repository URL with the notebook and your evidence in its README."
+      },
+      {
+        "id": "S5",
+        "cite": "raw/assign2/README.md:20-47 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0299,
+        "bm25_rank": 9,
+        "vector_rank": 5,
+        "text": "**What I changed beyond the three assigned hyperparameters, stated up front.** The brief allows\ntuning other settings if you explain what you did and why, and I did:\n\n| Change | From | To | Kind |\n|---|---|---|---|\n| `EPISODES` | 1,000 | 5,000 | one of my three choices |\n| `REPLAY_CAPACITY` | 5,000 | 2,500,000 | a *fixed classroom setting* in section 3 |\n| `DEMO_EVERY` | 25 | 125 | a fixed classroom setting, bookkeeping only |\n| `ReplayMemory.sample()` | `deque` scan | ring buffer | *source code*, not a hyperparameter |\n\n`EXPLORATION` stays at 0.20 and `LEARNING_RATE` stays at 1e-4. **Every evaluation setting is\nuntouched**: the same five seeds, 5% exploration, and the same 3,000-decision cap, before and\nafter, exactly as the brief requires. Each change is justified in\n[What I changed and why](#what-i-changed-and-why).\n\nThe notebook itself is the course's work ([pepealonso95/pacman-dqn](https://github.com/pepealonso95/pacman-dqn));\nmy contribution is the hyperparameter choices, the executed runs, the validation harness, the\nexperiments, and this write-up. It was written with the help of Claude Code, which ran the\nnotebook and drafted this README from the run's output files.\n\n**Status: complete.** The run finished all 5,000 episodes without interruption.\n\n---\n\n```\nTask        ALE/MsPacman-v5 (Atari 2600, via Gymnasium + ale-py)\nAgent       Deep Q-Network: 3 conv layers + 2 dense, experience replay, target network\nInput       4 stacked grayscale 84x84 frames"
+      },
+      {
+        "id": "S6",
+        "cite": "raw/assign2/README.md:485-495 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Technology stack and why",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0296,
+        "bm25_rank": 8,
+        "vector_rank": 7,
+        "text": "## Technology stack and why\n\n| Layer | Choice | Why |\n|---|---|---|\n| Environment | Gymnasium + ale-py, `ALE/MsPacman-v5` | The course's choice. Sticky actions at 0.25 are on, which is the standard modern Atari protocol and makes memorised action sequences useless. |\n| Agent | PyTorch DQN, 3 conv + 2 dense | The course's architecture, unchanged. Nothing in the evidence pointed at capacity as the limit, so changing it would have added a variable without a reason. |\n| Compute | Apple Silicon MPS | A 128-minute local run beats the Colab CPU tier and cannot time out mid-session. The one cost is a test assertion that hardcodes Python 3.13. |\n| Replay memory | List-backed ring buffer | Replaces a `deque` whose `sample()` was O(n) per update. Identical draws, O(1) indexing. See [the fix](#replaymemorysample-a-performance-fix). |\n| Optimiser | Adam, Huber loss | Huber is less sensitive to the occasional large target error than mean squared error, which matters when a single ghost capture produces an outlier. |\n| Verification | Plain Python scripts, no framework | The checks need to reproduce their committed output byte for byte; a test runner would add ceremony without adding confidence. |\n| Rendering | Pillow, Matplotlib | GIF samples and the dashboard. Pillow rather than a video encoder because a GIF renders inline on GitHub with no plugin. |"
+      }
+    ],
+    "answer": "The notebook ships with a replay buffer capacity equivalent to 0.5% of the published DQN buffer, which is 5,000 transitions [S3].",
+    "citation_check": {
+      "insufficient": false,
+      "ok": true,
+      "summary": "1 supported",
+      "claims": [
+        {
+          "sentence": "The notebook ships with a replay buffer capacity equivalent to 0.5% of the published DQN buffer, which is 5,000 transitions .",
+          "cited": [
+            "S3"
+          ],
+          "status": "supported",
+          "missing_numbers": [],
+          "overlap": 0.92,
+          "judge": null
+        }
+      ]
+    },
+    "generation_seconds": 5.31,
+    "prompt_tokens": 2436,
+    "thinking": true,
+    "reasoning_tokens": 711
+  },
+  "score": {
+    "retrieval_hit": true,
+    "behavior_ok": true,
+    "facts_ok": false,
+    "citations_ok": true,
+    "pass": false
+  },
+  "memory_footprint_gb": 8.23
+}

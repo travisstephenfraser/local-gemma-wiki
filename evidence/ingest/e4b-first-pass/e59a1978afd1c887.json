@@ -1,0 +1,37 @@
+{
+  "project_title": "Ms Pac-Man DQN Agent Training",
+  "role": "project write-up",
+  "summary": "This document details the training of a Deep Q-Network agent to play Ms. Pac-Man, achieving a mean score increase from 492 to 1,342 over five evaluation games. The successful training was attributed primarily to increasing the replay buffer capacity from 5,000 to 2,500,000 and implementing a performance fix for the ring buffer sampling.",
+  "key_facts": [
+    "The agent was trained using a Deep Q-Network over 5,000 episodes.",
+    "Mean score improved from 492 to 1,342 across five evaluation games.",
+    "The replay buffer capacity was increased from 5,000 to 2,500,000 transitions.",
+    "The training run took 127.7 minutes and involved 3,557,262 agent decisions.",
+    "The learning rate remained constant at 1e-4 and exploration at 0.20.",
+    "A performance fix replaced the `deque` scan with a list-backed ring buffer for O(1) indexing.",
+    "The improvement was statistically significant, achieving t(4) = 7.21 against the untrained baseline."
+  ],
+  "concepts": [
+    {
+      "name": "Deep Q-Network",
+      "kind": "concept",
+      "definition": "A neural network used to approximate the optimal action-value function.",
+      "in_this_source": "The agent uses a DQN architecture with 3 convolutional layers and 2 dense layers."
+    },
+    {
+      "name": "Reinforcement Learning",
+      "kind": "concept",
+      "definition": "A machine learning approach where an agent learns through interaction with an environment.",
+      "in_this_source": "The training process involves the agent learning from raw screen pixels to maximize rewards."
+    },
+    {
+      "name": "Experience Replay",
+      "kind": "concept",
+      "definition": "A technique where past experiences are stored and randomly sampled to break correlations.",
+      "in_this_source": "The agent stores experiences in a replay buffer and samples batches of 32 for updates."
+    }
+  ],
+  "source": "raw/assign2/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

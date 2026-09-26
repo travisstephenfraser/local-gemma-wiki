@@ -1,0 +1,30 @@
+{
+  "project_title": "Signup Frontend Application",
+  "role": "assignment brief",
+  "summary": "This document outlines the requirements for building a responsive single-page application that interacts with a public classroom API. The app must allow users to view the current list of signups and submit their own name via specific GET and POST endpoints.",
+  "key_facts": [
+    "Base URL: https://class2-signups-fall26.vercel.app/api/",
+    "GET /api/signups returns all signups, newest first.",
+    "POST /api/signups requires a JSON body: { \"name\": \"Ada Lovelace\" }.",
+    "Successful GET response includes a 'signups' array, e.g., { \"signups\": [{ \"name\": \"Ada Lovelace\" }] }.",
+    "Successful POST response returns status 201 and { \"signup\": { \"name\": \"Ada Lovelace\" } }.",
+    "Error codes to handle include 400 (invalid body), 409 (name already signed up), and 500 (service problem)."
+  ],
+  "concepts": [
+    {
+      "name": "Frontend Application",
+      "kind": "concept",
+      "definition": "A client-side application that provides a user interface.",
+      "in_this_source": "The task is to build a responsive single-page app that interacts with the provided API."
+    },
+    {
+      "name": "RESTful API",
+      "kind": "concept",
+      "definition": "A set of architectural constraints for creating web services.",
+      "in_this_source": "The application must use specific endpoints (GET /api/signups, POST /api/signups) to interact with the backend service."
+    }
+  ],
+  "source": "raw/class2/Class 2 Exercise \u2014 Build a Signup Frontend.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

@@ -1,0 +1,148 @@
+{
+  "test": {
+    "id": "t3-cross-source",
+    "kind": "connects two sources",
+    "question": "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?",
+    "expect_behavior": "answer",
+    "expect_sources": [
+      "raw/assign2/README.md",
+      "raw/assign3/README.md"
+    ],
+    "expect_passage": "Pac-Man: Learning rate 0.0001, standard Adam rate, left alone deliberately. Custom LLM: '0.0001 is too small. After 3,000 steps the model had barely learned: 4-8/48, with validation loss 1.40-1.83.'",
+    "expect_facts": [
+      "0.0001",
+      "48"
+    ],
+    "expect_evidence": [
+      "| Learning rate | `0.0001` |",
+      "**0.0001 is too small.**"
+    ]
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-26b-a4b-qat",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 15.64,
+      "context_length": 262144
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T22:00:35-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?",
+    "model": "google/gemma-4-26b-a4b-qat",
+    "retrieval": "bm25+vector (RRF) \u00b7 query planning (2 sub-queries)",
+    "search_queries": [
+      "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?",
+      "Ms. Pac-Man DQN learning rate",
+      "custom nanoGPT learning rate"
+    ],
+    "two_hop": null,
+    "retrieval_seconds": 0.42,
+    "passages": [
+      {
+        "id": "S1",
+        "cite": "raw/assign2/README.md:82-91 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > My three hyperparameters",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0325,
+        "bm25_rank": 2,
+        "vector_rank": 1,
+        "text": "## My three hyperparameters\n\n| Setting | My value | Notebook default | Why |\n|---|---|---|---|\n| Exploration | `0.20` | 0.20 | The notebook holds epsilon *constant* instead of annealing it, so one number has to serve the whole run. Standard DQN decays 1.0 to 0.1; 0.20 sits just above the end of that schedule. I also tested 0.05 directly, on the theory that matching training exploration to the 5% used at evaluation would help. It did not, and the experiment is reported in [How I got here](#how-i-got-here-four-experiments). |\n| Episodes | `5000` | 100 | 3,557,262 agent decisions, about 28% of the original DQN paper's budget of 50 million frames, which is 12.5 million decisions at four frames each. This is the largest budget that fits a working session at 128 minutes. It is worth spending *only* because the buffer fix below gave the learning curve a slope; at the notebook's default buffer, more episodes bought more flat trajectory. |\n| Learning rate | `0.0001` | 0.0001 | The standard Adam rate for DQN. I left it alone deliberately: the instability I measured pointed at the replay buffer and the target network rather than the step size, so changing the learning rate would have confounded the one experiment that mattered. |\n\n---"
+      },
+      {
+        "id": "S2",
+        "cite": "raw/assign3/Assignment 3_ Building a Custom LLM.md:31-37 \u00a7 Open the Notebook",
+        "path": "raw/assign3/Assignment 3_ Building a Custom LLM.md",
+        "kind": "source",
+        "rrf": 0.0303,
+        "bm25_rank": 4,
+        "vector_rank": 8,
+        "text": "# Open the Notebook\n\n* [Custom LLM sample project on GitHub](https://github.com/pepealonso95/custom-llm)  \n* Local Jupyter or VS Code: install requirements.txt and open custom\\_llm.ipynb with that Python 3 environment. Colab generally includes PyTorch; notebook setup installs the PDF reader if absent. The pinned nanoGPT model source is provided.  \n* [Open custom\\_llm.ipynb in Google Colab. The default CPU runtime is enough.](https://colab.research.google.com/github/pepealonso95/custom-llm/blob/main/custom_llm.ipynb)  \n* Read [Karpathy's nanoGPT explanation](https://github.com/karpathy/nanoGPT) alongside the notebook. The model uses two blocks, four heads, 64-number embeddings, a 48-token context, PyTorch backpropagation, and AdamW. Whole-word tokenization is a classroom choice, not intrinsic to nanoGPT. Classroom additions make data, evaluation, and learning visible."
+      },
+      {
+        "id": "S3",
+        "cite": "raw/assign2/README.md:724-732 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Known limitations and what I would do next",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0313,
+        "bm25_rank": 5,
+        "vector_rank": 3,
+        "text": "gradient pointing toward chasing a blue ghost.\n- **The GIFs show 20 seconds of games that now last 60.** The visible excerpt is the easy opening,\n  not the deaths, so gameplay judgements from the GIFs alone are biased toward the agent. This got\n  worse as the agent improved, because the games got longer while the excerpt did not.\n- **One test assertion is environment-specific, and I introduced a second mismatch.** Covered in\n  [Tests](#tests).\n- **Not a benchmark reproduction.** Published DQN results on this game use a 1,000,000-transition\n  buffer and 50 million frames. This run used 2.5M transitions and 14.2 million frames."
+      },
+      {
+        "id": "S4",
+        "cite": "raw/assign2/README.md:1-21 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0306,
+        "bm25_rank": 4,
+        "vector_rank": 7,
+        "text": "# Training a Ms. Pac-Man agent with Deep Q-Learning\n\n**A 5,000-episode DQN run that scores 2.73x its untrained baseline, the one setting change that\nmade the difference, and the measurements that say how much of it to believe.**\n\nThis repository is my submission for Class 3. It uses the course's ready-made Deep Q-Network\nnotebook, which learns to play Ms. Pac-Man from raw screen pixels. The agent's mean score over\nthe five evaluation games rose from **492 to 1,342**, and all five seeds improved.\n\nThe part worth reading is not that number. My first submission scored 918 from a 1,000-episode\nrun, and I could not tell whether that gain was learning or luck, because a five-game\nevaluation has a noise floor of roughly \u00b1530 points. So I built a 30-seed validation harness on\nseeds the leaderboard never touches, used it to test three hypotheses in order, and found that\nthe notebook's 5,000-transition replay buffer, which holds about *eight games*, was the thing\nholding the agent back. Raising it is what turned a flat training curve into a rising one.\n\nTwo of the three hypotheses were wrong, and both are written up below rather than quietly\ndropped.\n\n**What I changed beyond the three assigned hyperparameters, stated up front.** The brief allows\ntuning other settings if you explain what you did and why, and I did:"
+      },
+      {
+        "id": "S5",
+        "cite": "raw/assign3/README.md:287-306 \u00a7 Custom nanoGPT: starter corpus vs. a negation + spatial extension > Token \u2192 ID \u2192 vector \u2192 gradient \u2192 update",
+        "path": "raw/assign3/README.md",
+        "kind": "source",
+        "rrf": 0.0302,
+        "bm25_rank": 10,
+        "vector_rank": 3,
+        "text": "rate \u00d7 gradient (which would be 7e-9). On its first step, AdamW divides the gradient by a running estimate of its own\nmagnitude, so every parameter moves by about \u00b1lr, whatever its gradient's size. Weight decay then pulls the value\nback toward zero by 0.00001 \u00d7 0.01 \u00d7 0.0576 \u2248 6e-9, which is why the change is 0.00000999 rather than exactly\n0.00001. This is why the notebook warns that AdamW is not plain \"learning rate times\ngradient\".\n\n**Next-token probabilities for the prefix `the customer`:**\n\n| | top five next tokens |\n|---|---|\n| Before training | customer 0.016, bus 0.011, educator 0.010, us 0.010, application 0.010 (almost flat; 1/136 = 0.007) |\n| After training | reviewed 0.178, recommended 0.171, ordered 0.169, selected 0.163, compared 0.160 |\n\nAfter training, almost all probability sits on the verbs that follow `the <noun>` in the templates, split nearly evenly\nbecause the corpus uses each verb about equally often.\n\n**Attention** (block 1, head 1, over `<BOS> the customer`): the row for `customer` puts 0.49 of its attention on `<BOS>`,\n0.42 on `the`, and 0.09 on itself. Each row only has weights for earlier positions (and itself): the causal mask forces\nthe weights for future tokens to exactly zero."
+      },
+      {
+        "id": "S6",
+        "cite": "raw/assign2/README.md:120-123 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `REPLAY_CAPACITY`, 5,000 to 2,500,000",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0286,
+        "bm25_rank": 10,
+        "vector_rank": 10,
+        "text": "The cost is memory and nothing else: sampling 32 items from 2.5 million costs the same as from\n5,000, so wall-clock per episode is unchanged. At 5,000 episodes this run peaked at 86 GiB with\nzero swap."
+      }
+    ],
+    "answer": "The Ms. Pac-Man DQN used a learning rate of `0.0001` [S1]. INSUFFICIENT EVIDENCE: The provided passages do not state the performance or results of the custom LLM when trained at that specific learning rate.",
+    "citation_check": {
+      "insufficient": false,
+      "ok": true,
+      "summary": "1 supported",
+      "claims": [
+        {
+          "sentence": "The Ms. Pac-Man DQN used a learning rate of `0.0001` .",
+          "cited": [
+            "S1"
+          ],
+          "status": "supported",
+          "missing_numbers": [],
+          "overlap": 0.64,
+          "judge": null
+        }
+      ]
+    },
+    "generation_seconds": 0.74,
+    "prompt_tokens": 2021,
+    "thinking": false,
+    "reasoning_tokens": 0
+  },
+  "score": {
+    "retrieval_hit": false,
+    "behavior_ok": true,
+    "facts_ok": false,
+    "citations_ok": true,
+    "pass": false
+  },
+  "memory_footprint_gb": 19.84
+}

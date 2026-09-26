@@ -1,0 +1,38 @@
+{
+  "project_title": "Custom Language Model Training",
+  "role": "supporting data",
+  "summary": "This document presents a table of experimental results across different model conditions and seeds. It compares performance metrics such as correct answers, transfer, negation, spatial, and various probe scores alongside validation loss.",
+  "key_facts": [
+    "Per-seed values for seeds 42, 1, 2, and 3.",
+    "Margin is calculated as p(correct) - p(best wrong choice), averaged over 3 cases.",
+    "Condition A shows a validation loss ranging from 0.68 to 0.71.",
+    "Condition B shows a spatial margin of 0.85 to 0.95.",
+    "Condition B_layers1 shows a correct/48 score of 28 to 29 for all seeds.",
+    "Condition B_lr0.0001 shows a validation loss between 1.40 and 1.83.",
+    "Condition B_lr0.01 shows a spatial margin between 0.50 and 0.85 (negation margin 0.96 to 0.98).",
+    "Condition B_steps10000 shows a correct/48 score of 28 to 30 and a validation loss between 0.80 and 0.92."
+  ],
+  "concepts": [
+    {
+      "name": "Hyperparameters",
+      "kind": "concept",
+      "definition": "Parameters used to control the learning process of a machine learning model.",
+      "in_this_source": "Conditions vary learning rate (0.0001, 0.01, 0.03), step count (10000), and layer count (1, 4) against baseline B."
+    },
+    {
+      "name": "Margin",
+      "kind": "concept",
+      "definition": "The probability of the correct choice minus the probability of the best wrong choice.",
+      "in_this_source": "Margin = p(correct) - p(best wrong choice), averaged over the 3 cases, reported per seed for negation and spatial."
+    }
+  ],
+  "retries": 0,
+  "source": "raw/assign3/experiments/summary.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat",
+  "reviewed": {
+    "by": "Claude Code fact-check against the original, applied by Travis",
+    "date": "2026-09-25",
+    "corrections": 4
+  }
+}

@@ -1,0 +1,54 @@
+# wiki CLI configuration. Paths are relative to this file unless absolute.
+# Select a profile with `wiki --profile <name> ...`; `class` is the default.
+
+default_profile = "class"
+
+[model]
+# LM Studio's OpenAI-compatible server. Local is the default and the only required mode.
+endpoint = "http://localhost:1234/v1"
+chat_model = "google/gemma-4-26b-a4b-qat"  # answers (chat/ask); chosen by the model ladder
+ingest_model = "google/gemma-4-26b-a4b-qat"  # writes wiki notes; batch job, quality over speed
+embed_model = "text-embedding-embeddinggemma-300m"
+# Task prefixes EmbeddingGemma was trained with (see its model card).
+embed_query_prefix = "task: search result | query: "
+embed_doc_prefix = "title: none | text: "
+context_length = 32768   # requested at load; MLX engines report 131072 and allocate KV cache on demand
+temperature = 0.2
+thinking = false        # Gemma 4 reasoning before answering; the ladder measures both
+thinking_budget = 4000  # extra tokens allowed for reasoning when thinking = true
+timeout_s = 300
+
+[retrieval]
+chunk_words = 220       # target passage size
+overlap_lines = 2       # lines repeated between adjacent passages in one section
+top_k = 6               # passages handed to Gemma in ask mode
+chat_top_k = 4          # passages handed to Gemma when chat decides to retrieve
+rrf_k = 60              # reciprocal-rank-fusion constant for BM25 + vector merge
+query_planning = true   # ask: Gemma rewrites the question into 1-3 search queries first
+two_hop = true          # ask: if passages miss part of the question, search again using what hop 1 found
+
+[ingest]
+max_source_words = 9000 # longest source text sent to Gemma in one ingest call
+
+# The class wiki: the graded submission. Gemma may write notes here.
+[profiles.class]
+vault = "vault"
+state_dir = "state/class"     # manifest, chunk index, embeddings (outside the vault)
+runs_dir = "evidence/runs"    # every ask/chat turn is logged here
+writable = true
+index_globs = ["raw/**/*.md", "wiki/**/*.md"]
+exclude_globs = []
+evidence_globs = ["raw/**"]    # what ask may cite: unchanged originals only
+
+# Personal vault, read-only. Search / ask / chat work; ingest is refused so
+# Gemma never writes into it. State and logs stay out of this repo.
+[profiles.brain]
+vault = "~/Developer/.vault/wiki-vault"
+state_dir = "~/.cache/wikicli/brain"
+runs_dir = "~/.cache/wikicli/brain/runs"
+writable = false
+index_globs = ["**/*.md"]
+exclude_globs = ["_raw/**", "_archives/**", ".obsidian/**", "**/.*/**"]
+evidence_globs = ["**"]         # compiled pages are the knowledge here; there is no raw/ layer
+persona = "persona-brain.md"
+router = "router-brain.md"

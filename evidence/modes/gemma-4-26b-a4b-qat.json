@@ -1,0 +1,158 @@
+{
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-26b-a4b-qat",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 15.64,
+      "context_length": 262144
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:57:18-0700"
+  },
+  "checks": [
+    {
+      "mode": "chat",
+      "input": "what can you help me with?",
+      "expect": "capabilities; no retrieval; no insufficient-evidence refusal",
+      "retrieved": false,
+      "router": {
+        "retrieve": false,
+        "query": "",
+        "reason": "The user is asking a general question about my capabilities, which does not require specific facts or details from their personal course notes."
+      },
+      "passages": [],
+      "output": "I can help you draft, outline, and rework text, or brainstorm ideas for your projects.\n\nIf you need information from your notes, I can retrieve specific passages from your wiki. Use these commands to manage our session:\n\n*   **`wiki ask`**: For strictly sourced factual answers from your notes.\n*   **`wiki search`**: To see the raw passages from your notes.\n*   **`/save`**: To save my last reply as a draft outside the wiki.\n*   **`/sources`**: To see the passages I used in my previous response.\n*   **`/reset`**: To clear the current conversation.\n*   **`/help`**: To see all commands.\n\nI can access your course projects (Signup frontend, Secure Networking Tracker, Ms. Pac-Man DQN, Custom LLM) and the concepts behind them if you ask. I cannot browse the internet or edit your files directly.",
+      "seconds": 2.59
+    },
+    {
+      "mode": "chat",
+      "input": "what can we do?",
+      "expect": "capabilities; no retrieval",
+      "retrieved": false,
+      "router": {
+        "retrieve": false,
+        "query": "",
+        "reason": "The user is asking for a general overview of capabilities, which was already addressed in the previous turn. I will provide a more structured summary of how we can work together."
+      },
+      "passages": [],
+      "output": "We can work on your projects or organize your thoughts.\n\n**Text & Planning**\n*   **Drafting:** I can write outlines or initial drafts for your documentation or reports.\n*   **Reworking:** Give me a messy paragraph and I'll clean it up, shorten it, or turn it into bullets.\n*   **Brainstorming:** We can map out logic for your code or project structures.\n\n**Wiki Retrieval**\n*   **Project Context:** I can pull details from your notes on the Signup frontend, Secure Networking Tracker, Ms. Pac-Man DQN, or your Custom LLM.\n*   **Concept Review:** I can find definitions or explanations you've written about specific technical concepts.\n\n**Suggestion:** If you're feeling stuck on a specific project, tell me which one and I'll pull the latest notes to help us start outlining the next step.",
+      "seconds": 2.54
+    },
+    {
+      "mode": "chat",
+      "input": "Draft a short study plan for reviewing my Pac-Man DQN project before a quiz.",
+      "expect": "draft; may retrieve; wiki facts cited",
+      "retrieved": true,
+      "router": {
+        "retrieve": true,
+        "query": "Ms. Pac-Man DQN reinforcement learning agent project details and concepts for study plan",
+        "reason": "The user wants a study plan for their specific Pac-Man DQN project. To make the plan effective, I need to know the specific components, algorithms, or implementation details mentioned in their project write-up (e.g., state space, reward function, architecture) so the study plan is tailored to what they actually built."
+      },
+      "passages": [
+        "wiki/Projects/Ms Pac-Man DQN Agent.md:45-53 \u00a7 Ms Pac-Man DQN Agent > Concepts and tools",
+        "wiki/Projects/Ms Pac-Man DQN Agent.md:13-16 \u00a7 Ms Pac-Man DQN Agent",
+        "wiki/Concepts/Deep Q-Network.md:16-19 \u00a7 Deep Q-Network > Where it appears > [[Ms Pac-Man DQN Agent]]",
+        "wiki/Concepts/Hyperparameters.md:25-28 \u00a7 Hyperparameters > Where it appears > [[Ms Pac-Man DQN Agent]]"
+      ],
+      "output": "Here is a draft study plan focused on the technical specifics of your Ms. Pac-Man DQN project.\n\n**Phase 1: Architecture & Implementation**\n*   **Network Structure:** Review the specific layers used (3 convolutional, 2 dense) [S3].\n*   **Framework:** Be ready to discuss implementation details using PyTorch 2.14.0 [S1].\n*   **Training Parameters:** Re-verify the three required hyperparameters: exploration, episodes, and learning rate [S1, S4].\n\n**Phase 2: Optimization & Troubleshooting**\n*   **Experience Replay:** Understand why increasing the replay buffer from 5,000 to 2,500,000 was necessary for the training curve [S1, S2].\n*   **The \"Winner's Curse\":** Review why the validation-best checkpoint was rejected in favor of the final network (validation vs. official seed scores) [S1].\n\n**Phase 3: Evaluation Protocol**\n*   **Fixed Protocol:** Memorize the evaluation requirements: five seeds, 5% exploration, and the specific time limit [S1].\n*   **Baselines:** Be able to explain the baseline used for comparison (the untrained network) [S1].\n\n**Suggestion:** If you want to drill specific concepts, ask me `wiki ask \"What were my specific hyperparameter values?\"` to test your memory.",
+      "seconds": 4.47
+    },
+    {
+      "mode": "chat",
+      "input": "make that shorter",
+      "expect": "uses the previous draft; no new retrieval",
+      "retrieved": false,
+      "router": {
+        "retrieve": false,
+        "query": "Pac-Man DQN project study plan details for shortening",
+        "reason": "The user wants to shorten the previously provided study plan. While the plan mentions the project, the task is a transformation of the previous response ('make that shorter'), which falls under the 'follow-ups that only transform the previous reply' rule."
+      },
+      "passages": [],
+      "output": "**Ms. Pac-Man DQN Study Plan**\n\n**1. Architecture & Setup**\n*   Review the PyTorch 2.14.0 implementation.\n*   Confirm network layers (3 convolutional, 2 dense).\n*   Memorize the three required hyperparameters: exploration, episodes, and learning rate.\n\n**2. Training & Optimization**\n*   Understand the replay buffer expansion (5k $\\rightarrow$ 2.5M).\n*   Review the \"Winner's Curse\" (why the final network beat the validation-best checkpoint).\n\n**3. Evaluation Protocol**\n*   Memorize the 5-seed, 5% exploration, and time-limit requirements.\n*   Review the baseline comparison (untrained network).\n\n**Suggestion:** Use `wiki ask` to quiz yourself on the specific hyperparameter values.",
+      "seconds": 2.87
+    },
+    {
+      "mode": "chat",
+      "input": "By the way, my Pac-Man agent's best score was 9,999 points.",
+      "expect": "chat accepts it as conversation only",
+      "retrieved": false,
+      "router": {
+        "retrieve": false,
+        "query": "Ms. Pac-Man DQN best score 9,999 points",
+        "reason": "The user is providing a new fact about their project rather than asking for information from the notes. I will acknowledge the achievement."
+      },
+      "passages": [],
+      "output": "That's a high score. \n\n**Suggestion:** If that score is a key metric for your project documentation, you should add it to your project notes in the wiki so I can include it in future summaries or study plans.",
+      "seconds": 1.4
+    },
+    {
+      "mode": "search",
+      "input": "replay buffer capacity",
+      "expect": "original passages + paths, no generated answer",
+      "method": "bm25+vector (RRF)",
+      "seconds": 0.05,
+      "output": [
+        {
+          "id": "S1",
+          "cite": "wiki/Concepts/Experience Replay.md:15-17 \u00a7 Experience Replay > Where it appears > [[Ms Pac-Man DQN Agent]]",
+          "path": "wiki/Concepts/Experience Replay.md",
+          "kind": "note",
+          "rrf": 0.0325,
+          "bm25_rank": 1,
+          "vector_rank": 2,
+          "text": "### [[Ms Pac-Man DQN Agent]]\n- The author increased the replay buffer capacity to 2,500,000 to reduce correlation and improve learning. ([raw/assign2/README.md](../../raw/assign2/README.md))\n- Used alongside [[Deep Q-Network]], [[Fixed Evaluation Protocol]], [[Hyperparameters]], [[PyTorch]], [[Winner's Curse]] in this project."
+        },
+        {
+          "id": "S2",
+          "cite": "raw/assign2/README.md:97-121 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `REPLAY_CAPACITY`, 5,000 to 2,500,000",
+          "path": "raw/assign2/README.md",
+          "kind": "source",
+          "rrf": 0.0323,
+          "bm25_rank": 3,
+          "vector_rank": 1,
+          "text": "### `REPLAY_CAPACITY`, 5,000 to 2,500,000\n\n**This is the change that made the difference, and it is not a close call.**\n\nAt 5,000 transitions and roughly 610 decisions per game, the notebook's buffer holds about\n**eight games**. Every batch of 32 is drawn from that narrow, highly correlated window, so the\nnetwork is continuously refit to the last few games and forgets everything earlier. That is\nprecisely the correlation experience replay exists to break. Published DQN uses a buffer of\n1,000,000; the notebook ships with 0.5% of that.\n\nI tested it as a falsifiable prediction rather than assuming it. Holding everything else at the\noriginal 1,000-episode settings and raising capacity to 700,000, which exceeds the 609,223\ndecisions such a run produces so that *nothing is ever evicted*:\n\n| | buffer 5,000 | buffer 700,000 |\n|---|---|---|\n| 30-seed mean of the last five checkpoints | 694.3 | **990.2** |\n| Trend correlation across 40 checkpoints | 0.40 | **0.72** |\n| Best checkpoint | episode 825 | **episode 1,000** |\n\nThe gain is +295.9 with a standard error near 48, about **6.2 sigma**. For the first time the\n*final* checkpoint was also the best one, meaning the curve rises rather than oscillating.\n\nThe cost is memory and nothing else: sampling 32 items from 2.5 million costs the same as from\n5,000, so wall-clock per episode is unchanged. At 5,000 episodes this run peaked at 86 GiB with"
+        },
+        {
+          "id": "S3",
+          "cite": "wiki/Projects/Ms Pac-Man DQN Agent.md:32-44 \u00a7 Ms Pac-Man DQN Agent > My write-up: `README.md`",
+          "path": "wiki/Projects/Ms Pac-Man DQN Agent.md",
+          "kind": "note",
+          "rrf": 0.0308,
+          "bm25_rank": 4,
+          "vector_rank": 6,
+          "text": "## My write-up: `README.md`\n\n- The agent's mean score over five evaluation games rose from 492 to 1,342.\n- A 5,000-episode run was conducted using 3,557,262 decisions and 889,066 updates.\n- The replay buffer capacity was increased from 5,000 to 2,500,000 transitions.\n- The training run took 127.7 minutes on Apple Silicon MPS.\n- A 30-seed validation harness was used to measure performance more reliably than the official five-game evaluation.\n- The agent's mean survival increased from 589 to 901 decisions per game.\n- The training run reached a peak memory usage of 86 GiB.\n- The agent's performance was evaluated using a fixed 5% exploration rate during evaluation.\n\nSource: [raw/assign2/README.md](../../raw/assign2/README.md)"
+        }
+      ]
+    },
+    {
+      "mode": "ask",
+      "input": "What was the Pac-Man agent's best score?",
+      "expect": "cites sources only; must not repeat 9,999 from chat",
+      "output": "The best trained game achieved 1,700 points [S3].",
+      "passages": [
+        "raw/assign2/README.md:424-439 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What the agent actually sees, does, and is paid for",
+        "raw/assign2/README.md:1-21 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "raw/assign2/README.md:243-274 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Gameplay",
+        "raw/assign2/README.md:46-57 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "raw/assign2/README.md:407-425 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What the agent actually sees, does, and is paid for",
+        "raw/assign2/README.md:472-484 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Architecture > What this design does not claim"
+      ],
+      "citation_check": "1 supported",
+      "contains_chat_claim": false,
+      "seconds": 0.3,
+      "total_seconds": 1.1,
+      "reasoning_tokens": 0
+    }
+  ]
+}

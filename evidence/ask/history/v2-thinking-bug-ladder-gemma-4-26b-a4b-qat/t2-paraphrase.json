@@ -1,0 +1,67 @@
+{
+  "test": {
+    "id": "t2-paraphrase",
+    "kind": "answerable, worded differently from the source",
+    "question": "In the contacts tracker, what stops one signed-in person from seeing somebody else's contacts?",
+    "expect_behavior": "answer",
+    "expect_sources": [
+      "raw/assign1/README.md"
+    ],
+    "expect_passage": "Row Level Security policy: auth.user_id() = user_id; the JWT sub claim is read by auth.user_id() and compared to contacts.user_id",
+    "expect_facts": [
+      "auth.user_id()",
+      "user_id"
+    ],
+    "expect_evidence": [
+      "auth.user_id() = user_id"
+    ]
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-26b-a4b-qat",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 15.64,
+      "context_length": 262144
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:30:49-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "In the contacts tracker, what stops one signed-in person from seeing somebody else's contacts?",
+    "model": "google/gemma-4-26b-a4b-qat",
+    "retrieval": "error",
+    "search_queries": [],
+    "retrieval_seconds": 0.0,
+    "passages": [],
+    "answer": "ERROR: model output hit max_tokens=1000 and was cut off; raise the limit",
+    "citation_check": {
+      "insufficient": false,
+      "ok": false,
+      "summary": "no claims",
+      "claims": []
+    },
+    "generation_seconds": 0.0,
+    "prompt_tokens": 0
+  },
+  "score": {
+    "retrieval_hit": false,
+    "behavior_ok": true,
+    "facts_ok": false,
+    "citations_ok": false,
+    "pass": false
+  },
+  "memory_footprint_gb": 19.7
+}

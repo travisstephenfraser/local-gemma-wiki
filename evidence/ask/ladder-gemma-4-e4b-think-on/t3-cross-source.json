@@ -1,0 +1,136 @@
+{
+  "test": {
+    "id": "t3-cross-source",
+    "kind": "connects two sources",
+    "question": "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?",
+    "expect_behavior": "answer",
+    "expect_sources": [
+      "raw/assign2/README.md",
+      "raw/assign3/README.md"
+    ],
+    "expect_passage": "Pac-Man: Learning rate 0.0001, standard Adam rate, left alone deliberately. Custom LLM: '0.0001 is too small. After 3,000 steps the model had barely learned: 4-8/48, with validation loss 1.40-1.83.'",
+    "expect_facts": [
+      "0.0001",
+      "48"
+    ],
+    "expect_evidence": [
+      "| Learning rate | `0.0001` |",
+      "**0.0001 is too small.**"
+    ]
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-e4b",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 6.86,
+      "context_length": 131072
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:50:21-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?",
+    "model": "google/gemma-4-e4b",
+    "retrieval": "bm25+vector (RRF) \u00b7 query planning (2 sub-queries)",
+    "search_queries": [
+      "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?",
+      "Ms. Pac-Man DQN agent learning rate",
+      "nanoGPT custom language model learning rate"
+    ],
+    "retrieval_seconds": 0.44,
+    "passages": [
+      {
+        "id": "S1",
+        "cite": "raw/assign2/README.md:82-91 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > My three hyperparameters",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0325,
+        "bm25_rank": 2,
+        "vector_rank": 1,
+        "text": "## My three hyperparameters\n\n| Setting | My value | Notebook default | Why |\n|---|---|---|---|\n| Exploration | `0.20` | 0.20 | The notebook holds epsilon *constant* instead of annealing it, so one number has to serve the whole run. Standard DQN decays 1.0 to 0.1; 0.20 sits just above the end of that schedule. I also tested 0.05 directly, on the theory that matching training exploration to the 5% used at evaluation would help. It did not, and the experiment is reported in [How I got here](#how-i-got-here-four-experiments). |\n| Episodes | `5000` | 100 | 3,557,262 agent decisions, about 28% of the original DQN paper's budget of 50 million frames, which is 12.5 million decisions at four frames each. This is the largest budget that fits a working session at 128 minutes. It is worth spending *only* because the buffer fix below gave the learning curve a slope; at the notebook's default buffer, more episodes bought more flat trajectory. |\n| Learning rate | `0.0001` | 0.0001 | The standard Adam rate for DQN. I left it alone deliberately: the instability I measured pointed at the replay buffer and the target network rather than the step size, so changing the learning rate would have confounded the one experiment that mattered. |\n\n---"
+      },
+      {
+        "id": "S2",
+        "cite": "raw/assign3/Assignment 3_ Building a Custom LLM.md:31-37 \u00a7 Open the Notebook",
+        "path": "raw/assign3/Assignment 3_ Building a Custom LLM.md",
+        "kind": "source",
+        "rrf": 0.0303,
+        "bm25_rank": 4,
+        "vector_rank": 8,
+        "text": "# Open the Notebook\n\n* [Custom LLM sample project on GitHub](https://github.com/pepealonso95/custom-llm)  \n* Local Jupyter or VS Code: install requirements.txt and open custom\\_llm.ipynb with that Python 3 environment. Colab generally includes PyTorch; notebook setup installs the PDF reader if absent. The pinned nanoGPT model source is provided.  \n* [Open custom\\_llm.ipynb in Google Colab. The default CPU runtime is enough.](https://colab.research.google.com/github/pepealonso95/custom-llm/blob/main/custom_llm.ipynb)  \n* Read [Karpathy's nanoGPT explanation](https://github.com/karpathy/nanoGPT) alongside the notebook. The model uses two blocks, four heads, 64-number embeddings, a 48-token context, PyTorch backpropagation, and AdamW. Whole-word tokenization is a classroom choice, not intrinsic to nanoGPT. Classroom additions make data, evaluation, and learning visible."
+      },
+      {
+        "id": "S3",
+        "cite": "raw/assign2/README.md:724-732 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Known limitations and what I would do next",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0313,
+        "bm25_rank": 5,
+        "vector_rank": 3,
+        "text": "gradient pointing toward chasing a blue ghost.\n- **The GIFs show 20 seconds of games that now last 60.** The visible excerpt is the easy opening,\n  not the deaths, so gameplay judgements from the GIFs alone are biased toward the agent. This got\n  worse as the agent improved, because the games got longer while the excerpt did not.\n- **One test assertion is environment-specific, and I introduced a second mismatch.** Covered in\n  [Tests](#tests).\n- **Not a benchmark reproduction.** Published DQN results on this game use a 1,000,000-transition\n  buffer and 50 million frames. This run used 2.5M transitions and 14.2 million frames."
+      },
+      {
+        "id": "S4",
+        "cite": "raw/assign2/README.md:1-21 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0305,
+        "bm25_rank": 5,
+        "vector_rank": 6,
+        "text": "# Training a Ms. Pac-Man agent with Deep Q-Learning\n\n**A 5,000-episode DQN run that scores 2.73x its untrained baseline, the one setting change that\nmade the difference, and the measurements that say how much of it to believe.**\n\nThis repository is my submission for Class 3. It uses the course's ready-made Deep Q-Network\nnotebook, which learns to play Ms. Pac-Man from raw screen pixels. The agent's mean score over\nthe five evaluation games rose from **492 to 1,342**, and all five seeds improved.\n\nThe part worth reading is not that number. My first submission scored 918 from a 1,000-episode\nrun, and I could not tell whether that gain was learning or luck, because a five-game\nevaluation has a noise floor of roughly \u00b1530 points. So I built a 30-seed validation harness on\nseeds the leaderboard never touches, used it to test three hypotheses in order, and found that\nthe notebook's 5,000-transition replay buffer, which holds about *eight games*, was the thing\nholding the agent back. Raising it is what turned a flat training curve into a rising one.\n\nTwo of the three hypotheses were wrong, and both are written up below rather than quietly\ndropped.\n\n**What I changed beyond the three assigned hyperparameters, stated up front.** The brief allows\ntuning other settings if you explain what you did and why, and I did:"
+      },
+      {
+        "id": "S5",
+        "cite": "raw/assign3/Assignment 3_ Building a Custom LLM.md:5-8 \u00a7 Overview",
+        "path": "raw/assign3/Assignment 3_ Building a Custom LLM.md",
+        "kind": "source",
+        "rrf": 0.0297,
+        "bm25_rank": 1,
+        "vector_rank": 15,
+        "text": "# Overview\n\nUse the ready-made notebook to understand the basics of a language model: corpus, tokens, vectors, embeddings, neural networks, and learning. It uses Andrej Karpathy's actual nanoGPT model, using PyTorch and a small word-token transformer. Choose your corpus, training steps, and learning rate, then submit one public GitHub repository URL with your executed notebook and evidence. This miniature model generates short sentences from a narrow corpus, not general chat answers."
+      },
+      {
+        "id": "S6",
+        "cite": "raw/assign2/README.md:120-123 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `REPLAY_CAPACITY`, 5,000 to 2,500,000",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0286,
+        "bm25_rank": 10,
+        "vector_rank": 10,
+        "text": "The cost is memory and nothing else: sampling 32 items from 2.5 million costs the same as from\n5,000, so wall-clock per episode is unchanged. At 5,000 episodes this run peaked at 86 GiB with\nzero swap."
+      }
+    ],
+    "answer": "INSUFFICIENT EVIDENCE: The passages state the Pac-Man DQN used a learning rate of `0.0001`, but they do not describe how the custom LLM performed when trained at that same learning rate.",
+    "citation_check": {
+      "insufficient": true,
+      "ok": true,
+      "summary": "model reported insufficient evidence",
+      "claims": []
+    },
+    "generation_seconds": 7.4,
+    "prompt_tokens": 1705,
+    "thinking": true,
+    "reasoning_tokens": 564
+  },
+  "score": {
+    "retrieval_hit": false,
+    "behavior_ok": false,
+    "facts_ok": false,
+    "citations_ok": true,
+    "pass": false
+  },
+  "memory_footprint_gb": 10.75
+}

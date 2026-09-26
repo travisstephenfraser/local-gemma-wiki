@@ -1,0 +1,38 @@
+{
+  "mode": "search",
+  "query": "replay buffer capacity",
+  "method": "bm25+vector (RRF)",
+  "network_online": true,
+  "passages": [
+    {
+      "id": "S1",
+      "cite": "raw/assign2/README.md:97-121 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `REPLAY_CAPACITY`, 5,000 to 2,500,000",
+      "path": "raw/assign2/README.md",
+      "kind": "source",
+      "rrf": 0.0328,
+      "bm25_rank": 1,
+      "vector_rank": 1,
+      "text": "### `REPLAY_CAPACITY`, 5,000 to 2,500,000\n\n**This is the change that made the difference, and it is not a close call.**\n\nAt 5,000 transitions and roughly 610 decisions per game, the notebook's buffer holds about\n**eight games**. Every batch of 32 is drawn from that narrow, highly correlated window, so the\nnetwork is continuously refit to the last few games and forgets everything earlier. That is\nprecisely the correlation experience replay exists to break. Published DQN uses a buffer of\n1,000,000; the notebook ships with 0.5% of that.\n\nI tested it as a falsifiable prediction rather than assuming it. Holding everything else at the\noriginal 1,000-episode settings and raising capacity to 700,000, which exceeds the 609,223\ndecisions such a run produces so that *nothing is ever evicted*:\n\n| | buffer 5,000 | buffer 700,000 |\n|---|---|---|\n| 30-seed mean of the last five checkpoints | 694.3 | **990.2** |\n| Trend correlation across 40 checkpoints | 0.40 | **0.72** |\n| Best checkpoint | episode 825 | **episode 1,000** |\n\nThe gain is +295.9 with a standard error near 48, about **6.2 sigma**. For the first time the\n*final* checkpoint was also the best one, meaning the curve rises rather than oscillating.\n\nThe cost is memory and nothing else: sampling 32 items from 2.5 million costs the same as from\n5,000, so wall-clock per episode is unchanged. At 5,000 episodes this run peaked at 86 GiB with"
+    },
+    {
+      "id": "S2",
+      "cite": "raw/assign2/README.md:92-96 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why",
+      "path": "raw/assign2/README.md",
+      "kind": "source",
+      "rrf": 0.0315,
+      "bm25_rank": 2,
+      "vector_rank": 5,
+      "text": "## What I changed and why\n\nThree changes fall outside the three assigned hyperparameters. The brief permits this with an\nexplanation, and the replay buffer is the substantive one."
+    },
+    {
+      "id": "S3",
+      "cite": "raw/assign2/README.md:130-161 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `ReplayMemory.sample()`, a performance fix",
+      "path": "raw/assign2/README.md",
+      "kind": "source",
+      "rrf": 0.0306,
+      "bm25_rank": 8,
+      "vector_rank": 3,
+      "text": "### `ReplayMemory.sample()`, a performance fix\n\nThis one is source code, not a hyperparameter, so it needs stating plainly. The shipped method\nwas:\n\n```python\nbatch = rng.sample(list(self.items), size)   # list() copies the entire buffer, every update\n```\n\nThat rebuilds the whole buffer as a list on *every one of the 889,066 updates*. It is invisible\nat 5,000 items and quadratic after that:\n\n| Buffer | Cost per update | Added over a run |\n|---|---|---|\n| 5,000 | 0.019 ms | negligible, which is why nobody notices |\n| 611,000 | 1.680 ms | +4.4 minutes |\n| 2,500,000 | ~6.9 ms | over an hour |\n\nA `deque` is also O(n) for random indexing, so the obvious fix does not help. The replacement is\na list-backed ring buffer that indexes in O(1) and draws its sample by index:\n\n```python\nbatch = [self.items[i] for i in rng.sample(range(len(self.items)), size)]\n```\n\n**This changes speed, not behaviour.** `random.sample` depends only on the population size, so\nfor the same RNG state it selects the same indices; while the buffer has not wrapped, the two\nimplementations return *identical* draws. I verified three things before using it: identical\ndraws over 200 consecutive samples on an unwrapped buffer, identical retained contents after\nwrapping, and 1.680 ms falling to 0.006 ms at 611,000 items.\n\nWithout this fix the 5,000-episode run would have spent more time copying lists than learning."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "project_title": "Custom Language Model Training",
+  "role": "supporting data",
+  "summary": "This document presents quantitative results from various experimental conditions tested during the training of a custom language model. The tables detail performance metrics across different seeds, learning rates, and layer depths, including correct classifications, transfer counts, and validation loss.",
+  "key_facts": [
+    "Margin = p(correct) - p(best wrong choice), averaged over the 3 cases.",
+    "The experiments used seeds 42, 1, 2, and 3 in sequence.",
+    "Condition A achieved validation losses of 0.71 / 0.68 / 0.70 / 0.69.",
+    "Condition B achieved validation losses of 0.73 / 0.77 / 0.83 / 0.81.",
+    "Condition C achieved validation losses of 1.18 / 0.99 / 1.14 / 1.06.",
+    "B_lr0.01 condition achieved validation losses of 0.74 / 0.76 / 0.82 / 0.77.",
+    "B_steps10000 condition achieved validation losses of 0.80 / 0.90 / 0.92 / 0.88."
+  ],
+  "concepts": [
+    {
+      "name": "Corpus",
+      "kind": "concept",
+      "definition": "A collection of texts used for training or testing.",
+      "in_this_source": "The model was tested against various conditions (A, B, C) using different datasets."
+    },
+    {
+      "name": "Hyperparameters",
+      "kind": "concept",
+      "definition": "Settings configured before training begins, such as learning rate or layer count.",
+      "in_this_source": "Different conditions like B_lr0.01 and B_steps10000 represent variations in hyperparameters."
+    },
+    {
+      "name": "Reinforcement Learning",
+      "kind": "concept",
+      "definition": "A machine learning paradigm where an agent learns through interaction with an environment.",
+      "in_this_source": "The performance metrics (e.g., correct/transfer counts) are likely outcomes of the training process."
+    },
+    {
+      "name": "Deep Q-Network",
+      "kind": "concept",
+      "definition": "A type of neural network used for sequential decision-making.",
+      "in_this_source": "The model training likely involved a DQN approach, given the context of custom language models."
+    }
+  ],
+  "source": "raw/assign3/summary.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

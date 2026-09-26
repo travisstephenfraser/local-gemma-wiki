@@ -1,0 +1,43 @@
+{
+  "project_title": "Signup Frontend Application",
+  "role": "assignment brief",
+  "summary": "This document outlines the technical specifications and implementation details for a single-page frontend application used as a classroom signup service. The application allows users to view the current list and add their own name via a public API endpoint.",
+  "key_facts": [
+    "The application is a single-page frontend for the classroom signup service.",
+    "API endpoint: `https://class2-signups-fall26.vercel.app/api/`",
+    "The API is public by design; no login, key, or class-code header is required.",
+    "The application sends only a name to the API.",
+    "Local development uses `npm run dev` at `http://localhost:5173`.",
+    "Testing includes Vitest checks for API status handling, ordinal math, and XSS escaping.",
+    "After a successful add, the list is refetched rather than patched locally."
+  ],
+  "concepts": [
+    {
+      "name": "Frontend Application",
+      "kind": "concept",
+      "definition": "A client-side application that interacts with a backend service.",
+      "in_this_source": "The project is described as a single-page frontend application."
+    },
+    {
+      "name": "RESTful API",
+      "kind": "concept",
+      "definition": "A set of architectural constraints for designing networked applications.",
+      "in_this_source": "The application interacts with a public API base URL."
+    },
+    {
+      "name": "XSS Escaping",
+      "kind": "concept",
+      "definition": "Preventing Cross-Site Scripting attacks by treating user input as literal text.",
+      "in_this_source": "Testing ensures that untrusted names are rendered safely using `textContent`."
+    },
+    {
+      "name": "Vercel",
+      "kind": "tool",
+      "definition": "A cloud platform for deploying web applications.",
+      "in_this_source": "Vercel is used to deploy the application and auto-detect the Vite setup."
+    }
+  ],
+  "source": "raw/class2/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

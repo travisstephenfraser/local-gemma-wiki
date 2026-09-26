@@ -1,0 +1,44 @@
+{
+  "project_title": "Custom Language Model Training",
+  "role": "course material",
+  "summary": "This guide describes the supplied 48-case synthetic language eval suite: what it covers, how it is scored, and how to run it.",
+  "key_facts": [
+    "48 fixed, synthetic language evals authored for this assignment.",
+    "The suite includes starter_patterns (16 cases), starter_transfer (8 cases), and extend_corpus (24 cases).",
+    "Scoring is based on the highest next-token probability among four candidate words.",
+    "A separate, unconstrained continuation is generated at temperature 0.8 with a 24-token limit.",
+    "If a prompt or answer choice contains a word outside the learned vocabulary, the case is marked as out_of_vocabulary.",
+    "The assignment uses a deliverable quality 4 + testing & evaluation 3 + working result 3 = 10 points grading structure.",
+    "The tokenizer keeps only the 509 most frequent training token types.",
+    "The terminal chat is launched with python chat.py --model llm_runs/YOUR_RUN/model.pt --transcript results/my-chat.json; run_evals.py reruns the evals separately."
+  ],
+  "concepts": [
+    {
+      "name": "nanoGPT",
+      "kind": "tool",
+      "definition": "A simplified implementation of the GPT architecture for language modeling.",
+      "in_this_source": "The document specifies using a trained nanoGPT model to feed prefixes into for evaluation."
+    },
+    {
+      "name": "Out-of-Vocabulary Cases",
+      "kind": "concept",
+      "definition": "Test cases containing words the model never learned, which it cannot score.",
+      "in_this_source": "A case whose prompt or answer choice has a word outside the learned vocabulary is marked out_of_vocabulary and scores zero in the all-case rate."
+    },
+    {
+      "name": "Next-Token Scoring",
+      "kind": "concept",
+      "definition": "Grading a language model by which candidate word it assigns the highest next-token probability.",
+      "in_this_source": "Each case feeds a prefix to the trained nanoGPT and scores it correct if the right word has the highest probability among four candidates."
+    }
+  ],
+  "retries": 0,
+  "source": "raw/assign3/evals/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat",
+  "reviewed": {
+    "by": "Claude Code fact-check against the original, applied by Travis",
+    "date": "2026-09-25",
+    "corrections": 7
+  }
+}

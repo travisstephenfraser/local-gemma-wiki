@@ -1,0 +1,43 @@
+{
+  "project_title": "Ms Pac-Man DQN Agent Training",
+  "role": "assignment brief",
+  "summary": "This document outlines the requirements for training a Deep Q-Network (DQN) agent on Ms. Pac-Man. The student must select three hyperparameters, train the agent, and submit a comprehensive report detailing the process, results, and limitations of the trained agent.",
+  "key_facts": [
+    "Choose three hyperparameters: Exploration, Episodes, and Learning rate.",
+    "Exploration ranges from 0 to 1; 0.20 means about 20% of training moves are random after warm-up.",
+    "Episodes must be a positive whole number; 100 is the notebook's starting value.",
+    "Learning rate dictates the size of each update; 0.0001 is a suggested starting point.",
+    "Evaluation must use the same settings: five seeds, 5% exploration, and time limit before/after training.",
+    "The submission requires a public GitHub repository URL containing the executed notebook and evidence in its README.",
+    "Report all five before/after evaluation scores and their means."
+  ],
+  "concepts": [
+    {
+      "name": "Deep Q-Network",
+      "kind": "concept",
+      "definition": "A type of neural network used for reinforcement learning.",
+      "in_this_source": "The DQN must be trained on Ms. Pac-Man using the provided notebook."
+    },
+    {
+      "name": "Hyperparameters",
+      "kind": "concept",
+      "definition": "Settings chosen before training begins that govern the learning process.",
+      "in_this_source": "The student must choose and explain three hyperparameters: Exploration, Episodes, and Learning rate."
+    },
+    {
+      "name": "Reinforcement Learning",
+      "kind": "concept",
+      "definition": "A machine learning approach where an agent learns through interaction with an environment.",
+      "in_this_source": "The DQN is applied to Ms. Pac-Man, where game points serve as the reward."
+    },
+    {
+      "name": "GitHub Repository",
+      "kind": "tool",
+      "definition": "A version control hosting service used to store and share code projects.",
+      "in_this_source": "The final submission must be a public GitHub repository URL."
+    }
+  ],
+  "source": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

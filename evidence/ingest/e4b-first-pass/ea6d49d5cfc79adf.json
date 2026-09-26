@@ -1,0 +1,37 @@
+{
+  "project_title": "Custom Language Model Training",
+  "role": "assignment brief",
+  "summary": "This document outlines the fixed, synthetic language evaluation suite used to test the trained model. It details how the 48 tests are structured into groups and explains the rigorous scoring methodology for both multiple-choice and free-text continuations.",
+  "key_facts": [
+    "The assignment uses 48 fixed, synthetic language evals.",
+    "Tests are divided into three groups: `starter_patterns` (16 cases), `starter_transfer` (8 cases), and `extend_corpus` (24 cases).",
+    "Scoring requires feeding only the prefix into the trained nanoGPT and reading next-token probabilities.",
+    "Multiple-choice success earns 1 point; incorrect or tied earns 0.",
+    "A separate, unconstrained continuation must be generated at temperature 0.8 for grading.",
+    "The model's success rate is reported over all 48 cases and among scorable cases.",
+    "The assignment grade depends on deliverable quality (4), testing & evaluation (3), and working result (3)."
+  ],
+  "concepts": [
+    {
+      "name": "NanoGPT",
+      "kind": "tool",
+      "definition": "A small language model implementation.",
+      "in_this_source": "The trained nanoGPT is used to predict next-token probabilities for the evaluation tests."
+    },
+    {
+      "name": "Reinforcement Learning",
+      "kind": "concept",
+      "definition": "A machine learning paradigm where agents learn through interaction with an environment.",
+      "in_this_source": "The model's performance is measured against the fixed evaluation suite."
+    },
+    {
+      "name": "Corpus",
+      "kind": "concept",
+      "definition": "The body of text used to train the language model.",
+      "in_this_source": "Training must be done on a corpus separate from the evaluation suite to ensure valid generalization."
+    }
+  ],
+  "source": "raw/assign3/evals-README.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}

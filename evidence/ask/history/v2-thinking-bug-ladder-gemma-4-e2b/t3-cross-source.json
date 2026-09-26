@@ -1,0 +1,152 @@
+{
+  "test": {
+    "id": "t3-cross-source",
+    "kind": "connects two sources",
+    "question": "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?",
+    "expect_behavior": "answer",
+    "expect_sources": [
+      "raw/assign2/README.md",
+      "raw/assign3/README.md"
+    ],
+    "expect_passage": "Pac-Man: Learning rate 0.0001, standard Adam rate, left alone deliberately. Custom LLM: '0.0001 is too small. After 3,000 steps the model had barely learned: 4-8/48, with validation loss 1.40-1.83.'",
+    "expect_facts": [
+      "0.0001",
+      "48"
+    ],
+    "expect_evidence": [
+      "| Learning rate | `0.0001` |",
+      "**0.0001 is too small.**"
+    ]
+  },
+  "environment": {
+    "execution": "local",
+    "endpoint": "http://localhost:1234/v1",
+    "network_online": true,
+    "model": {
+      "model": "google/gemma-4-e2b",
+      "format": "safetensors",
+      "quantization": "4bit",
+      "weights_gb": 4.37,
+      "context_length": 131072
+    },
+    "embed_model": "text-embedding-embeddinggemma-300m",
+    "lmstudio_cli": "71bd99c",
+    "device": {
+      "os": "macOS 26.6.2",
+      "chip": "Apple M5 Max",
+      "unified_memory_gb": 128,
+      "python": "3.14.5"
+    },
+    "run_at": "2026-09-25T21:29:31-0700"
+  },
+  "result": {
+    "mode": "ask",
+    "execution": "local",
+    "question": "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?",
+    "model": "google/gemma-4-e2b",
+    "retrieval": "bm25+vector (RRF) \u00b7 query planning (0 sub-queries)",
+    "search_queries": [
+      "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?"
+    ],
+    "retrieval_seconds": 0.33,
+    "passages": [
+      {
+        "id": "S1",
+        "cite": "raw/assign2/README.md:82-91 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > My three hyperparameters",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0325,
+        "bm25_rank": 2,
+        "vector_rank": 1,
+        "text": "## My three hyperparameters\n\n| Setting | My value | Notebook default | Why |\n|---|---|---|---|\n| Exploration | `0.20` | 0.20 | The notebook holds epsilon *constant* instead of annealing it, so one number has to serve the whole run. Standard DQN decays 1.0 to 0.1; 0.20 sits just above the end of that schedule. I also tested 0.05 directly, on the theory that matching training exploration to the 5% used at evaluation would help. It did not, and the experiment is reported in [How I got here](#how-i-got-here-four-experiments). |\n| Episodes | `5000` | 100 | 3,557,262 agent decisions, about 28% of the original DQN paper's budget of 50 million frames, which is 12.5 million decisions at four frames each. This is the largest budget that fits a working session at 128 minutes. It is worth spending *only* because the buffer fix below gave the learning curve a slope; at the notebook's default buffer, more episodes bought more flat trajectory. |\n| Learning rate | `0.0001` | 0.0001 | The standard Adam rate for DQN. I left it alone deliberately: the instability I measured pointed at the replay buffer and the target network rather than the step size, so changing the learning rate would have confounded the one experiment that mattered. |\n\n---"
+      },
+      {
+        "id": "S2",
+        "cite": "raw/assign2/README.md:724-732 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Known limitations and what I would do next",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0313,
+        "bm25_rank": 5,
+        "vector_rank": 3,
+        "text": "gradient pointing toward chasing a blue ghost.\n- **The GIFs show 20 seconds of games that now last 60.** The visible excerpt is the easy opening,\n  not the deaths, so gameplay judgements from the GIFs alone are biased toward the agent. This got\n  worse as the agent improved, because the games got longer while the excerpt did not.\n- **One test assertion is environment-specific, and I introduced a second mismatch.** Covered in\n  [Tests](#tests).\n- **Not a benchmark reproduction.** Published DQN results on this game use a 1,000,000-transition\n  buffer and 50 million frames. This run used 2.5M transitions and 14.2 million frames."
+      },
+      {
+        "id": "S3",
+        "cite": "raw/assign2/README.md:120-123 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `REPLAY_CAPACITY`, 5,000 to 2,500,000",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0286,
+        "bm25_rank": 10,
+        "vector_rank": 10,
+        "text": "The cost is memory and nothing else: sampling 32 items from 2.5 million costs the same as from\n5,000, so wall-clock per episode is unchanged. At 5,000 episodes this run peaked at 86 GiB with\nzero swap."
+      },
+      {
+        "id": "S4",
+        "cite": "raw/assign2/README.md:20-47 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.028,
+        "bm25_rank": 24,
+        "vector_rank": 2,
+        "text": "**What I changed beyond the three assigned hyperparameters, stated up front.** The brief allows\ntuning other settings if you explain what you did and why, and I did:\n\n| Change | From | To | Kind |\n|---|---|---|---|\n| `EPISODES` | 1,000 | 5,000 | one of my three choices |\n| `REPLAY_CAPACITY` | 5,000 | 2,500,000 | a *fixed classroom setting* in section 3 |\n| `DEMO_EVERY` | 25 | 125 | a fixed classroom setting, bookkeeping only |\n| `ReplayMemory.sample()` | `deque` scan | ring buffer | *source code*, not a hyperparameter |\n\n`EXPLORATION` stays at 0.20 and `LEARNING_RATE` stays at 1e-4. **Every evaluation setting is\nuntouched**: the same five seeds, 5% exploration, and the same 3,000-decision cap, before and\nafter, exactly as the brief requires. Each change is justified in\n[What I changed and why](#what-i-changed-and-why).\n\nThe notebook itself is the course's work ([pepealonso95/pacman-dqn](https://github.com/pepealonso95/pacman-dqn));\nmy contribution is the hyperparameter choices, the executed runs, the validation harness, the\nexperiments, and this write-up. It was written with the help of Claude Code, which ran the\nnotebook and drafted this README from the run's output files.\n\n**Status: complete.** The run finished all 5,000 episodes without interruption.\n\n---\n\n```\nTask        ALE/MsPacman-v5 (Atari 2600, via Gymnasium + ale-py)\nAgent       Deep Q-Network: 3 conv layers + 2 dense, experience replay, target network\nInput       4 stacked grayscale 84x84 frames"
+      },
+      {
+        "id": "S5",
+        "cite": "raw/assign2/README.md:188-210 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning > Results",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0279,
+        "bm25_rank": 8,
+        "vector_rank": 16,
+        "text": "## Results\n\nAll ten games below use the notebook's unchanged evaluation protocol: the same five seeds, 5%\nexploration, the same 3,000-decision cap, and a separate environment that never touches replay\nor weights. The baseline is the **untrained network**, as the assignment specifies.\n\n| Evaluation game | Seed | Before (untrained) | After (5,000 episodes) | Change |\n|---|---|---|---|---|\n| 1 | 101 | 350 | 1,220 | +870 |\n| 2 | 202 | 500 | 1,700 | +1,200 |\n| 3 | 303 | 320 | 1,000 | +680 |\n| 4 | 404 | 800 | 1,320 | +520 |\n| 5 | 505 | 490 | 1,470 | +980 |\n| **Mean** | | **492.0** | **1,342.0** | **+850.0** |\n\n**All five seeds improved**, and the weakest trained game (1,000) beats the strongest untrained\ngame (800). No game in either set hit the time limit, so every game ended in a real game over.\nFull data: [`results/comparison.json`](results/comparison.json).\n\n**Survival.** The trained agent also lasts far longer, which is a second signal that does not\ndepend on the score: mean survival rose from 589 to 901 decisions per game, about 39 to 60\nseconds of game time, a 1.53x increase."
+      },
+      {
+        "id": "S6",
+        "cite": "raw/assign2/README.md:1-21 \u00a7 Training a Ms. Pac-Man agent with Deep Q-Learning",
+        "path": "raw/assign2/README.md",
+        "kind": "source",
+        "rrf": 0.0277,
+        "bm25_rank": 7,
+        "vector_rank": 18,
+        "text": "# Training a Ms. Pac-Man agent with Deep Q-Learning\n\n**A 5,000-episode DQN run that scores 2.73x its untrained baseline, the one setting change that\nmade the difference, and the measurements that say how much of it to believe.**\n\nThis repository is my submission for Class 3. It uses the course's ready-made Deep Q-Network\nnotebook, which learns to play Ms. Pac-Man from raw screen pixels. The agent's mean score over\nthe five evaluation games rose from **492 to 1,342**, and all five seeds improved.\n\nThe part worth reading is not that number. My first submission scored 918 from a 1,000-episode\nrun, and I could not tell whether that gain was learning or luck, because a five-game\nevaluation has a noise floor of roughly \u00b1530 points. So I built a 30-seed validation harness on\nseeds the leaderboard never touches, used it to test three hypotheses in order, and found that\nthe notebook's 5,000-transition replay buffer, which holds about *eight games*, was the thing\nholding the agent back. Raising it is what turned a flat training curve into a rising one.\n\nTwo of the three hypotheses were wrong, and both are written up below rather than quietly\ndropped.\n\n**What I changed beyond the three assigned hyperparameters, stated up front.** The brief allows\ntuning other settings if you explain what you did and why, and I did:"
+      }
+    ],
+    "answer": "The Pac-Man DQN used a learning rate of $0.0001$ or $1e-4$ [S1, S4]. Information regarding how a custom LLM performed when trained at that same learning rate is not present in the provided passages.",
+    "citation_check": {
+      "insufficient": false,
+      "ok": false,
+      "summary": "1 supported, 1 uncited",
+      "claims": [
+        {
+          "sentence": "The Pac-Man DQN used a learning rate of $0.0001$ or $1e-4$ .",
+          "cited": [
+            "S1",
+            "S4"
+          ],
+          "status": "supported",
+          "missing_numbers": [],
+          "overlap": 0.77,
+          "judge": null
+        },
+        {
+          "sentence": "Information regarding how a custom LLM performed when trained at that same learning rate is not present in the provided passages.",
+          "cited": [],
+          "status": "uncited",
+          "missing_numbers": [],
+          "overlap": 0.0,
+          "judge": null
+        }
+      ]
+    },
+    "generation_seconds": 3.92,
+    "prompt_tokens": 2233
+  },
+  "score": {
+    "retrieval_hit": false,
+    "behavior_ok": true,
+    "facts_ok": false,
+    "citations_ok": false,
+    "pass": false
+  },
+  "memory_footprint_gb": 8.25
+}

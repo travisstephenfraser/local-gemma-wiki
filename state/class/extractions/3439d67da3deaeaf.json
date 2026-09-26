@@ -1,0 +1,50 @@
+{
+  "project_title": "Custom Language Model Training",
+  "role": "project write-up",
+  "summary": "This document describes experiments training a nanoGPT model on different corpora to test its ability to learn negation and spatial relations. The results show that expanding the corpus with targeted teaching stories allows the model to learn multi-sentence patterns, though negation remains a fragile skill compared to spatial relations.",
+  "key_facts": [
+    "Trained Karpathy's nanoGPT (2 blocks, 4 heads, 64-number embeddings, 48-token context, word tokens) from scratch on CPU.",
+    "Experiment A used the supplied classroom corpus.",
+    "Experiment B used the classroom corpus plus added teaching stories for negation and spatial relations.",
+    "Experiment C used the same words as B but with sentences split apart.",
+    "Experiment B achieved 100% accuracy on 6 targeted scorable cases.",
+    "A 1-layer model passed negation evals via a recency shortcut but failed probes designed to catch it.",
+    "Training for 10,000 steps or using a learning rate of 0.01 improved negation performance.",
+    "The model's performance on untargeted cases remained zero because their words never appeared in the training text."
+  ],
+  "concepts": [
+    {
+      "name": "Transformer",
+      "kind": "concept",
+      "definition": "A neural network architecture used for language modeling.",
+      "in_this_source": "The project uses Karpathy's nanoGPT, which is a transformer-based model."
+    },
+    {
+      "name": "Ablation",
+      "kind": "concept",
+      "definition": "An experiment that removes or changes one factor while holding the rest fixed, to see what that factor contributes.",
+      "in_this_source": "Experiment C trains on the same words as B with the sentences split apart, which separates vocabulary coverage from pattern learning."
+    },
+    {
+      "name": "Hyperparameters",
+      "kind": "concept",
+      "definition": "Parameters that control the learning process of a neural network.",
+      "in_this_source": "The document discusses adjusting training steps, learning rate, and model depth (layers)."
+    },
+    {
+      "name": "Corpus",
+      "kind": "concept",
+      "definition": "A collection of texts used for training a language model.",
+      "in_this_source": "The document compares training on a starter classroom corpus versus an expanded corpus with teaching stories."
+    }
+  ],
+  "retries": 0,
+  "source": "raw/assign3/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat",
+  "reviewed": {
+    "by": "Claude Code fact-check against the original, applied by Travis",
+    "date": "2026-09-25",
+    "corrections": 2
+  }
+}

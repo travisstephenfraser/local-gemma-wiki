@@ -1,0 +1,42 @@
+# Ask-mode eval set. Written 2026-09-25, BEFORE retrieval was built.
+# Lives outside vault/ so the harness can never retrieve the answer key.
+
+[[question]]
+id = "t1-direct"
+kind = "direct, one source"
+question = "What replay buffer capacity did the Ms. Pac-Man DQN use, and what was the notebook's default?"
+expect_behavior = "answer"
+expect_sources = ["raw/assign2/README.md"]
+expect_passage = "REPLAY_CAPACITY | 5,000 | 2,500,000 (section: ### `REPLAY_CAPACITY`, 5,000 to 2,500,000)"
+expect_facts = ["2,500,000", "5,000"]
+expect_evidence = ["`REPLAY_CAPACITY`, 5,000 to 2,500,000"]
+
+[[question]]
+id = "t2-paraphrase"
+kind = "answerable, worded differently from the source"
+question = "In the contacts tracker, what stops one signed-in person from seeing somebody else's contacts?"
+expect_behavior = "answer"
+expect_sources = ["raw/assign1/README.md"]
+expect_passage = "Row Level Security policy: auth.user_id() = user_id; the JWT sub claim is read by auth.user_id() and compared to contacts.user_id"
+expect_facts = ["auth.user_id()", "user_id"]
+expect_evidence = ["auth.user_id() = user_id"]
+
+[[question]]
+id = "t3-cross-source"
+kind = "connects two sources"
+question = "What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?"
+expect_behavior = "answer"
+expect_sources = ["raw/assign2/README.md", "raw/assign3/README.md"]
+expect_passage = "Pac-Man: Learning rate 0.0001, standard Adam rate, left alone deliberately. Custom LLM: '0.0001 is too small. After 3,000 steps the model had barely learned: 4-8/48, with validation loss 1.40-1.83.'"
+expect_facts = ["0.0001", "48"]
+expect_evidence = ["| Learning rate | `0.0001` |", "**0.0001 is too small.**"]
+
+[[question]]
+id = "t4-unsupported"
+kind = "plausible but not in the wiki"
+question = "What grade did I receive on the Ms. Pac-Man assignment?"
+expect_behavior = "insufficient_evidence"
+expect_sources = []
+expect_passage = "none: no source records a grade"
+expect_facts = []
+expect_evidence = []

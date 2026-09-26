@@ -1,0 +1,57 @@
+{
+  "project_title": "Secure Networking Tracker Application",
+  "role": "project write-up",
+  "summary": "Strada is a private contact management application that uses Postgres row-level security to enforce data ownership. The project features a React frontend and an Express backend, with an optional local wiki-sync tool for Obsidian vaults.",
+  "key_facts": [
+    "Strada is a private record of people to stay close to, behaving like a record rather than a queue.",
+    "The application uses React 19, Vite, TypeScript, and Tailwind CSS v4 for the frontend.",
+    "The backend is built with Express 5 and TypeScript (ESM) and is deployed on Vercel.",
+    "The database is Neon Postgres with Row Level Security (RLS) enforced on the contacts table.",
+    "Authentication is handled via Neon Managed Better Auth using Ed25519 JWTs.",
+    "188 automated tests: 163 hermetic (npm test) and 25 live (npm run test:rls) covering the two-account privacy proof and the wiki-layer lock.",
+    "The project includes an optional local wiki-sync tool that populates Strada from an Obsidian vault.",
+    "The application supports light, dark, and system themes."
+  ],
+  "concepts": [
+    {
+      "name": "Row Level Security",
+      "kind": "concept",
+      "definition": "A database security mechanism that restricts data access based on the user's identity.",
+      "in_this_source": "The project uses Postgres RLS to enforce ownership of contacts, ensuring users can only access their own rows."
+    },
+    {
+      "name": "Ed25519 JWT",
+      "kind": "concept",
+      "definition": "A type of JSON Web Token using the EdDSA signature algorithm.",
+      "in_this_source": "The application uses Ed25519 JWTs issued by Neon Managed Better Auth for authentication."
+    },
+    {
+      "name": "Neon Data API",
+      "kind": "tool",
+      "definition": "Neon's PostgREST-based HTTP interface to a Postgres database, called with the end user's own JWT.",
+      "in_this_source": "The Express API has no Postgres driver or DATABASE_URL; it reaches the database only through the Data API with the user's own token, so RLS scopes every query."
+    },
+    {
+      "name": "Neon Postgres",
+      "kind": "tool",
+      "definition": "A serverless PostgreSQL database service.",
+      "in_this_source": "The project uses Neon Postgres as its primary database."
+    },
+    {
+      "name": "Vercel",
+      "kind": "tool",
+      "definition": "A cloud platform for hosting web applications and serverless functions.",
+      "in_this_source": "The project is deployed on Vercel using two separate projects for the frontend and backend."
+    }
+  ],
+  "concepts_not_in_source": [],
+  "retries": 0,
+  "source": "raw/assign1/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat",
+  "reviewed": {
+    "by": "Claude Code fact-check against the original, applied by Travis",
+    "date": "2026-09-25",
+    "corrections": 3
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "project_title": "Signup Frontend Application",
+  "role": "project write-up",
+  "summary": "This document describes a single-page frontend application for a classroom signup service. It details the implementation of the API interaction, rendering logic, and deployment via Vercel.",
+  "key_facts": [
+    "The API endpoint is https://class2-signups-fall26.vercel.app/api/.",
+    "The app sends only a name to the API.",
+    "Local development uses npm install and npm run dev.",
+    "The app uses Vitest for testing, specifically for API status handling, ordinal math, and XSS escaping.",
+    "The app uses tsc --noEmit for type checking during the build process.",
+    "The app is deployed using Vercel.",
+    "The app uses Vercel auto-detection for the Vite setup.",
+    "The app uses textContent to prevent XSS attacks."
+  ],
+  "concepts": [
+    {
+      "name": "Dependency Injection",
+      "kind": "concept",
+      "definition": "Passing a component its collaborators as arguments instead of having it reach for globals.",
+      "in_this_source": "api.ts takes fetch as an optional injected argument, which lets the tests exercise every status code without stubbing globals."
+    },
+    {
+      "name": "Vercel",
+      "kind": "tool",
+      "definition": "A cloud platform for hosting and deploying web applications.",
+      "in_this_source": "The app is deployed using Vercel."
+    },
+    {
+      "name": "Vite",
+      "kind": "tool",
+      "definition": "A build tool for modern web development.",
+      "in_this_source": "The app uses Vite setup and Vercel auto-detection for the Vite setup."
+    },
+    {
+      "name": "Vitest",
+      "kind": "tool",
+      "definition": "A testing framework for JavaScript/TypeScript/Web APIs.",
+      "in_this_source": "The app uses Vitest for testing API status handling, ordinal math, and XSS escaping."
+    },
+    {
+      "name": "XSS Prevention",
+      "kind": "concept",
+      "definition": "Rendering untrusted input as literal text (e.g. the DOM textContent property, never innerHTML) so injected markup cannot run.",
+      "in_this_source": "render.ts inserts every name with textContent because anyone can write to the endpoint; a test asserts an <img onerror> name renders as literal text."
+    }
+  ],
+  "concepts_count": 5,
+  "retries": 0,
+  "source": "raw/class2/README.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat",
+  "reviewed": {
+    "by": "Claude Code fact-check against the original, applied by Travis",
+    "date": "2026-09-25",
+    "corrections": 2
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "project_title": "Ms Pac-Man DQN Agent Training",
+  "role": "assignment brief",
+  "summary": "This document outlines the requirements for training a Deep Q-Network (DQN) agent to play Ms. Pac-Man. Students must select three hyperparameters, train the agent, and provide evidence of learning through a README containing GIFs, plots, and evaluation scores.",
+  "key_facts": [
+    "Choose three hyperparameters: exploration, episodes, and learning rate.",
+    "Submit one public GitHub repository URL containing the notebook and evidence in its README.",
+    "The notebook requires a Python 3.11\u20133.13 kernel.",
+    "Exploration stays constant after 1,000 random warm-up decisions.",
+    "An episode ends at game over or the notebook's fixed time limit.",
+    "Keep the notebook's evaluation settings unchanged: the same five seeds, 5% exploration, and time limit.",
+    "The baseline for comparison is an untrained network, not a random-action agent.",
+    "The best GIF is selected from five games and shows at most their first 20 seconds."
+  ],
+  "concepts": [
+    {
+      "name": "Deep Q-Network",
+      "kind": "concept",
+      "definition": "A reinforcement learning algorithm used to train an agent to make decisions in an environment.",
+      "in_this_source": "The assignment requires using a provided notebook to train a Deep Q-Network on Ms. Pac-Man."
+    },
+    {
+      "name": "Hyperparameters",
+      "kind": "concept",
+      "definition": "Parameters set before the beginning of a training process that control the learning behavior of the model.",
+      "in_this_source": "Students must choose and explain three specific hyperparameters: exploration, episodes, and learning rate."
+    },
+    {
+      "name": "Fixed Evaluation Protocol",
+      "kind": "concept",
+      "definition": "Measuring a model before and after training under identical, frozen evaluation settings so the comparison is fair.",
+      "in_this_source": "The brief requires the same five seeds, 5% exploration, and time limit before and after training, with an untrained network as the baseline."
+    }
+  ],
+  "retries": 0,
+  "source": "raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat",
+  "reviewed": {
+    "by": "Claude Code fact-check against the original, applied by Travis",
+    "date": "2026-09-25",
+    "corrections": 2
+  }
+}

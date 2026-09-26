@@ -1,0 +1,43 @@
+{
+  "project_title": "Custom Language Model Training",
+  "role": "assignment brief",
+  "summary": "This assignment requires students to train a miniature language model using Andrej Karpathy's nanoGPT implementation. The core task is to conduct two experiments\u2014one on a starter corpus and one with extensions\u2014and demonstrate the model's learning process through detailed evidence, including a working chat interface.",
+  "key_facts": [
+    "The model uses Andrej Karpathy's nanoGPT implementation with PyTorch and a small word-token transformer.",
+    "Two experiments are required: one on the starter corpus and one with extensions for at least two eval categories.",
+    "The assignment requires submitting an executed custom_llm.ipynb, showing settings, plots, and eval results.",
+    "The model must be tested against a provided 48-case synthetic language eval suite, run before and after training.",
+    "A working chat interface connected to the trained model is required, with evidence of at least 3 actual interactions.",
+    "The README must explain the learning process using actual token, embedding, gradient, and loss evidence.",
+    "Training steps can range from 10 to 3,000 weight updates; the initial learning rate is 0.001."
+  ],
+  "concepts": [
+    {
+      "name": "NanoGPT",
+      "kind": "concept",
+      "definition": "A small, functional implementation of a GPT model used for training.",
+      "in_this_source": "The assignment uses Andrej Karpathy's nanoGPT model as the base for training."
+    },
+    {
+      "name": "PyTorch",
+      "kind": "tool",
+      "definition": "A tensor computation library used for building and training neural networks.",
+      "in_this_source": "The model is built using PyTorch backpropagation."
+    },
+    {
+      "name": "Transformer",
+      "kind": "concept",
+      "definition": "A neural network architecture that uses attention mechanisms to process sequential data.",
+      "in_this_source": "The model is based on a small word-token transformer."
+    },
+    {
+      "name": "Corpus",
+      "kind": "concept",
+      "definition": "The body of text used to train the language model.",
+      "in_this_source": "Students must choose and manage their training corpus, including starter and extended versions."
+    }
+  ],
+  "source": "raw/assign3/Assignment 3_ Building a Custom LLM.md",
+  "truncated": false,
+  "model": "google/gemma-4-e4b"
+}
