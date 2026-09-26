@@ -254,6 +254,7 @@ The ladder is the model-choice rationale: with 128 GB of unified memory, all thr
 - Open note with source references and related links: `docs/screenshots/03-obsidian-note.png` *(screenshot pending)*
 - Page list / `index.md` grouped by topic: `docs/screenshots/02-obsidian-index.png` *(screenshot pending)*
 - Graph view, filter `path:wiki/`, attachments off: `docs/screenshots/04-obsidian-graph.png` *(screenshot pending)*
+- Human check (2026-09-25): I opened `vault/` in Obsidian and confirmed the notes and graph, including the Ms Pac-Man DQN Agent and Custom nanoGPT Model nodes.
 - Trace: [index.md](vault/index.md) → [Ms Pac-Man DQN Agent](vault/wiki/Projects/Ms%20Pac-Man%20DQN%20Agent.md) → [Experience Replay](vault/wiki/Concepts/Experience%20Replay.md) → `raw/assign2/README.md`. `test_vault_integrity` checks that every link on that path resolves.
 
 ### Retrieved passages for the three answerable questions

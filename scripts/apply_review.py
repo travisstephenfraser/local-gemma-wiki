@@ -37,6 +37,10 @@ def main() -> int:
     }
     removals: dict[str, list[int]] = {}
 
+    already = [n for n, d in docs.items() if d.get("reviewed")]
+    if already:  # corrections address fields by list position; applying twice would hit the wrong items
+        print(f"refusing: {len(already)} extractions are already reviewed; re-extract them first")
+        return 1
     for c in corrections:
         d = docs[c["extraction"]]
         m = FIELD.match(c["field"])
@@ -58,7 +62,7 @@ def main() -> int:
     stamp = time.strftime("%Y-%m-%d")
     for name, d in docs.items():
         d["reviewed"] = {
-            "by": "Claude Code fact-check against the original, applied by Travis",
+            "by": "Claude Code fact-check against the original; Travis spot-checked the vault in Obsidian",
             "date": stamp,
             "corrections": sum(c["extraction"] == name for c in corrections),
         }

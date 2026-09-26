@@ -43,7 +43,7 @@
   "truncated": false,
   "model": "google/gemma-4-26b-a4b-qat",
   "reviewed": {
-    "by": "Claude Code fact-check against the original, applied by Travis",
+    "by": "Claude Code fact-check against the original; Travis spot-checked the vault in Obsidian",
     "date": "2026-09-25",
     "corrections": 2
   }
