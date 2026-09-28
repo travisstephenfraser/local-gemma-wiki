@@ -4,7 +4,7 @@
 
 `wiki` turns my course notes into a linked Obsidian wiki and answers questions about them with a local Gemma 4 model through LM Studio. There are three modes: *chat* (a personal assistant that searches notes only when a turn needs them), *ask* (standalone factual answers that cite line ranges in the original files, or say the evidence is insufficient), and *search* (raw passages, no model). The idea that shaped it: **a citation is a claim that can be checked**. After every answer, the harness verifies that each cited passage actually contains the sentence's numbers and words, and flags any claim that has no citation. The property that is *enforced*, not promised, is that ask mode only ever sees `raw/` originals, never Gemma's own summaries. Everything runs on the laptop; `wiki status` reports whether the network was up for every run. The same harness also runs read-only over my private 274-page vault (`--profile brain`).
 
-Built for Assignment 4 (Personal Wiki with Local Gemma + RAG), Haas AI-build class, with Claude Code as a pair programmer. The model calls, prompts, and retrieval are my own harness code in [`wikicli/`](wikicli/). Status: complete for the local modes. The offline recording and Obsidian screenshots are the last evidence items (see [Grading evidence](#grading-evidence)).
+Built for Assignment 4 (Personal Wiki with Local Gemma + RAG), Haas AI-build class, with Claude Code as a pair programmer. The model calls, prompts, and retrieval are my own harness code in [`wikicli/`](wikicli/). Status: complete. All four ask tests and the mode checks were rerun with Wi-Fi off on 2026-09-28 ([transcript](evidence/offline/transcript.txt)); Obsidian screenshots are the last evidence item.
 
 **Runs locally only** (no hosted deployment; nothing leaves the machine)
 
@@ -14,7 +14,7 @@ Model        Gemma 4 26B-A4B QAT, MLX 4-bit, via LM Studio 0.4.21 (local server 
 Ingest model same, 26B-A4B (batch job, quality over speed)
 Embeddings   EmbeddingGemma 300M, GGUF Q8_0 (local)
 Retrieval    BM25 + vectors, reciprocal-rank fusion; query planning; two-hop
-Wiki         Obsidian vault: vault/raw (originals) · vault/wiki (30 notes) · index.md
+Wiki         Obsidian vault: vault/raw (11 originals) · vault/wiki (32 notes) · index.md
 Tests        33 passing, 0 skipped (pytest, no model or network needed)
 Checked      2026-09-25 on Apple M5 Max, 128 GB unified memory
 ```
@@ -47,8 +47,9 @@ The wiki is a study and reference memory for my course projects: what each assig
 | `assign3/Assignment 3_ Building a Custom LLM.md` | Course instructor | [Custom nanoGPT Model](vault/wiki/Projects/Custom%20nanoGPT%20Model.md) |
 | `assign3/README.md`, `assign3/experiments/summary.md` | Me | [Custom nanoGPT Model](vault/wiki/Projects/Custom%20nanoGPT%20Model.md) |
 | `assign3/evals/README.md` | Course staff (starter repo) | [Custom nanoGPT Model](vault/wiki/Projects/Custom%20nanoGPT%20Model.md) |
+| `assign4/Assignment 4_ Personal Wiki with Local Gemma + RAG.md` | Course instructor | [Personal Wiki With Local Gemma](vault/wiki/Projects/Personal%20Wiki%20With%20Local%20Gemma.md) (ingested offline during the demo) |
 
-10 files, 33,906 words. Paths mirror the original repos; [`sources.toml`](sources.toml) records each file's origin and author. The rendered [Source Catalog](vault/Source%20Catalog.md) maps every file to its SHA-256 and the note it feeds, and every wiki note links back to its originals.
+11 files, 38,768 words. Paths mirror the original repos; [`sources.toml`](sources.toml) records each file's origin and author. The rendered [Source Catalog](vault/Source%20Catalog.md) maps every file to its SHA-256 and the note it feeds, and every wiki note links back to its originals.
 
 ## Walkthrough
 
@@ -243,8 +244,8 @@ Device for every run: macOS 26.6.2, Apple M5 Max (18-core CPU, 40-core GPU), 128
 |---|---|---|
 | Answer model | `google/gemma-4-26b-a4b-qat`, safetensors, MLX 4-bit, 15.64 GB of weights | `wiki status`, evidence cards |
 | LM Studio physical footprint during answers | 19.7 GB (model, KV cache, embedding model) | `footprint` of the LM Studio processes, recorded per card |
-| Local ingestion | 71.8 s of model time for 10 sources (4.6 to 12.7 s each) | [`state/class/manifest.json`](state/class/manifest.json) |
-| Ask, end to end | 1.6 to 2.5 s (planning, two-hop check, and retrieval 1.1 to 1.4 s; generation 0.4 to 1.3 s) | [`evidence/ask/3-planning-plus-two-hop/summary.json`](evidence/ask/3-planning-plus-two-hop/summary.json) |
+| Local ingestion | 71.8 s of model time for the first 10 sources (4.6 to 12.7 s each); 6.6 s for the 11th, offline | [`state/class/manifest.json`](state/class/manifest.json), [transcript](evidence/offline/transcript.txt) |
+| Ask, end to end | 1.3 to 1.9 s offline (planning, two-hop check, and retrieval about 1 s; generation 0.4 to 0.9 s) | [`evidence/ask/gemma-4-26b-a4b-qat/summary.json`](evidence/ask/gemma-4-26b-a4b-qat/summary.json) |
 | Model ladder | E2B 1/4, E4B 2/4, 26B-A4B 3/4; thinking on changed no pass count | [`evidence/model-ladder.md`](evidence/model-ladder.md) |
 
 The ladder is the model-choice rationale: with 128 GB of unified memory, all three sizes fit, so the choice was the smallest one that answered correctly, not the largest one that loaded.
@@ -261,17 +262,17 @@ The ladder is the model-choice rationale: with 128 GB of unified memory, all thr
 
 The questions and expected passages were written before retrieval existed, in [`tests/questions.toml`](tests/questions.toml), outside the vault. Each card lists all six retrieved passages with path, lines, and BM25 and vector ranks:
 
-- T1, direct: [card](evidence/ask/3-planning-plus-two-hop/t1-direct.md). Expected passage `raw/assign2/README.md` "`REPLAY_CAPACITY`, 5,000 to 2,500,000", retrieved as S2 (lines 97-121).
-- T2, paraphrased ("what stops one signed-in person from seeing somebody else's contacts"): [card](evidence/ask/3-planning-plus-two-hop/t2-paraphrase.md). Expected `auth.user_id() = user_id`, retrieved as S4 (`raw/assign1/README.md:253-280`).
-- T3, two sources: [card](evidence/ask/3-planning-plus-two-hop/t3-cross-source.md). Expected Pac-Man learning rate plus "0.0001 is too small" in the nanoGPT write-up, both retrieved (S2 and S1).
+- T1, direct: [card](evidence/ask/gemma-4-26b-a4b-qat/t1-direct.md). Expected passage `raw/assign2/README.md` "`REPLAY_CAPACITY`, 5,000 to 2,500,000", retrieved as S2 (lines 97-121).
+- T2, paraphrased ("what stops one signed-in person from seeing somebody else's contacts"): [card](evidence/ask/gemma-4-26b-a4b-qat/t2-paraphrase.md). Expected `auth.user_id() = user_id`, retrieved as S4 (`raw/assign1/README.md:253-280`).
+- T3, two sources: [card](evidence/ask/gemma-4-26b-a4b-qat/t3-cross-source.md). Expected Pac-Man learning rate plus "0.0001 is too small" in the nanoGPT write-up, both retrieved (S2 and S1).
 
 ### Answers with citations and assessment
 
-Final configuration (planning and two-hop on, judge on), run while online on 2026-09-25:
+Final configuration (planning and two-hop on, judge on), **run offline on 2026-09-28** ([cards](evidence/ask/gemma-4-26b-a4b-qat/), each recording `network_online: false`). The answers are identical to the online development run of 2026-09-25:
 
 | Test | Gemma's answer (verbatim) | Assessment |
 |---|---|---|
-| T1 | "The Ms. Pac-Man DQN used a `REPLAY_CAPACITY` of 2,500,000 [S2], while the notebook's default was 5,000 [S2]." | Pass. Both numbers are in S2. |
+| T1 | "The Ms. Pac-Man DQN used a `REPLAY_CAPACITY` of 2,500,000 [S2]. The notebook's default capacity was 5,000 [S2]." | Pass. Both numbers are in S2 (`raw/assign2/README.md:97-121`). |
 | T2 | "…Every policy restricts access to rows where the `user_id` matches the signed-in user [S1, S4, S6]. Specifically, the `contacts_select_own` policy uses `auth.user_id() = user_id` to gate access [S4]." | Pass. 4 of 4 claims supported; the policy text is in S4. |
 | T3 | "The Ms. Pac-Man DQN used a learning rate of 0.0001 [S2]. When the custom LLM was trained at that same learning rate (B_lr0.0001), it achieved a validation loss of 1.40–1.83 [S4]." | **Fail, partial.** Both facts are true and cited, but the answer leaves out the headline result (4 to 8 of 48 correct), which the answer key requires; the judge rated the second claim partial. I did not edit the key after seeing the result. |
 | T4 | "INSUFFICIENT EVIDENCE: The provided passages do not contain information regarding the grade received on the Ms. Pac-Man assignment." | Pass. |
@@ -290,7 +291,7 @@ T4, "What grade did I receive on the Ms. Pac-Man assignment?", retrieved six Pac
 
 ### Chat and search mode checks
 
-[`evidence/modes/gemma-4-26b-a4b-qat.md`](evidence/modes/gemma-4-26b-a4b-qat.md), same model:
+[`evidence/modes/gemma-4-26b-a4b-qat.md`](evidence/modes/gemma-4-26b-a4b-qat.md), same model, run offline:
 
 | Check | Result |
 |---|---|
@@ -304,15 +305,20 @@ T4, "What grade did I receive on the Ms. Pac-Man assignment?", retrieved six Pac
 
 `scripts/offline_demo.sh` refuses to run while 1.1.1.1 is reachable, restarts the LM Studio server, then runs help, status, ingestion of a new source (the Assignment 4 brief itself), a second ingest to show no duplicates, search, two asks, all four evidence cards, the mode checks, and a piped chat session. Every card records `network_online`.
 
-- Transcript: `evidence/offline/transcript.txt` *(pending: run with Wi-Fi off)*
-- Offline cards: `evidence/ask/gemma-4-26b-a4b-qat/` *(pending)*
-- Terminal recording: `docs/screenshots/05-ask-offline.png` *(screenshot pending)*
+Run on 2026-09-28 at 16:31 PDT with Wi-Fi off:
 
-The development runs linked above were made online and are labeled `Network online during run: True` in every card.
+- [Transcript](evidence/offline/transcript.txt): `Wi-Fi Power (en0): Off`, `network OFFLINE` in `wiki status`, the server restarted, then every command and its full output.
+- [Offline evidence cards](evidence/ask/gemma-4-26b-a4b-qat/): 3/4 passed, identical to the online run; `network_online: false` in every card.
+- [Mode checks](evidence/modes/gemma-4-26b-a4b-qat.md), [search and ask run logs](evidence/runs/), and the piped chat session at the end of the transcript, all offline.
+- Offline ingestion: the Assignment 4 brief went through Gemma in 6.6 s and became [Personal Wiki With Local Gemma](vault/wiki/Projects/Personal%20Wiki%20With%20Local%20Gemma.md) plus a [RAG](vault/wiki/Concepts/RAG.md) concept; I checked its eight facts against the brief. A second `wiki ingest` then made zero model calls (11 unchanged) and the project list was the same.
+- LM Studio footprint: 17.5 GB before ingestion, 19.3 GB after, 19.2 GB during the evidence cards.
+- Terminal screenshot: `docs/screenshots/05-ask-offline.png` *(screenshot pending)*
+
+The development runs under `evidence/ask/1-baseline` through `3-planning-plus-two-hop` and `history/` were made online and say so in every card.
 
 ### Re-ingestion without duplicates
 
-Ingesting all ten sources a second time made zero model calls and changed no wiki files. Renaming the four projects during review removed the old files and rewrote every incoming link; `test_vault_integrity` confirms no link was left dangling. The render step's idempotency and hand-edit protection are unit-tested.
+Ingesting all sources a second time made zero model calls and changed no wiki files, both online and in the offline transcript (11 unchanged). Renaming the four projects during review removed the old files and rewrote every incoming link; `test_vault_integrity` confirms no link was left dangling. The render step's idempotency and hand-edit protection are unit-tested.
 
 ## Deployment and distribution
 

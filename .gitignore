@@ -7,3 +7,5 @@ state/*/vectors.npy
 outputs/
 feed/
 .ruff_cache/
+vault/wiki/.obsidian/
+**/.obsidian/workspace*.json

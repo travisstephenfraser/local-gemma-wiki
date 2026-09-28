@@ -12,14 +12,17 @@
       "title": "Custom nanoGPT Model",
       "title_set_by": "human review 2026-09-25"
     },
+    "assign4": {
+      "title": "Personal Wiki With Local Gemma"
+    },
     "class2": {
       "title": "Class Signup Frontend",
       "title_set_by": "human review 2026-09-25"
     }
   },
   "rendered": {
-    "Source Catalog.md": "8b6be906e603f1e6f440da815091a95437a3e8ef123513171e55f05ba7c6c511",
-    "index.md": "0ebdddf5e1597803fb2dbd8cf07893d1872cb97c2a73572d63cb8569c153aa1b",
+    "Source Catalog.md": "37a1578e0600e0fdfe4e8757c5ee6abb07742c2ab427779ae0057d8f7ba2b2aa",
+    "index.md": "8897e63d79f023c9f9d1a70b94d08d32139915c61dbddd8b07dcd2b732581440",
     "wiki/Concepts/Ablation.md": "decc967b544630f64e1982ffb7d7d80f365e52e9fc22951c3918d358f0476d53",
     "wiki/Concepts/Corpus.md": "e9740f2e88aa8c72353c095b5facbfbfd4e336a9cd3ce33d3c3a9cce1b3ec33a",
     "wiki/Concepts/Deep Q-Network.md": "74764d168b7efd90f2f04cef3d10a00120742094646937ab7eba0803be69bf1a",
@@ -33,6 +36,7 @@
     "wiki/Concepts/Next-Token Scoring.md": "988ba0a3aadd1819079963f76d010a1ab8eb2f2b9974c8c24c34e020a2c21b68",
     "wiki/Concepts/Out-of-Vocabulary Cases.md": "836ffef8f6fd09ecba382b7c343f4fc34a5b1768a6f8db9ca02d2b83ecbe9566",
     "wiki/Concepts/Public Unauthenticated API.md": "2dd6b9b87752746760027e7af0bacd944d870756afef1a79b6454f9ec46f5e1d",
+    "wiki/Concepts/RAG.md": "6edc743f812b81b34fec597b60ff9b30abf4e5d65983014db30a3d920255e6cb",
     "wiki/Concepts/Row Level Security.md": "ff8e61c1b31d444c85b5a270bf548548a6f7e1c64a7f999b749fd0ab9845b18d",
     "wiki/Concepts/Transformer.md": "14c82716c0915a46572311b0f206cf34090633679f36034d9a022b76e3cfa12d",
     "wiki/Concepts/UI State Handling.md": "c185affdf566b062ff2fffc66d183eff80cf0ef13f588003428631a898d78d8a",
@@ -41,6 +45,7 @@
     "wiki/Projects/Class Signup Frontend.md": "d1a3814195b43d20d9a6e4ebdccafd689321ea5b52ec5439aec2f53857e6b750",
     "wiki/Projects/Custom nanoGPT Model.md": "683022648d474cc6cac7eb47995c0071064d7ee6225d68787cb134e50c4a756c",
     "wiki/Projects/Ms Pac-Man DQN Agent.md": "735d8e5d368084a5c702610ca0c68f50edc83bf6b91b69d7b1f34e7f579005dd",
+    "wiki/Projects/Personal Wiki With Local Gemma.md": "e2f5c6b7a0cd3b0b8eaed204944f364c38f26a8941fb52a3092870b46d00646d",
     "wiki/Projects/Strada Networking Tracker.md": "5c7538afd8bca77433f94161b7139dd7d754d107e6f1fbd30ce14c6ac02eb94c",
     "wiki/Tools/Managed Better Auth.md": "9f0fd96e6195fe7b177f61a39c43bbd1d145608de0a17943332765dafc533a40",
     "wiki/Tools/Neon Data API.md": "45ec5c690466d33b5fbd1d68e1e3673757daceef85df2ebd626f38ec52d01edf",
@@ -107,6 +112,13 @@
       "model": "google/gemma-4-26b-a4b-qat",
       "seconds": 4.6,
       "sha256": "572f0c188161e00d0e12c06d5f8a34ff90c0736d8519a5eb01a63324cf312514"
+    },
+    "raw/assign4/Assignment 4_ Personal Wiki with Local Gemma + RAG.md": {
+      "extracted": "2026-09-28T16:31:44",
+      "extraction": "extractions/86ca63c527a1d32b.json",
+      "model": "google/gemma-4-26b-a4b-qat",
+      "seconds": 6.6,
+      "sha256": "d76ed179e7f2b11edbbe8f15fd7112abef08eb6cd8520f03f5e5c78714e098a5"
     },
     "raw/class2/Class 2 Exercise \u2014 Build a Signup Frontend.md": {
       "extracted": "2026-09-25T21:10:23",

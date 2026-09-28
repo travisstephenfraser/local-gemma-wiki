@@ -1,8 +1,8 @@
 {
-  "built": "2026-09-25T22:21:41",
+  "built": "2026-09-28T16:31:53",
   "profile": "class",
-  "passages": 365,
-  "files": 40,
+  "passages": 405,
+  "files": 43,
   "embed_model": "text-embedding-embeddinggemma-300m",
-  "embeddings": "text-embedding-embeddinggemma-300m in 3.0s"
+  "embeddings": "text-embedding-embeddinggemma-300m in 3.3s"
 }

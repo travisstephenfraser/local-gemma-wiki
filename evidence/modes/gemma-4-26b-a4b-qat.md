@@ -1,100 +1,113 @@
 # Mode boundary checks: google/gemma-4-26b-a4b-qat
 
-Execution: local (http://localhost:1234/v1) · network online during run: **True** · 2026-09-25T21:57:18-0700
+Execution: local (http://localhost:1234/v1) · network online during run: **False** · 2026-09-28T16:32:07-0700
 
 ## `chat` · what can you help me with?
 
 *Expected:* capabilities; no retrieval; no insufficient-evidence refusal  
 *Router:* retrieve=False query=`` (The user is asking a general question about my capabilities, which does not require specific facts or details from their personal course notes.)  
-*Passages:* none · 2.59s
+*Passages:* none · 3.15s
 
-> I can help you draft, outline, and rework text, or brainstorm ideas for your projects.
+> I help you manage and expand your class notes and projects. I function as a local drafting and retrieval partner.
 >
-> If you need information from your notes, I can retrieve specific passages from your wiki. Use these commands to manage our session:
+> **Writing & Ideation**
+> *   **Drafting:** I can write outlines, brainstorm project ideas, or draft text for your assignments.
+> *   **Refining:** Send me a paragraph and I can shorten it, change the tone, or convert it into bullet points.
+> *   **Planning:** I can help you structure project roadmaps or study plans.
 >
-> *   **`wiki ask`**: For strictly sourced factual answers from your notes.
-> *   **`wiki search`**: To see the raw passages from your notes.
-> *   **`/save`**: To save my last reply as a draft outside the wiki.
-> *   **`/sources`**: To see the passages I used in my previous response.
-> *   **`/reset`**: To clear the current conversation.
-> *   **`/help`**: To see all commands.
+> **Wiki Retrieval**
+> I can search your personal wiki to find specific information from your course projects (Signup frontend, Secure Networking Tracker, Ms. Pac-Man DQN, Custom LLM) and related concepts.
+> *   Use `wiki ask` for direct answers based strictly on your notes.
+> *   Use `wiki search` to see the raw passages I find.
 >
-> I can access your course projects (Signup frontend, Secure Networking Tracker, Ms. Pac-Man DQN, Custom LLM) and the concepts behind them if you ask. I cannot browse the internet or edit your files directly.
+> **Commands**
+> *   `/save`: Saves my last reply as a draft outside the wiki.
+> *   `/sources`: Shows the passages used in my last response.
+> *   `/help`: Shows this list.
+> *   `/reset`: Clears the current conversation.
+> *   `/exit`: Ends the session.
+>
+> Suggestion: If you're working on a specific project right now, try asking `wiki ask` about its core architecture to see what I can find.
 
 ## `chat` · what can we do?
 
 *Expected:* capabilities; no retrieval  
-*Router:* retrieve=False query=`` (The user is asking for a general overview of capabilities, which was already addressed in the previous turn. I will provide a more structured summary of how we can work together.)  
-*Passages:* none · 2.54s
+*Router:* retrieve=False query=`` (The user is asking for a general overview of capabilities, which was already partially addressed in the previous turn. I will provide a more comprehensive list of how I can assist with their specific projects and notes without needing to search the wiki yet.)  
+*Passages:* none · 2.65s
 
-> We can work on your projects or organize your thoughts.
+> We can tackle your current workload or organize your existing research.
 >
-> **Text & Planning**
-> *   **Drafting:** I can write outlines or initial drafts for your documentation or reports.
-> *   **Reworking:** Give me a messy paragraph and I'll clean it up, shorten it, or turn it into bullets.
-> *   **Brainstorming:** We can map out logic for your code or project structures.
+> **Current Work**
+> *   **Drafting:** I can write code comments, documentation, or project outlines.
+> *   **Refining:** Paste a messy paragraph; I'll clean it up or turn it into a structured list.
+> *   **Brainstorming:** I can help you debug a logic flow or brainstorm features for a new project.
 >
-> **Wiki Retrieval**
-> *   **Project Context:** I can pull details from your notes on the Signup frontend, Secure Networking Tracker, Ms. Pac-Man DQN, or your Custom LLM.
-> *   **Concept Review:** I can find definitions or explanations you've written about specific technical concepts.
+> **Research & Review**
+> *   **Fact-checking:** Use `wiki ask` to see if a specific concept or implementation detail is already in your notes.
+> *   **Reviewing:** Use `wiki search` to pull up raw passages from your projects (like the Ms. Pac-Man DQN or Custom LLM) to verify details.
 >
-> **Suggestion:** If you're feeling stuck on a specific project, tell me which one and I'll pull the latest notes to help us start outlining the next step.
+> Suggestion: If you have a draft that feels too "wordy," paste it here and tell me to "make this more concise."
 
 ## `chat` · Draft a short study plan for reviewing my Pac-Man DQN project before a quiz.
 
 *Expected:* draft; may retrieve; wiki facts cited  
-*Router:* retrieve=True query=`Ms. Pac-Man DQN reinforcement learning agent project details and concepts for study plan` (The user wants a study plan for their specific Pac-Man DQN project. To make the plan effective, I need to know the specific components, algorithms, or implementation details mentioned in their project write-up (e.g., state space, reward function, architecture) so the study plan is tailored to what they actually built.)  
-*Passages:* `wiki/Projects/Ms Pac-Man DQN Agent.md:45-53 § Ms Pac-Man DQN Agent > Concepts and tools`, `wiki/Projects/Ms Pac-Man DQN Agent.md:13-16 § Ms Pac-Man DQN Agent`, `wiki/Concepts/Deep Q-Network.md:16-19 § Deep Q-Network > Where it appears > [[Ms Pac-Man DQN Agent]]`, `wiki/Concepts/Hyperparameters.md:25-28 § Hyperparameters > Where it appears > [[Ms Pac-Man DQN Agent]]` · 4.47s
+*Router:* retrieve=True query=`Ms. Pac-Man DQN reinforcement learning agent project details and concepts for quiz review` (The user wants a study plan for a specific project (Ms. Pac-Man DQN) mentioned in the wiki. To create an effective study plan, I need to know the specific components, algorithms, or challenges documented in their project write-up to ensure the plan covers the right technical details.)  
+*Passages:* `wiki/Projects/Ms Pac-Man DQN Agent.md:45-53 § Ms Pac-Man DQN Agent > Concepts and tools`, `wiki/Projects/Ms Pac-Man DQN Agent.md:13-16 § Ms Pac-Man DQN Agent`, `wiki/Concepts/Deep Q-Network.md:16-19 § Deep Q-Network > Where it appears > [[Ms Pac-Man DQN Agent]]`, `wiki/Concepts/Experience Replay.md:15-17 § Experience Replay > Where it appears > [[Ms Pac-Man DQN Agent]]` · 4.66s
 
-> Here is a draft study plan focused on the technical specifics of your Ms. Pac-Man DQN project.
+> Here is a structured study plan focused on the core mechanics and implementation details of your Ms. Pac-Man project.
 >
-> **Phase 1: Architecture & Implementation**
-> *   **Network Structure:** Review the specific layers used (3 convolutional, 2 dense) [S3].
-> *   **Framework:** Be ready to discuss implementation details using PyTorch 2.14.0 [S1].
-> *   **Training Parameters:** Re-verify the three required hyperparameters: exploration, episodes, and learning rate [S1, S4].
+> ### Ms. Pac-Man DQN Study Plan
 >
-> **Phase 2: Optimization & Troubleshooting**
-> *   **Experience Replay:** Understand why increasing the replay buffer from 5,000 to 2,500,000 was necessary for the training curve [S1, S2].
-> *   **The "Winner's Curse":** Review why the validation-best checkpoint was rejected in favor of the final network (validation vs. official seed scores) [S1].
+> **1. Architecture & Implementation**
+> *   **Network Structure:** Review the specific layers used (3 convolutional layers, 2 dense layers) [S3].
+> *   **Framework:** Confirm the environment and version (PyTorch 2.14.0) [S1].
+> *   **Training Parameters:** Be ready to explain the role of your chosen hyperparameters: exploration, episodes, and learning rate [S1].
 >
-> **Phase 3: Evaluation Protocol**
-> *   **Fixed Protocol:** Memorize the evaluation requirements: five seeds, 5% exploration, and the specific time limit [S1].
-> *   **Baselines:** Be able to explain the baseline used for comparison (the untrained network) [S1].
+> **2. Key Reinforcement Learning Concepts**
+> *   **Deep Q-Network (DQN):** Review the fundamental theory of how the agent learns from states to actions [S3].
+> *   **Experience Replay:** Understand why you increased the buffer capacity to 2,500,000 (to reduce correlation and improve learning) [S1, S2, S4].
+> *   **Exploration vs. Exploitation:** Review the 5% exploration rate used in your evaluation protocol [S1].
 >
-> **Suggestion:** If you want to drill specific concepts, ask me `wiki ask "What were my specific hyperparameter values?"` to test your memory.
+> **3. Evaluation & Results**
+> *   **Protocol:** Review the "Fixed Evaluation Protocol" (5 seeds, time limits, untrained baseline) [S1].
+> *   **Performance Metrics:** Note the training improvement (from 492 to 1,342 mean score) [S2].
+> *   **The "Winner's Curse":** Understand why you submitted the final network instead of the validation-best checkpoint (validation score vs. official seed score) [S1].
+>
+> Suggestion: Use `wiki ask` to ask me specific questions like "What were the specific hyperparameters used?" to test yourself.
 
 ## `chat` · make that shorter
 
 *Expected:* uses the previous draft; no new retrieval  
-*Router:* retrieve=False query=`Pac-Man DQN project study plan details for shortening` (The user wants to shorten the previously provided study plan. While the plan mentions the project, the task is a transformation of the previous response ('make that shorter'), which falls under the 'follow-ups that only transform the previous reply' rule.)  
-*Passages:* none · 2.87s
+*Router:* retrieve=False query=`Ms. Pac-Man DQN study plan structure and details for shortening` (The user wants to shorten the previously provided study plan. I don't need to search the wiki to shorten a list I just generated, though I should keep the context of the Ms. Pac-Man project in mind.)  
+*Passages:* none · 2.97s
 
-> **Ms. Pac-Man DQN Study Plan**
+> ### Ms. Pac-Man DQN Study Plan
 >
-> **1. Architecture & Setup**
-> *   Review the PyTorch 2.14.0 implementation.
-> *   Confirm network layers (3 convolutional, 2 dense).
-> *   Memorize the three required hyperparameters: exploration, episodes, and learning rate.
+> **1. Architecture & Implementation**
+> *   **Network:** Layers (3 conv, 2 dense) and Framework (PyTorch).
+> *   **Hyperparameters:** Review learning rate, exploration rate (5%), and buffer capacity (2.5M).
 >
-> **2. Training & Optimization**
-> *   Understand the replay buffer expansion (5k $\rightarrow$ 2.5M).
-> *   Review the "Winner's Curse" (why the final network beat the validation-best checkpoint).
+> **2. RL Theory**
+> *   **DQN Fundamentals:** State-to-action mappings.
+> *   **Experience Replay:** Why a large buffer was used to reduce correlation.
+> *   **Exploration vs. Exploitation:** The balance between trying new moves and using known ones.
 >
-> **3. Evaluation Protocol**
-> *   Memorize the 5-seed, 5% exploration, and time-limit requirements.
-> *   Review the baseline comparison (untrained network).
+> **3. Evaluation & Results**
+> *   **Protocol:** 5-seed evaluation and untrained baseline.
+> *   **Performance:** Score improvement (492 $\rightarrow$ 1,342).
+> *   **Selection Logic:** Why the final network was chosen over the validation-best checkpoint.
 >
-> **Suggestion:** Use `wiki ask` to quiz yourself on the specific hyperparameter values.
+> Suggestion: Use `wiki ask` to quiz yourself on any of these specific points.
 
 ## `chat` · By the way, my Pac-Man agent's best score was 9,999 points.
 
 *Expected:* chat accepts it as conversation only  
-*Router:* retrieve=False query=`Ms. Pac-Man DQN best score 9,999 points` (The user is providing a new fact about their project rather than asking for information from the notes. I will acknowledge the achievement.)  
-*Passages:* none · 1.4s
+*Router:* retrieve=False query=`9,999 points Ms. Pac-Man DQN score comparison or context?` (The user is sharing a specific fact about their project. Since I don't have a way to 'verify' this against the notes (as it's likely a personal achievement or a specific data point they are highlighting), and the user isn't asking a question about the notes, I will treat this as a conversational comment. However, I'll keep the query ready in case they ask if that matches their documentation.)  
+*Passages:* none · 1.81s
 
-> That's a high score. 
+> I've noted that for this conversation.
 >
-> **Suggestion:** If that score is a key metric for your project documentation, you should add it to your project notes in the wiki so I can include it in future summaries or study plans.
+> Suggestion: If you want that score to be part of your project documentation, you should add it to your project's README or a specific results file in the wiki.
 
 ## `search` · replay buffer capacity
 

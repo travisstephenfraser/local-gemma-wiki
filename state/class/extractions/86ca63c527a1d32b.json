@@ -1,0 +1,41 @@
+{
+  "project_title": "Personal Wiki with Local Gemma",
+  "role": "assignment brief",
+  "summary": "This document outlines the requirements for building a CLI-based personal wiki using a local open-weight Gemma model and Retrieval-Augmented Generation (RAG). Students must implement a harness that supports three distinct modes: chat, ask, and search, ensuring the entire system functions offline.",
+  "key_facts": [
+    "Build a CLI and harness to interact with local data using a local open-weight Gemma model.",
+    "Implement three required modes: Chat (personal assistant), Ask (factual research), and Search (inspect original sources).",
+    "The system must function entirely offline for the final demonstration.",
+    "The project requires a personal wiki in Obsidian with at least three original sources and linked pages.",
+    "Students must provide evidence of four ask-mode tests: three answerable questions and one question with insufficient evidence.",
+    "The README must include device specs, model/version, quantization, and measured memory use and response time.",
+    "The harness must manage conversation context, tool calls, prompt assembly, and citation checks.",
+    "The project is graded on deliverable quality, testing & evaluation, and working results."
+  ],
+  "concepts": [
+    {
+      "name": "RAG",
+      "kind": "concept",
+      "definition": "A workflow where relevant passages are retrieved and included in a prompt to provide context for a model's answer.",
+      "in_this_source": "The document defines the RAG workflow as retrieving relevant passages and including them in a prompt for the model to answer using that evidence."
+    }
+  ],
+  "tools": [
+    {
+      "name": "Gemma",
+      "kind": "tool",
+      "definition": "An open-weight large language model developed by Google.",
+      "in_this_source": "The project requires using a local, quantized version of the Gemma model to generate text and organize linked pages."
+    },
+    {
+      "name": "Obsidian",
+      "kind": "tool",
+      "definition": "A knowledge management and note-taking application.",
+      "in_this_source": "The project requires using Obsidian to view the generated wiki, including its page list, index, and graph view."
+    }
+  ],
+  "retries": 0,
+  "source": "raw/assign4/Assignment 4_ Personal Wiki with Local Gemma + RAG.md",
+  "truncated": false,
+  "model": "google/gemma-4-26b-a4b-qat"
+}

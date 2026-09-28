@@ -9,6 +9,7 @@ My coursework for the class, turned into linked notes by a local Gemma harness a
 - [[Strada Networking Tracker]] (`raw/assign1/`): Strada is a private contact management application that uses Postgres row-level security to enforce data ownership.
 - [[Ms Pac-Man DQN Agent]] (`raw/assign2/`): This project README describes a 5,000-episode Deep Q-Network training run for Ms. Pac-Man.
 - [[Custom nanoGPT Model]] (`raw/assign3/`): This document describes experiments training a nanoGPT model on different corpora to test its ability to learn negation and spatial relations.
+- [[Personal Wiki With Local Gemma]] (`raw/assign4/`): This document outlines the requirements for building a CLI-based personal wiki using a local open-weight Gemma model and Retrieval-Augmented Generation (RAG).
 - [[Class Signup Frontend]] (`raw/class2/`): This document describes a single-page frontend application for a classroom signup service.
 
 ## Concepts
@@ -26,6 +27,7 @@ My coursework for the class, turned into linked notes by a local Gemma harness a
 - [[Next-Token Scoring]]: Grading a language model by which candidate word it assigns the highest next-token probability.
 - [[Out-of-Vocabulary Cases]]: Test cases containing words the model never learned, which it cannot score.
 - [[Public Unauthenticated API]]: An endpoint anyone can call without credentials, acceptable only for non-sensitive data.
+- [[RAG]]: A workflow where relevant passages are retrieved and included in a prompt to provide context for a model's answer.
 - [[Row Level Security]]: A security mechanism that restricts database access to specific rows based on user identity.
 - [[Transformer]]: A neural network architecture used for language modeling.
 - [[UI State Handling]]: Designing distinct loading, empty, success, and error views so every request outcome is visible to the user.

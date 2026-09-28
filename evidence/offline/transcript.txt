@@ -1,0 +1,300 @@
+Offline demo · 2026-09-28 16:31:34 PDT
+Network check: 1.1.1.1 unreachable, running offline.
+
+[1m$ networksetup -getairportpower en0[0m
+Wi-Fi Power (en0): Off
+
+[1m$ sysctl -n machdep.cpu.brand_string hw.memsize[0m
+Apple M5 Max
+137438953472
+
+[1m$ /Users/travis/.lmstudio/bin/lms server stop[0m
+Stopped the server on port 1234.
+
+[1m$ /Users/travis/.lmstudio/bin/lms server start[0m
+Success! Server is now running on port 1234
+
+[1m$ /Users/travis/.lmstudio/bin/lms ls[0m
+
+You have 6 models, taking up 61.09 GB of disk space.
+
+LLM                                       PARAMS    ARCH      SIZE        DEVICE            
+gemma-4-31b-it-mlx                        31B       gemma4    33.80 GB    Local             
+google/gemma-4-26b-a4b-qat (1 variant)    26B       gemma4    15.64 GB    Local     ✓ LOADED
+google/gemma-4-e2b (1 variant)            2B        gemma4    4.37 GB     Local             
+google/gemma-4-e4b (1 variant)            4B        gemma4    6.86 GB     Local             
+
+EMBEDDING                               PARAMS    ARCH               SIZE         DEVICE    
+text-embedding-embeddinggemma-300m      300M      gemma-embedding    333.59 MB    Local     
+text-embedding-nomic-embed-text-v1.5              Nomic BERT         84.11 MB     Local     
+
+
+[1m$ .venv/bin/wiki --help[0m
+usage: wiki [-h] [--profile PROFILE] [--model MODEL] command ...
+
+Personal wiki CLI over local Gemma (LM Studio). Local execution is the default and only mode.
+
+commands:
+  ingest [PATH]        read sources under vault/raw (default: all), have Gemma write linked
+                       notes in vault/wiki, update index.md, then rebuild the search index.
+                       Unchanged sources are skipped; --force regenerates in place.
+  index                rebuild the retrieval index only (no language model needed)
+  search "QUERY"       show matching original passages with paths and line ranges. No answer
+                       is generated and the chat model is not called.
+  ask "QUESTION"       standalone factual answer from retrieved passages, with [S#] citations
+                       and a citation check, or INSUFFICIENT EVIDENCE. Ignores chat history.
+  chat                 personal assistant with conversation memory; retrieves notes only when
+                       a turn needs them. In-chat: /sources /save /reset /help /exit
+  eval                 run tests/questions.toml in ask mode and write evidence cards
+                       (--modes: chat/search/ask boundary checks; --ladder M1 M2: compare models)
+  status               model, endpoint, index, network state
+
+configuration: /Users/travis/Developer/pepeclass/assign4-wiki/config.toml
+  profiles: class (default, writable vault/) · brain (personal vault, read-only)
+  instructions: prompts/persona.md (chat) · prompts/wiki-instructions.md (ask) ·
+                prompts/router.md (chat retrieval decision) · prompts/ingest.md
+required: LM Studio server running (`lms server start`) with the chat and embedding
+models from config.toml downloaded. `search` and `index` work without the chat model.
+
+positional arguments:
+  command
+    ingest           generate wiki notes from raw sources
+    index            rebuild the retrieval index
+    search           show original passages, no answer
+    ask              grounded answer with citations
+    chat             conversational assistant
+    eval             run the evidence tests
+    status           show model, index, and network state
+    help             show this help
+
+options:
+  -h, --help         show this help message and exit
+  --profile PROFILE  config profile (default from config.toml)
+  --model MODEL      override the chat model id for this run
+
+[1m$ .venv/bin/wiki status[0m
+profile     class (writable) · vault /Users/travis/Developer/pepeclass/assign4-wiki/vault
+endpoint    http://localhost:1234/v1 (local)
+network     OFFLINE
+chat model  google/gemma-4-26b-a4b-qat · available
+embeddings  text-embedding-embeddinggemma-300m · available
+loaded      {'model': 'google/gemma-4-26b-a4b-qat', 'format': 'safetensors', 'quantization': '4bit', 'weights_gb': 15.64, 'context_length': 262144}
+memory      LM Studio physical footprint 17.47 GB
+index       365 passages / 40 files · embeddings text-embedding-embeddinggemma-300m in 3.0s · built 2026-09-25T22:21:41
+
+[1m$ .venv/bin/wiki ingest vault/raw/assign4[0m
+[ingest · local · google/gemma-4-26b-a4b-qat · profile class]
+  > raw/assign4/Assignment 4_ Personal Wiki with Local Gemma + RAG.md  -> google/gemma-4-26b-a4b-qat
+    assignment brief, 1 concepts (6.6s)
+render: 32 notes (5 projects), index.md, Source Catalog.md
+ingest: 1 extracted by google/gemma-4-26b-a4b-qat, 0 unchanged (6.6s)
+index: 405 passages from 43 files · embeddings: text-embedding-embeddinggemma-300m in 4.2s · 4.2s → /Users/travis/Developer/pepeclass/assign4-wiki/state/class
+
+[1m$ .venv/bin/wiki status[0m
+profile     class (writable) · vault /Users/travis/Developer/pepeclass/assign4-wiki/vault
+endpoint    http://localhost:1234/v1 (local)
+network     OFFLINE
+chat model  google/gemma-4-26b-a4b-qat · available
+embeddings  text-embedding-embeddinggemma-300m · available
+loaded      {'model': 'google/gemma-4-26b-a4b-qat', 'format': 'safetensors', 'quantization': '4bit', 'weights_gb': 15.64, 'context_length': 262144}
+memory      LM Studio physical footprint 19.3 GB
+index       405 passages / 43 files · embeddings text-embedding-embeddinggemma-300m in 4.2s · built 2026-09-28T16:31:48
+
+[1m$ ls vault/wiki/Projects[0m
+Class Signup Frontend.md
+Custom nanoGPT Model.md
+Ms Pac-Man DQN Agent.md
+Personal Wiki With Local Gemma.md
+Strada Networking Tracker.md
+
+[1m$ .venv/bin/wiki ingest[0m
+[ingest · local · google/gemma-4-26b-a4b-qat · profile class]
+  = raw/assign1/Assignment 1_ Secure Networking Tracker.md  unchanged, skipped
+  = raw/assign1/README.md  unchanged, skipped
+  = raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md  unchanged, skipped
+  = raw/assign2/README.md  unchanged, skipped
+  = raw/assign3/Assignment 3_ Building a Custom LLM.md  unchanged, skipped
+  = raw/assign3/README.md  unchanged, skipped
+  = raw/assign3/evals/README.md  unchanged, skipped
+  = raw/assign3/experiments/summary.md  unchanged, skipped
+  = raw/assign4/Assignment 4_ Personal Wiki with Local Gemma + RAG.md  unchanged, skipped
+  = raw/class2/Class 2 Exercise — Build a Signup Frontend.md  unchanged, skipped
+  = raw/class2/README.md  unchanged, skipped
+render: 32 notes (5 projects), index.md, Source Catalog.md
+ingest: 0 extracted by google/gemma-4-26b-a4b-qat, 11 unchanged (0.0s)
+index: 405 passages from 43 files · embeddings: text-embedding-embeddinggemma-300m in 3.3s · 3.3s → /Users/travis/Developer/pepeclass/assign4-wiki/state/class
+
+[1m$ ls vault/wiki/Projects[0m
+Class Signup Frontend.md
+Custom nanoGPT Model.md
+Ms Pac-Man DQN Agent.md
+Personal Wiki With Local Gemma.md
+Strada Networking Tracker.md
+
+[1m$ .venv/bin/wiki search replay buffer capacity -k 3[0m
+[search · no model call · profile class]
+bm25+vector (RRF) · 3 passages
+
+[S1] wiki/Concepts/Experience Replay.md:15-17 § Experience Replay > Where it appears > [[Ms Pac-Man DQN Agent]]  (note, bm25 #1, vector #2)
+    ### [[Ms Pac-Man DQN Agent]]
+    - The author increased the replay buffer capacity to 2,500,000 to reduce correlation and improve learning. ([raw/assign2/README.md](../../raw/assign2/README.md))
+    - Used alongside [[Deep Q-Network]], [[Fixed Evaluation Protocol]], [[Hyperparameters]], [[PyTorch]], [[Winner's Curse]] in this project. 
+
+[S2] raw/assign2/README.md:97-121 § Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `REPLAY_CAPACITY`, 5,000 to 2,500,000  (source, bm25 #3, vector #1)
+    ### `REPLAY_CAPACITY`, 5,000 to 2,500,000
+
+    **This is the change that made the difference, and it is not a close call.**
+
+    At 5,000 transitions and roughly 610 decisions per game, the notebook's buffer holds about
+    **eight games**. Every batch of 32 is drawn from that narrow, highly correlated window, so the
+    network is continuously refit to the last few games and forgets everything earlier. That is
+    precisely the correlation experience replay exists to break. Published DQN uses a buffer of
+    1,000,000; the notebook ships with 0.5% of that.
+
+    I tested it as a falsifiable prediction rather than assuming it. Holding everything else at the
+    original 1,000-episode settings and raising capacity to 700,000, which exceeds the 609,223
+    decisions such a run produces so that *nothing is ever evicted*:
+
+    | | buffer 5,000 | buffer 700,000 |
+    |---|---|---|
+    | 30-seed mean of the last five checkpoints | 694.3 | *… 
+
+[S3] wiki/Projects/Ms Pac-Man DQN Agent.md:32-44 § Ms Pac-Man DQN Agent > My write-up: `README.md`  (note, bm25 #4, vector #6)
+    ## My write-up: `README.md`
+
+    - The agent's mean score over five evaluation games rose from 492 to 1,342.
+    - A 5,000-episode run was conducted using 3,557,262 decisions and 889,066 updates.
+    - The replay buffer capacity was increased from 5,000 to 2,500,000 transitions.
+    - The training run took 127.7 minutes on Apple Silicon MPS.
+    - A 30-seed validation harness was used to measure performance more reliably than the official five-game evaluation.
+    - The agent's mean survival increased from 589 to 901 decisions per game.
+    - The training run reached a peak memory usage of 86 GiB.
+    - The agent's performance was evaluated using a fixed 5% exploration rate during evaluation.
+
+    Source: [raw/assign2/README.md](../../raw/assign2/README.md) 
+
+
+[1m$ .venv/bin/wiki ask What replay buffer capacity did the Ms. Pac-Man DQN use, and what was the notebook's default?[0m
+[ask · local · google/gemma-4-26b-a4b-qat · profile class]
+
+The Ms. Pac-Man DQN used a `REPLAY_CAPACITY` of 2,500,000 [S2]. The notebook's default capacity was 5,000 [S2].
+
+Sources (bm25+vector (RRF) · query planning (2 sub-queries))
+  [S1] raw/assign2/README.md:82-91 § Training a Ms. Pac-Man agent with Deep Q-Learning > My three hyperparameters
+  [S2] raw/assign2/README.md:97-121 § Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `REPLAY_CAPACITY`, 5,000 to 2,500,000
+  [S3] raw/assign2/README.md:522-553 § Training a Ms. Pac-Man agent with Deep Q-Learning > Local setup
+  [S4] raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md:5-8 § Overview
+  [S5] raw/assign2/README.md:485-495 § Training a Ms. Pac-Man agent with Deep Q-Learning > Technology stack and why
+  [S6] raw/assign2/README.md:130-161 § Training a Ms. Pac-Man agent with Deep Q-Learning > What I changed and why > `ReplayMemory.sample()`, a performance fix
+citation check: 2 supported
+retrieval 1.23s · generation 0.9s · 2427 prompt tokens
+saved evidence/runs/20260928-163155-ask.json
+
+[1m$ .venv/bin/wiki ask What grade did I receive on the Ms. Pac-Man assignment?[0m
+[ask · local · google/gemma-4-26b-a4b-qat · profile class]
+
+INSUFFICIENT EVIDENCE: The provided passages do not contain information regarding the grade received on the Ms. Pac-Man assignment.
+
+Sources (bm25+vector (RRF) · query planning (1 sub-queries) · two-hop)
+  [S1] raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md:1-2 § Class 3 Assignment: Train a Ms. Pac-Man Agent
+  [S2] raw/assign2/README.md:1-21 § Training a Ms. Pac-Man agent with Deep Q-Learning
+  [S3] raw/assign2/Assignment 2_ Train a Ms. Pac-Man Agent.md:3-4 § Class 3 Assignment: Train a Ms. Pac-Man Agent > Choose three hyperparameters, train the agent, and explain what it actually learned.
+  [S4] raw/assign2/README.md:724-732 § Training a Ms. Pac-Man agent with Deep Q-Learning > Known limitations and what I would do next
+  [S5] raw/assign2/README.md:46-57 § Training a Ms. Pac-Man agent with Deep Q-Learning
+  [S6] raw/assign2/README.md:782-784 § Training a Ms. Pac-Man agent with Deep Q-Learning > Contributing
+citation check: model reported insufficient evidence
+retrieval 0.94s · generation 0.4s · 1241 prompt tokens
+saved evidence/runs/20260928-163156-ask.json
+
+[1m$ .venv/bin/wiki eval --judge[0m
+[eval · local · google/gemma-4-26b-a4b-qat · profile class]
+  t1-direct: What replay buffer capacity did the Ms. Pac-Man DQN use, and what was the notebook's default?
+    -> PASS {'retrieval_hit': True, 'behavior_ok': True, 'facts_ok': True, 'citations_ok': True, 'pass': True}  (0.6s)
+  t2-paraphrase: In the contacts tracker, what stops one signed-in person from seeing somebody else's contacts?
+    -> PASS {'retrieval_hit': True, 'behavior_ok': True, 'facts_ok': True, 'citations_ok': True, 'pass': True}  (1.1s)
+  t3-cross-source: What learning rate did the Pac-Man DQN use, and how did the custom LLM do when it was trained at that same learning rate?
+    -> FAIL {'retrieval_hit': True, 'behavior_ok': True, 'facts_ok': False, 'citations_ok': False, 'pass': False}  (0.8s)
+  t4-unsupported: What grade did I receive on the Ms. Pac-Man assignment?
+    -> PASS {'retrieval_hit': True, 'behavior_ok': True, 'facts_ok': True, 'citations_ok': True, 'pass': True}  (0.4s)
+
+3/4 passed · LM Studio footprint 19.17 GB → evidence/ask/gemma-4-26b-a4b-qat/
+
+[1m$ .venv/bin/wiki eval --modes[0m
+[eval · local · google/gemma-4-26b-a4b-qat · profile class]
+  [chat] what can you help me with?
+  [chat] what can we do?
+  [chat] Draft a short study plan for reviewing my Pac-Man DQN project before a quiz.
+  [chat] make that shorter
+  [chat] By the way, my Pac-Man agent's best score was 9,999 points.
+  [search] replay buffer capacity
+  [ask] What was the Pac-Man agent's best score?
+mode checks → evidence/modes/gemma-4-26b-a4b-qat.md
+
+[1m$ wiki chat[0m
+[chat · local · google/gemma-4-26b-a4b-qat · profile class]
+Marginalia here (class wiki). Ask me to draft, plan, or dig through your notes. /help for commands.
+
+you › what can you help me with?
+
+I can help you brainstorm, draft, outline, and rework text. I'm here to act as a sounding board for your writing or a tool for planning projects.
+
+If you need to reference your class notes, I can search your wiki for specific information regarding your projects (Signup frontend, Secure Networking Tracker, Ms. Pac-Man DQN, Custom LLM) or the concepts behind them.
+
+**How to use me:**
+
+*   **Text Work:** Give me a draft or an idea. I can make it shorter, turn it into bullets, or rewrite it in a different tone.
+*   **Wiki Search:** Use `wiki ask` for factual answers sourced strictly from your notes, or `wiki search` to see the raw passages.
+*   **Commands:**
+    *   `/save` - Save my last reply as a draft outside the wiki.
+    *   `/sources` - Show the passages I used in the previous turn.
+    *   `/reset` - Clear the current conversation.
+    *   `/help` - Show this list.
+    *   `/exit` - End the session.
+
+Suggestion: If you have a specific project you're working on right now, tell me the name and we can start outlining.
+
+no notes needed · 2.9s
+
+you › Draft a three-step plan to review my Pac-Man project before a quiz.
+
+Here is a three-step plan to review your Ms. Pac-Man DQN project:
+
+1.  **Review Core Architecture and Tools**
+    *   Confirm you understand the DQN architecture (3 convolutional layers and 2 dense layers) [S3].
+    *   Review the software stack, specifically PyTorch 2.14.0 [S1].
+
+2.  **Analyze Hyperparameters and Tuning**
+    *   Memorize the three required hyperparameters: exploration, episodes, and learning rate [S1, S4].
+    *   Review your specific settings (Exploration: 0.20, Episodes: 5,000, Learning Rate: 0.0001) [S4].
+    *   Understand why you changed the replay buffer from 5,000 to 2,500,000—it turned a flat training curve into a rising one [S2].
+
+3.  **Master Evaluation and Results**
+    *   Review the "Fixed Evaluation Protocol" requirements (5 seeds, 5% exploration, time limit) [S1].
+    *   Understand the "Winner's Curse" phenomenon and why you submitted the final network instead of the validation-best checkpoint [S1].
+
+Suggestion: Use `wiki ask` for any specific concept you feel shaky on, like "How did Experience Replay affect training?"
+
+  [S1] wiki/Projects/Ms Pac-Man DQN Agent.md:45-53 § Ms Pac-Man DQN Agent > Concepts and tools
+  [S2] wiki/Projects/Ms Pac-Man DQN Agent.md:13-16 § Ms Pac-Man DQN Agent
+  [S3] wiki/Concepts/Deep Q-Network.md:16-19 § Deep Q-Network > Where it appears > [[Ms Pac-Man DQN Agent]]
+  [S4] wiki/Concepts/Hyperparameters.md:25-28 § Hyperparameters > Where it appears > [[Ms Pac-Man DQN Agent]]
+searched notes: “Ms. Pac-Man DQN reinforcement learning agent project details and concepts for quiz preparation” · 3.85s
+
+you › make that shorter
+
+Here is a condensed version of your Ms. Pac-Man review plan:
+
+1.  **Architecture & Stack**: Review the DQN structure (3 conv, 2 dense layers) and PyTorch version.
+2.  **Hyperparameters**: Memorize the core three (exploration, episodes, learning rate) and the impact of increasing the replay buffer size.
+3.  **Evaluation**: Review the fixed evaluation protocol (5 seeds, 5% exploration) and the "Winner's Curse" concept.
+
+Suggestion: If you need to drill the specific numbers again, just ask.
+
+no notes needed · 1.94s
+
+you › /sources
+no notes were retrieved last turn
+you › /exit
+transcript saved → /Users/travis/Developer/pepeclass/assign4-wiki/evidence/runs/20260928-163233-chat.json
+
+Done. Transcript: evidence/offline/transcript.txt
