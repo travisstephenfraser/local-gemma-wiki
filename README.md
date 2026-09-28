@@ -56,8 +56,8 @@ The wiki is a study and reference memory for my course projects: what each assig
 1. `wiki ingest` skips every unchanged source by hash and re-renders the wiki. The `!` line is the hand-edit guard: Obsidian had added whitespace to a note, so the renderer kept that file instead of overwriting it (the whitespace was reverted afterwards). ![Ingest](docs/screenshots/01-ingest.png)
 2. `vault/` open in Obsidian at `index.md`: projects, then concepts and tools, each with a one-line description. ![Index](docs/screenshots/02-obsidian-index.png)
 3. A project note: properties list its `raw/` sources and the generating model, then the summary and one section per source. ![Note](docs/screenshots/03-obsidian-note.png)
-4. The graph (filter `path:wiki/`, attachments off) shows projects connected through the concepts they share. ![Graph](docs/screenshots/04-obsidian-graph.png) *(screenshot pending)*
-5. With Wi-Fi off, `wiki status` reports `network OFFLINE` and the loaded 4-bit model; `wiki ask` answers with `[S#]` citations to line ranges, then prints the citation check. ![Status offline](docs/screenshots/05A-ask-offline.png) ![Ask](docs/screenshots/05B-ask-offline.png) *(05B screenshot pending)*
+4. The graph shows the five projects connected through the concepts and tools they share (Hyperparameters and PyTorch bridge the Pac-Man and nanoGPT clusters). This capture is unfiltered, so the dim unresolved nodes (`episode_0250.gif`, `eval_results.json`, …) are images and files the original READMEs link to but that were not copied into `raw/`; the filter `path:wiki/` hides them. ![Graph](docs/screenshots/04-obsidian-graph.png)
+5. With Wi-Fi off, `wiki status` reports `network OFFLINE` and the loaded 4-bit model; `wiki ask` answers with `[S#]` citations to line ranges, then prints the citation check. ![Status offline](docs/screenshots/05A-ask-offline.png) ![Ask](docs/screenshots/05B-ask-offline.png) In 05B, stray text pasted into the command (`│ 05-ask-offline.png │`) went to Gemma as part of the question; retrieval and the cited answer (2,500,000 and 5,000 [S2]) were still correct.
 6. `wiki chat` answers "what can you help me with?" with no notes needed, searches and cites notes for a study plan, and handles "make it shorter" from the conversation without searching. ![Chat capabilities](docs/screenshots/06A-chat.png) ![Chat follow-up](docs/screenshots/06B-chat.png)
 
 ## Features
@@ -254,7 +254,7 @@ The ladder is the model-choice rationale: with 128 GB of unified memory, all thr
 
 - Open note with source references: [03-obsidian-note.png](docs/screenshots/03-obsidian-note.png)
 - Page list and `index.md` grouped by topic: [02-obsidian-index.png](docs/screenshots/02-obsidian-index.png)
-- Graph view, filter `path:wiki/`, attachments off: `docs/screenshots/04-obsidian-graph.png` *(screenshot pending)*
+- Graph view: [04-obsidian-graph.png](docs/screenshots/04-obsidian-graph.png). Unfiltered capture; the unresolved nodes are files the original READMEs link to. Use the filter `path:wiki/` with attachments off to see only the curated notes.
 - Human check (2026-09-25): I opened `vault/` in Obsidian and confirmed the notes and graph, including the Ms Pac-Man DQN Agent and Custom nanoGPT Model nodes.
 - Trace: [index.md](vault/index.md) → [Ms Pac-Man DQN Agent](vault/wiki/Projects/Ms%20Pac-Man%20DQN%20Agent.md) → [Experience Replay](vault/wiki/Concepts/Experience%20Replay.md) → `raw/assign2/README.md`. `test_vault_integrity` checks that every link on that path resolves.
 
@@ -312,7 +312,7 @@ Run on 2026-09-28 at 16:31 PDT with Wi-Fi off:
 - [Mode checks](evidence/modes/gemma-4-26b-a4b-qat.md), [search and ask run logs](evidence/runs/), and the piped chat session at the end of the transcript, all offline.
 - Offline ingestion: the Assignment 4 brief went through Gemma in 6.6 s and became [Personal Wiki With Local Gemma](vault/wiki/Projects/Personal%20Wiki%20With%20Local%20Gemma.md) plus a [RAG](vault/wiki/Concepts/RAG.md) concept; I checked its eight facts against the brief. A second `wiki ingest` then made zero model calls (11 unchanged) and the project list was the same.
 - LM Studio footprint: 17.5 GB before ingestion, 19.3 GB after, 19.2 GB during the evidence cards.
-- Terminal screenshots: [05A, status offline](docs/screenshots/05A-ask-offline.png), `docs/screenshots/05B-ask-offline.png` *(screenshot pending)*
+- Terminal screenshots: [05A, status offline](docs/screenshots/05A-ask-offline.png), [05B, ask offline](docs/screenshots/05B-ask-offline.png)
 
 The development runs under `evidence/ask/1-baseline` through `3-planning-plus-two-hop` and `history/` were made online and say so in every card.
 
